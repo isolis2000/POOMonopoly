@@ -4,6 +4,9 @@
  */
 package monopoly.gui;
 
+import java.util.Arrays;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import monopoly.functional.Util;
 
 /**
@@ -17,6 +20,7 @@ public class Board extends javax.swing.JFrame {
      */
     public Board() {
         initComponents();
+        Util.getUtil().setBoard(this);
     }
 
     /**
@@ -32,6 +36,7 @@ public class Board extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnDice = new javax.swing.JButton();
         btnP1 = new javax.swing.JButton();
+        btnP2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,7 +78,10 @@ public class Board extends javax.swing.JFrame {
                 btnP1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 870, 50, 50));
+        jPanel1.add(btnP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, 50, 50));
+
+        btnP2.setText("jButton1");
+        jPanel1.add(btnP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 780, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/board.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
@@ -99,16 +107,17 @@ public class Board extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP1ActionPerformed
-        // TODO add your handling code here:
+        JButton[] jButtons = {btnP1, btnP2};
+        Util.getUtil().getPlayers().initPlayers(2, jButtons);
     }//GEN-LAST:event_btnP1ActionPerformed
 
     private void btnDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiceActionPerformed
-        int res = Util.getRandom().nextInt(6) + Util.getRandom().nextInt() + 2;
-        if (res > 44)
-            res -= 44;
-        int[] arr = Util.getPlayerPositions().get(res);
-//        System.out.println(Arrays);
-        btnP1.setLocation(arr[0], arr[1]);
+        int res = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
+//        System.out.println("res: " + res);
+//        int[] arr = Util.getUtil().getPlayerPositions().get(res);
+//        System.out.println("pos: " + Arrays.toString(arr));
+//        btnP1.setLocation(arr[0], arr[1]);
+        Util.getUtil().getPlayers().movePlayer(res);
     }//GEN-LAST:event_btnDiceActionPerformed
 
     /**
@@ -150,6 +159,7 @@ public class Board extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDice;
     private javax.swing.JButton btnP1;
+    private javax.swing.JButton btnP2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

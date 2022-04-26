@@ -1,23 +1,47 @@
 package monopoly.functional;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
+import monopoly.gui.Board;
 
 public class Util {
     
-    private static final Random random = new Random();
-    
-    private static final HashMap<Integer, int[]> playerPositions = new HashMap<>(44);
+    private static Util util = new Util();
+    private final Random random = new Random();
+    private final HashMap<Integer, int[]> playerPositions = new HashMap<>(44);
+    private Board board;
+    private Players players = new Players();
 
-    public static Random getRandom() {
+    public Util() {
+        initPlayerPositions();
+    }
+
+    public Players getPlayers() {
+        return players;
+    }
+
+    public static Util getUtil() {
+        return util;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public Random getRandom() {
         return random;
     }
 
-    public static HashMap<Integer, int[]> getPlayerPositions() {
+    public HashMap<Integer, int[]> getPlayerPositions() {
         return playerPositions;
     }
     
-    public static void initPlayerPositions() {
+    private void initPlayerPositions() {
         int x, y;
         x = y = 870;
         playerPositions.put(1, new int[] {x, y});
@@ -28,29 +52,33 @@ public class Util {
             playerPositions.put(i+3, new int[] {x, y});
         }
         x -= 100;
-        playerPositions.put(12, new int[] {x, y});
-        y += 100;
-        playerPositions.put(13, new int[] {x, y});
-        for (int i = 0; i < 8; i++) {
-            y += 80;
-            playerPositions.put(i+14, new int[] {x, y});
-        }
-        y += 100;
-        playerPositions.put(23, new int[] {x, y});
-        x += 100;
-        playerPositions.put(24, new int[] {x, y});        
-        for (int i = 0; i < 8; i++) {
-            x += 80;
-            playerPositions.put(i+25, new int[] {x, y});
-        }
-        x += 100;
-        playerPositions.put(34, new int[] {x, y});
+        playerPositions.put(11, new int[] {x, y});
         y -= 100;
-        playerPositions.put(35, new int[] {x, y});
+        playerPositions.put(12, new int[] {x, y});
         for (int i = 0; i < 8; i++) {
             y -= 80;
-            playerPositions.put(i+36, new int[] {x, y});
-        }     
+            playerPositions.put(i+13, new int[] {x, y});
+        }
+        y -= 100;
+        playerPositions.put(21, new int[] {x, y});
+        x += 100;
+        playerPositions.put(22, new int[] {x, y});        
+        for (int i = 0; i < 8; i++) {
+            x += 80;
+            playerPositions.put(i+23, new int[] {x, y});
+        }
+        x += 100;
+        playerPositions.put(31, new int[] {x, y});
+        y += 100;
+        playerPositions.put(32, new int[] {x, y});
+        for (int i = 0; i < 8; i++) {
+            y += 80;
+            playerPositions.put(i+33, new int[] {x, y});
+        }    
+        System.out.println("map: ");
+        for (int arr : playerPositions.keySet()) {
+            System.out.println(arr + " : " + Arrays.toString(playerPositions.get(arr)));
+        }
     }
 
 }
