@@ -4,9 +4,8 @@
  */
 package monopoly.gui;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import monopoly.functional.Util;
 
 /**
@@ -14,12 +13,17 @@ import monopoly.functional.Util;
  * @author ivan
  */
 public class Board extends javax.swing.JFrame {
+    
+    JButton[] buttonsArray;
 
     /**
      * Creates new form Tablero
      */
     public Board() {
         initComponents();
+        buttonsArray = new JButton[] {btnP1, btnP2, btnP3, btnP4, btnP5, btnP6};
+        for (JButton jb : buttonsArray)
+            jb.setVisible(false);
         Util.getUtil().setBoard(this);
     }
 
@@ -32,12 +36,28 @@ public class Board extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnDice = new javax.swing.JButton();
+        txfNumOfPlayers = new javax.swing.JTextField();
+        btnMinusNumOfPlayers = new javax.swing.JButton();
+        btnPlusNumOfPlayers = new javax.swing.JButton();
+        btnPlay = new javax.swing.JButton();
         btnP1 = new javax.swing.JButton();
         btnP2 = new javax.swing.JButton();
+        btnP3 = new javax.swing.JButton();
+        btnP4 = new javax.swing.JButton();
+        btnP5 = new javax.swing.JButton();
+        btnP6 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+
+        jMenu1.setText("jMenu1");
+
+        jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,22 +73,78 @@ public class Board extends javax.swing.JFrame {
             }
         });
 
+        txfNumOfPlayers.setEditable(false);
+        txfNumOfPlayers.setBackground(new java.awt.Color(255, 255, 255));
+        txfNumOfPlayers.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfNumOfPlayers.setForeground(new java.awt.Color(0, 0, 0));
+        txfNumOfPlayers.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfNumOfPlayers.setText("2");
+        txfNumOfPlayers.setFocusable(false);
+        txfNumOfPlayers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfNumOfPlayersActionPerformed(evt);
+            }
+        });
+
+        btnMinusNumOfPlayers.setText("-");
+        btnMinusNumOfPlayers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinusNumOfPlayersActionPerformed(evt);
+            }
+        });
+
+        btnPlusNumOfPlayers.setText("+");
+        btnPlusNumOfPlayers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusNumOfPlayersActionPerformed(evt);
+            }
+        });
+
+        btnPlay.setText("Jugar");
+        btnPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlayActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnDice)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDice)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txfNumOfPlayers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMinusNumOfPlayers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPlusNumOfPlayers)
+                            .addComponent(btnPlay))))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnMinusNumOfPlayers, btnPlay, btnPlusNumOfPlayers, txfNumOfPlayers});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnDice)
-                .addContainerGap(921, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txfNumOfPlayers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPlay))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMinusNumOfPlayers)
+                    .addComponent(btnPlusNumOfPlayers))
+                .addContainerGap(845, Short.MAX_VALUE))
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnMinusNumOfPlayers, btnPlay, btnPlusNumOfPlayers, txfNumOfPlayers});
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 300, -1));
 
@@ -78,10 +154,22 @@ public class Board extends javax.swing.JFrame {
                 btnP1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, 50, 50));
+        jPanel1.add(btnP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 50, 50));
 
         btnP2.setText("jButton1");
-        jPanel1.add(btnP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 780, -1, -1));
+        jPanel1.add(btnP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 430, -1, -1));
+
+        btnP3.setText("jButton1");
+        jPanel1.add(btnP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 460, -1, -1));
+
+        btnP4.setText("jButton1");
+        jPanel1.add(btnP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, -1, -1));
+
+        btnP5.setText("jButton1");
+        jPanel1.add(btnP5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 520, -1, -1));
+
+        btnP6.setText("jButton1");
+        jPanel1.add(btnP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 550, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/board.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
@@ -99,7 +187,7 @@ public class Board extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -120,6 +208,42 @@ public class Board extends javax.swing.JFrame {
         Util.getUtil().getPlayers().movePlayer(res);
     }//GEN-LAST:event_btnDiceActionPerformed
 
+    private void txfNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNumOfPlayersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfNumOfPlayersActionPerformed
+
+    private void btnMinusNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusNumOfPlayersActionPerformed
+        int numOfPlayers = Integer.parseInt(txfNumOfPlayers.getText()) - 1;
+        txfNumOfPlayers.setText(Integer.toString(numOfPlayers));
+        if (numOfPlayers < 2 || numOfPlayers > 6)
+            btnPlay.setVisible(false);
+        else if (!btnPlay.isVisible())
+            btnPlay.setVisible(true);
+    }//GEN-LAST:event_btnMinusNumOfPlayersActionPerformed
+
+    private void btnPlusNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusNumOfPlayersActionPerformed
+        int numOfPlayers = Integer.parseInt(txfNumOfPlayers.getText()) + 1;
+        txfNumOfPlayers.setText(Integer.toString(numOfPlayers));
+        if (numOfPlayers < 2 || numOfPlayers > 6)
+            btnPlay.setVisible(false);
+        else if (!btnPlay.isVisible())
+            btnPlay.setVisible(true);
+    }//GEN-LAST:event_btnPlusNumOfPlayersActionPerformed
+
+    private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
+        startGame(Integer.parseInt(txfNumOfPlayers.getText()));
+    }//GEN-LAST:event_btnPlayActionPerformed
+
+    private void startGame(int numOfPlayers) {
+        JButton[] buttons = new JButton[numOfPlayers];
+        for (int i = 0; i < numOfPlayers; i++)
+            if (i < numOfPlayers) {
+                buttons[i] = buttonsArray[i];
+                buttonsArray[i].setVisible(true);
+            }
+        Util.getUtil().getPlayers().initPlayers(numOfPlayers, buttons);
+    }
+        
     /**
      * @param args the command line arguments
      */
@@ -158,10 +282,22 @@ public class Board extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDice;
+    private javax.swing.JButton btnMinusNumOfPlayers;
     private javax.swing.JButton btnP1;
     private javax.swing.JButton btnP2;
+    private javax.swing.JButton btnP3;
+    private javax.swing.JButton btnP4;
+    private javax.swing.JButton btnP5;
+    private javax.swing.JButton btnP6;
+    private javax.swing.JButton btnPlay;
+    private javax.swing.JButton btnPlusNumOfPlayers;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JTextField txfNumOfPlayers;
     // End of variables declaration//GEN-END:variables
 }
