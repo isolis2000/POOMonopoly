@@ -12,7 +12,7 @@ public class Players {
             boolean turn = false;
             if (i == 0)
                 turn = true;
-            Player player = new Player(i+1, 1, jButtons[i], turn);
+            Player player = new Player(i+1, jButtons[i], turn);
             playerList.add(player);
         }
     }
@@ -22,7 +22,7 @@ public class Players {
         for (Player p : playerList) {
             if (p.isTurn()) {
                 p.setTurn(false);
-                p.setPosition(moved);
+                p.addToPosition(moved);
                 foundPlayer = true;
             } else if (foundPlayer) {
                 p.setTurn(true);

@@ -9,13 +9,14 @@ public class Player {
     private boolean turn;
     
 
-    public Player(int playerNum, int position, JButton button, boolean turn) {
+    public Player(int playerNum, JButton button, boolean turn) {
         this.playerNum = playerNum;
-        this.position = position;
         this.button = button;
         this.turn = turn;
+        position = 1;
         money = 700;
         properties = 0;
+        this.button.setVisible(true);
     }
 
     public int getPlayerNum() {
@@ -30,7 +31,13 @@ public class Player {
         return position;
     }
 
-    public void setPosition(int moved) {
+    public void setPosition(int position) {
+        this.position = position;
+        int[] arr = Util.getUtil().getPlayerPositions().get(position);
+        button.setLocation(arr[0], arr[1]);
+    }
+
+    public void addToPosition(int moved) {
         position += moved;
         if (position > 40)
             position -= 40;

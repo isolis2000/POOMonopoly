@@ -6,6 +6,8 @@ package monopoly.gui;
 
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import monopoly.functional.Util;
 
 /**
@@ -14,16 +16,19 @@ import monopoly.functional.Util;
  */
 public class Board extends javax.swing.JFrame {
     
-    JButton[] buttonsArray;
+    private JButton[] buttonsArray, btnEditsArray, btnTokensArray;
+    private JTextField[] playerNames;
+//    private ArrayList<Integer> initialDice;
+    private boolean gameStarted = false;
+    private int numOfPlayers;
 
     /**
      * Creates new form Tablero
      */
     public Board() {
         initComponents();
-        buttonsArray = new JButton[] {btnP1, btnP2, btnP3, btnP4, btnP5, btnP6};
-        for (JButton jb : buttonsArray)
-            jb.setVisible(false);
+        toggleComponents(0);
+        numOfPlayers = numOfPlayers = Integer.parseInt(txfNumOfPlayers.getText());
         Util.getUtil().setBoard(this);
     }
 
@@ -36,35 +41,94 @@ public class Board extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        btnDice = new javax.swing.JButton();
-        txfNumOfPlayers = new javax.swing.JTextField();
-        btnMinusNumOfPlayers = new javax.swing.JButton();
-        btnPlusNumOfPlayers = new javax.swing.JButton();
-        btnPlay = new javax.swing.JButton();
         btnP1 = new javax.swing.JButton();
         btnP2 = new javax.swing.JButton();
         btnP3 = new javax.swing.JButton();
         btnP4 = new javax.swing.JButton();
         btnP5 = new javax.swing.JButton();
         btnP6 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-
-        jMenu1.setText("jMenu1");
-
-        jMenu2.setText("jMenu2");
+        lblBackground = new javax.swing.JLabel();
+        pnlStartGameOptions = new javax.swing.JPanel();
+        lblAmmountOfPlayers = new javax.swing.JLabel();
+        btnDice = new javax.swing.JButton();
+        txfNumOfPlayers = new javax.swing.JTextField();
+        btnMinusNumOfPlayers = new javax.swing.JButton();
+        btnPlusNumOfPlayers = new javax.swing.JButton();
+        btnSelectNumOfPlayers = new javax.swing.JButton();
+        txfDiceResult = new javax.swing.JTextField();
+        btnStart = new javax.swing.JButton();
+        btnToken1 = new javax.swing.JButton();
+        btnToken2 = new javax.swing.JButton();
+        btnToken3 = new javax.swing.JButton();
+        btnToken4 = new javax.swing.JButton();
+        btnToken5 = new javax.swing.JButton();
+        btnToken6 = new javax.swing.JButton();
+        btnToken7 = new javax.swing.JButton();
+        btnToken8 = new javax.swing.JButton();
+        btnToken9 = new javax.swing.JButton();
+        btnToken10 = new javax.swing.JButton();
+        btnToken11 = new javax.swing.JButton();
+        btnToken12 = new javax.swing.JButton();
+        btnToken13 = new javax.swing.JButton();
+        btnToken14 = new javax.swing.JButton();
+        txfEditPlayer1 = new javax.swing.JTextField();
+        lblTurn = new javax.swing.JLabel();
+        btnEditPlayer1 = new javax.swing.JButton();
+        lblTurnNum = new javax.swing.JLabel();
+        btnEditPlayer2 = new javax.swing.JButton();
+        txfEditPlayer2 = new javax.swing.JTextField();
+        txfEditPlayer3 = new javax.swing.JTextField();
+        btnEditPlayer3 = new javax.swing.JButton();
+        btnEditPlayer4 = new javax.swing.JButton();
+        txfEditPlayer4 = new javax.swing.JTextField();
+        btnEditPlayer5 = new javax.swing.JButton();
+        btnEditPlayer6 = new javax.swing.JButton();
+        txfEditPlayer5 = new javax.swing.JTextField();
+        txfEditPlayer6 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 227, 199));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 227, 199));
+        btnP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dedal.png"))); // NOI18N
+        btnP1.setOpaque(false);
+        btnP1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnP1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, 50, 50));
+
+        btnP2.setText("jButton1");
+        jPanel1.add(btnP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+
+        btnP3.setText("jButton1");
+        jPanel1.add(btnP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+
+        btnP4.setText("jButton1");
+        jPanel1.add(btnP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+
+        btnP5.setText("jButton1");
+        jPanel1.add(btnP5, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+
+        btnP6.setText("jButton1");
+        jPanel1.add(btnP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/board.jpg"))); // NOI18N
+        lblBackground.setText("jLabel2");
+        jPanel1.add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 960, -1));
+
+        pnlStartGameOptions.setBackground(new java.awt.Color(204, 227, 199));
+        pnlStartGameOptions.setFocusable(false);
+        pnlStartGameOptions.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblAmmountOfPlayers.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblAmmountOfPlayers.setForeground(new java.awt.Color(0, 0, 0));
+        lblAmmountOfPlayers.setText("Cantidad de jugadores:");
+        pnlStartGameOptions.add(lblAmmountOfPlayers, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 230, -1, -1));
 
         btnDice.setText("Dados");
         btnDice.addActionListener(new java.awt.event.ActionListener() {
@@ -72,6 +136,7 @@ public class Board extends javax.swing.JFrame {
                 btnDiceActionPerformed(evt);
             }
         });
+        pnlStartGameOptions.add(btnDice, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         txfNumOfPlayers.setEditable(false);
         txfNumOfPlayers.setBackground(new java.awt.Color(255, 255, 255));
@@ -85,6 +150,7 @@ public class Board extends javax.swing.JFrame {
                 txfNumOfPlayersActionPerformed(evt);
             }
         });
+        pnlStartGameOptions.add(txfNumOfPlayers, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 100, -1));
 
         btnMinusNumOfPlayers.setText("-");
         btnMinusNumOfPlayers.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +158,7 @@ public class Board extends javax.swing.JFrame {
                 btnMinusNumOfPlayersActionPerformed(evt);
             }
         });
+        pnlStartGameOptions.add(btnMinusNumOfPlayers, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 100, -1));
 
         btnPlusNumOfPlayers.setText("+");
         btnPlusNumOfPlayers.addActionListener(new java.awt.event.ActionListener() {
@@ -99,95 +166,258 @@ public class Board extends javax.swing.JFrame {
                 btnPlusNumOfPlayersActionPerformed(evt);
             }
         });
+        pnlStartGameOptions.add(btnPlusNumOfPlayers, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 100, -1));
 
-        btnPlay.setText("Jugar");
-        btnPlay.addActionListener(new java.awt.event.ActionListener() {
+        btnSelectNumOfPlayers.setText("Seleccionar");
+        btnSelectNumOfPlayers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlayActionPerformed(evt);
+                btnSelectNumOfPlayersActionPerformed(evt);
             }
         });
+        pnlStartGameOptions.add(btnSelectNumOfPlayers, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 100, -1));
+
+        txfDiceResult.setEditable(false);
+        txfDiceResult.setBackground(new java.awt.Color(255, 255, 255));
+        txfDiceResult.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfDiceResult.setForeground(new java.awt.Color(0, 0, 0));
+        txfDiceResult.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfDiceResult.setText("2");
+        txfDiceResult.setFocusable(false);
+        txfDiceResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfDiceResultActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(txfDiceResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 70, 24));
+
+        btnStart.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnStart.setText("Iniciar");
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 320, 30));
+
+        btnToken1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BuqueDeGuerra.png"))); // NOI18N
+        btnToken1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken1, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 82, 50, 50));
+
+        btnToken2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Caretilla.png"))); // NOI18N
+        btnToken2.setText("jButton1");
+        btnToken2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken2, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 82, 50, 50));
+
+        btnToken3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Perro.png"))); // NOI18N
+        btnToken3.setText("jButton1");
+        btnToken3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken3, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 82, 50, 50));
+
+        btnToken4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Plancha.png"))); // NOI18N
+        btnToken4.setText("jButton1");
+        btnToken4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken4, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 82, 50, 50));
+
+        btnToken5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dedal.png"))); // NOI18N
+        btnToken5.setText("jButton1");
+        btnToken5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken5, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 137, 50, 50));
+
+        btnToken6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sombrero.png"))); // NOI18N
+        btnToken6.setText("jButton1");
+        btnToken6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken6, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 137, 50, 50));
+
+        btnToken7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vehiculo.png"))); // NOI18N
+        btnToken7.setText("jButton1");
+        btnToken7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken7, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 137, 50, 50));
+
+        btnToken8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Zapato.png"))); // NOI18N
+        btnToken8.setText("jButton1");
+        btnToken8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken8, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 137, 50, 50));
+
+        btnToken9.setText("jButton1");
+        btnToken9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken9, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 192, 50, 50));
+
+        btnToken10.setText("jButton1");
+        btnToken10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken10, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 192, 50, 50));
+
+        btnToken11.setText("jButton1");
+        btnToken11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken11, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 192, 50, 50));
+
+        btnToken12.setText("jButton1");
+        btnToken12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken12, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 192, 50, 50));
+
+        btnToken13.setText("jButton1");
+        btnToken13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken13, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 247, 50, 50));
+
+        btnToken14.setText("jButton1");
+        btnToken14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlStartGameOptions.add(btnToken14, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 247, 50, 50));
+
+        txfEditPlayer1.setBackground(new java.awt.Color(255, 255, 255));
+        txfEditPlayer1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfEditPlayer1.setForeground(new java.awt.Color(0, 0, 0));
+        txfEditPlayer1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfEditPlayer1.setText("1");
+        txfEditPlayer1.setMinimumSize(new java.awt.Dimension(100, 42));
+        txfEditPlayer1.setPreferredSize(new java.awt.Dimension(230, 24));
+        txfEditPlayer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfEditPlayer1ActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(txfEditPlayer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 250, -1));
+
+        lblTurn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblTurn.setForeground(new java.awt.Color(0, 0, 0));
+        lblTurn.setText("Turno de jugador:");
+        lblTurn.setToolTipText("");
+        pnlStartGameOptions.add(lblTurn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        btnEditPlayer1.setText("Editar");
+        btnEditPlayer1.setFocusable(false);
+        pnlStartGameOptions.add(btnEditPlayer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, -1, -1));
+
+        lblTurnNum.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblTurnNum.setForeground(new java.awt.Color(0, 0, 0));
+        lblTurnNum.setText("1");
+        lblTurnNum.setToolTipText("");
+        pnlStartGameOptions.add(lblTurnNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 310, -1));
+
+        btnEditPlayer2.setText("Editar");
+        btnEditPlayer2.setFocusable(false);
+        pnlStartGameOptions.add(btnEditPlayer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
+
+        txfEditPlayer2.setBackground(new java.awt.Color(255, 255, 255));
+        txfEditPlayer2.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfEditPlayer2.setForeground(new java.awt.Color(0, 0, 0));
+        txfEditPlayer2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfEditPlayer2.setText("2");
+        txfEditPlayer2.setMinimumSize(new java.awt.Dimension(100, 42));
+        txfEditPlayer2.setPreferredSize(new java.awt.Dimension(230, 24));
+        txfEditPlayer2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfEditPlayer2ActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(txfEditPlayer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 250, -1));
+
+        txfEditPlayer3.setBackground(new java.awt.Color(255, 255, 255));
+        txfEditPlayer3.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfEditPlayer3.setForeground(new java.awt.Color(0, 0, 0));
+        txfEditPlayer3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfEditPlayer3.setText("3");
+        txfEditPlayer3.setMinimumSize(new java.awt.Dimension(100, 42));
+        txfEditPlayer3.setPreferredSize(new java.awt.Dimension(230, 24));
+        txfEditPlayer3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfEditPlayer3ActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(txfEditPlayer3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 250, -1));
+
+        btnEditPlayer3.setText("Editar");
+        btnEditPlayer3.setFocusable(false);
+        btnEditPlayer3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditPlayer3ActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(btnEditPlayer3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, -1, -1));
+
+        btnEditPlayer4.setText("Editar");
+        btnEditPlayer4.setFocusable(false);
+        pnlStartGameOptions.add(btnEditPlayer4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
+
+        txfEditPlayer4.setBackground(new java.awt.Color(255, 255, 255));
+        txfEditPlayer4.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfEditPlayer4.setForeground(new java.awt.Color(0, 0, 0));
+        txfEditPlayer4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfEditPlayer4.setText("4");
+        txfEditPlayer4.setMinimumSize(new java.awt.Dimension(100, 42));
+        txfEditPlayer4.setPreferredSize(new java.awt.Dimension(230, 24));
+        txfEditPlayer4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfEditPlayer4ActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(txfEditPlayer4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 250, -1));
+
+        btnEditPlayer5.setText("Editar");
+        btnEditPlayer5.setFocusable(false);
+        pnlStartGameOptions.add(btnEditPlayer5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
+
+        btnEditPlayer6.setText("Editar");
+        btnEditPlayer6.setFocusable(false);
+        pnlStartGameOptions.add(btnEditPlayer6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, -1, -1));
+
+        txfEditPlayer5.setBackground(new java.awt.Color(255, 255, 255));
+        txfEditPlayer5.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfEditPlayer5.setForeground(new java.awt.Color(0, 0, 0));
+        txfEditPlayer5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfEditPlayer5.setText("5");
+        txfEditPlayer5.setMinimumSize(new java.awt.Dimension(100, 42));
+        txfEditPlayer5.setPreferredSize(new java.awt.Dimension(230, 24));
+        txfEditPlayer5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfEditPlayer5ActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(txfEditPlayer5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 250, -1));
+
+        txfEditPlayer6.setBackground(new java.awt.Color(255, 255, 255));
+        txfEditPlayer6.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfEditPlayer6.setForeground(new java.awt.Color(0, 0, 0));
+        txfEditPlayer6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfEditPlayer6.setText("6");
+        txfEditPlayer6.setMinimumSize(new java.awt.Dimension(100, 42));
+        txfEditPlayer6.setPreferredSize(new java.awt.Dimension(230, 24));
+        txfEditPlayer6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfEditPlayer6ActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(txfEditPlayer6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 250, -1));
+
+        jPanel1.add(pnlStartGameOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 0, 560, 350));
+
+        jPanel2.setBackground(new java.awt.Color(204, 227, 199));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDice)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txfNumOfPlayers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMinusNumOfPlayers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPlusNumOfPlayers)
-                            .addComponent(btnPlay))))
-                .addContainerGap(156, Short.MAX_VALUE))
+            .addGap(0, 560, Short.MAX_VALUE)
         );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnMinusNumOfPlayers, btnPlay, btnPlusNumOfPlayers, txfNumOfPlayers});
-
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnDice)
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txfNumOfPlayers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPlay))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMinusNumOfPlayers)
-                    .addComponent(btnPlusNumOfPlayers))
-                .addContainerGap(845, Short.MAX_VALUE))
+            .addGap(0, 610, Short.MAX_VALUE)
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnMinusNumOfPlayers, btnPlay, btnPlusNumOfPlayers, txfNumOfPlayers});
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 300, -1));
-
-        btnP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dedal.png"))); // NOI18N
-        btnP1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnP1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 50, 50));
-
-        btnP2.setText("jButton1");
-        jPanel1.add(btnP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 430, -1, -1));
-
-        btnP3.setText("jButton1");
-        jPanel1.add(btnP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 460, -1, -1));
-
-        btnP4.setText("jButton1");
-        jPanel1.add(btnP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 490, -1, -1));
-
-        btnP5.setText("jButton1");
-        jPanel1.add(btnP5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 520, -1, -1));
-
-        btnP6.setText("jButton1");
-        jPanel1.add(btnP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 550, -1, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/board.jpg"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 350, 560, 610));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1096, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -199,49 +429,137 @@ public class Board extends javax.swing.JFrame {
         Util.getUtil().getPlayers().initPlayers(2, jButtons);
     }//GEN-LAST:event_btnP1ActionPerformed
 
-    private void btnDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiceActionPerformed
-        int res = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
-//        System.out.println("res: " + res);
-//        int[] arr = Util.getUtil().getPlayerPositions().get(res);
-//        System.out.println("pos: " + Arrays.toString(arr));
-//        btnP1.setLocation(arr[0], arr[1]);
-        Util.getUtil().getPlayers().movePlayer(res);
-    }//GEN-LAST:event_btnDiceActionPerformed
+    private void txfEditPlayer6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEditPlayer6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfEditPlayer6ActionPerformed
+
+    private void txfEditPlayer5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEditPlayer5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfEditPlayer5ActionPerformed
+
+    private void txfEditPlayer4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEditPlayer4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfEditPlayer4ActionPerformed
+
+    private void btnEditPlayer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditPlayer3ActionPerformed
+
+    private void txfEditPlayer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEditPlayer3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfEditPlayer3ActionPerformed
+
+    private void txfEditPlayer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEditPlayer2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfEditPlayer2ActionPerformed
+
+    private void txfEditPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEditPlayer1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfEditPlayer1ActionPerformed
+
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnStartActionPerformed
+
+    private void txfDiceResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResultActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfDiceResultActionPerformed
+
+    private void btnSelectNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectNumOfPlayersActionPerformed
+        startGame();
+        toggleComponents(1);
+        for (int i = 0; i < numOfPlayers; i++) {
+            btnEditsArray[i].setVisible(true);
+            playerNames[i].setVisible(true);
+        }
+        JOptionPane.showMessageDialog(this, "Para comenzar el juego primero se deben definir los turnos, favor utilizar el boton de dados para que se decida el orden","Inicio", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnSelectNumOfPlayersActionPerformed
+
+    private void btnPlusNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusNumOfPlayersActionPerformed
+        numOfPlayers += 1;
+        txfNumOfPlayers.setText(Integer.toString(numOfPlayers));
+        if (numOfPlayers < 2 || numOfPlayers > 6)
+        btnSelectNumOfPlayers.setVisible(false);
+        else if (!btnSelectNumOfPlayers.isVisible())
+        btnSelectNumOfPlayers.setVisible(true);
+    }//GEN-LAST:event_btnPlusNumOfPlayersActionPerformed
+
+    private void btnMinusNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusNumOfPlayersActionPerformed
+        numOfPlayers -= 1;
+        txfNumOfPlayers.setText(Integer.toString(numOfPlayers));
+        if (numOfPlayers < 2 || numOfPlayers > 6)
+        btnSelectNumOfPlayers.setVisible(false);
+        else if (!btnSelectNumOfPlayers.isVisible())
+        btnSelectNumOfPlayers.setVisible(true);
+    }//GEN-LAST:event_btnMinusNumOfPlayersActionPerformed
 
     private void txfNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNumOfPlayersActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfNumOfPlayersActionPerformed
 
-    private void btnMinusNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusNumOfPlayersActionPerformed
-        int numOfPlayers = Integer.parseInt(txfNumOfPlayers.getText()) - 1;
-        txfNumOfPlayers.setText(Integer.toString(numOfPlayers));
-        if (numOfPlayers < 2 || numOfPlayers > 6)
-            btnPlay.setVisible(false);
-        else if (!btnPlay.isVisible())
-            btnPlay.setVisible(true);
-    }//GEN-LAST:event_btnMinusNumOfPlayersActionPerformed
+    private void btnDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiceActionPerformed
+        int res = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
+        //        if (gameStarted)
+        Util.getUtil().getPlayers().movePlayer(res);
+        //        else {
+            //            initialDice.add(res);
+            //            if (initialDice.size() == numOfPlayers) {
+                //                btnStart.setVisible(true);
+                //                String message = "";
+                //                JOptionPane.showMessageDialog(this, message,"Inicio", JOptionPane.INFORMATION_MESSAGE);
+                //
+                //            }
+            //        }
+        txfDiceResult.setText(Integer.toString(res));
+    }//GEN-LAST:event_btnDiceActionPerformed
 
-    private void btnPlusNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusNumOfPlayersActionPerformed
-        int numOfPlayers = Integer.parseInt(txfNumOfPlayers.getText()) + 1;
-        txfNumOfPlayers.setText(Integer.toString(numOfPlayers));
-        if (numOfPlayers < 2 || numOfPlayers > 6)
-            btnPlay.setVisible(false);
-        else if (!btnPlay.isVisible())
-            btnPlay.setVisible(true);
-    }//GEN-LAST:event_btnPlusNumOfPlayersActionPerformed
-
-    private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
-        startGame(Integer.parseInt(txfNumOfPlayers.getText()));
-    }//GEN-LAST:event_btnPlayActionPerformed
-
-    private void startGame(int numOfPlayers) {
+    private void startGame() {
+        int[] initialDice = new int[numOfPlayers];
+        for (int i = 0; i < numOfPlayers; i++)
+            initialDice[i] = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
         JButton[] buttons = new JButton[numOfPlayers];
         for (int i = 0; i < numOfPlayers; i++)
             if (i < numOfPlayers) {
                 buttons[i] = buttonsArray[i];
-                buttonsArray[i].setVisible(true);
+                buttonsArray[i].setOpaque(false);
             }
         Util.getUtil().getPlayers().initPlayers(numOfPlayers, buttons);
+        gameStarted = true;
+    }
+    
+    private void toggleComponents(int procedure) {
+        if (procedure == 0) { //initial toggles
+            buttonsArray = new JButton[] {btnP1, btnP2, btnP3, btnP4, btnP5, btnP6};
+            playerNames = new JTextField[] {txfEditPlayer1, txfEditPlayer2, txfEditPlayer3, 
+                txfEditPlayer4, txfEditPlayer5, txfEditPlayer6};
+            btnEditsArray = new JButton[] {btnEditPlayer1, btnEditPlayer2, btnEditPlayer3, 
+                btnEditPlayer4, btnEditPlayer5, btnEditPlayer6};
+            btnTokensArray = new JButton[] {btnToken1, btnToken2, btnToken3, btnToken4, 
+                btnToken5, btnToken6, btnToken7, btnToken8, btnToken9, btnToken10, btnToken11, 
+                btnToken12, btnToken13, btnToken14};
+            for (int i = 0; i < 6; i++) {
+                buttonsArray[i].setVisible(false);
+                playerNames[i].setVisible(false);
+                btnEditsArray[i].setVisible(false);
+            }
+            for (JButton jb : btnTokensArray)
+                jb.setVisible(false);
+            btnDice.setVisible(false);
+            txfDiceResult.setVisible(false);
+            btnStart.setVisible(false);
+            lblTurn.setVisible(false);
+            lblTurnNum.setVisible(false);
+        } else if (procedure == 1) { //After number of players is selected
+            btnMinusNumOfPlayers.setVisible(false);
+            btnPlusNumOfPlayers.setVisible(false);
+            btnSelectNumOfPlayers.setVisible(false);
+            lblAmmountOfPlayers.setVisible(false);
+            txfNumOfPlayers.setVisible(false);
+        }
+    }
+    
+    private void editPlayer(int playerNum) {
+        
     }
         
     /**
@@ -282,6 +600,12 @@ public class Board extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDice;
+    private javax.swing.JButton btnEditPlayer1;
+    private javax.swing.JButton btnEditPlayer2;
+    private javax.swing.JButton btnEditPlayer3;
+    private javax.swing.JButton btnEditPlayer4;
+    private javax.swing.JButton btnEditPlayer5;
+    private javax.swing.JButton btnEditPlayer6;
     private javax.swing.JButton btnMinusNumOfPlayers;
     private javax.swing.JButton btnP1;
     private javax.swing.JButton btnP2;
@@ -289,15 +613,37 @@ public class Board extends javax.swing.JFrame {
     private javax.swing.JButton btnP4;
     private javax.swing.JButton btnP5;
     private javax.swing.JButton btnP6;
-    private javax.swing.JButton btnPlay;
     private javax.swing.JButton btnPlusNumOfPlayers;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JButton btnSelectNumOfPlayers;
+    private javax.swing.JButton btnStart;
+    private javax.swing.JButton btnToken1;
+    private javax.swing.JButton btnToken10;
+    private javax.swing.JButton btnToken11;
+    private javax.swing.JButton btnToken12;
+    private javax.swing.JButton btnToken13;
+    private javax.swing.JButton btnToken14;
+    private javax.swing.JButton btnToken2;
+    private javax.swing.JButton btnToken3;
+    private javax.swing.JButton btnToken4;
+    private javax.swing.JButton btnToken5;
+    private javax.swing.JButton btnToken6;
+    private javax.swing.JButton btnToken7;
+    private javax.swing.JButton btnToken8;
+    private javax.swing.JButton btnToken9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel lblAmmountOfPlayers;
+    private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblTurn;
+    private javax.swing.JLabel lblTurnNum;
+    private javax.swing.JPanel pnlStartGameOptions;
+    private javax.swing.JTextField txfDiceResult;
+    private javax.swing.JTextField txfEditPlayer1;
+    private javax.swing.JTextField txfEditPlayer2;
+    private javax.swing.JTextField txfEditPlayer3;
+    private javax.swing.JTextField txfEditPlayer4;
+    private javax.swing.JTextField txfEditPlayer5;
+    private javax.swing.JTextField txfEditPlayer6;
     private javax.swing.JTextField txfNumOfPlayers;
     // End of variables declaration//GEN-END:variables
 }

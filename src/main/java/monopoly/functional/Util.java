@@ -3,13 +3,14 @@ package monopoly.functional;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
+import javax.swing.JButton;
 import monopoly.gui.Board;
 
 public class Util {
     
     private static Util util = new Util();
     private final Random random = new Random();
-    private final HashMap<Integer, int[]> playerPositions = new HashMap<>(44);
+    private final HashMap<Integer, int[]> playerPositions = new HashMap<>(40);
     private Board board;
     private Players players = new Players();
 
