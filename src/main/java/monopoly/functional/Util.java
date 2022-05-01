@@ -44,12 +44,16 @@ public class Util {
     
     private void initPlayerPositions() {
         int x, y;
-        x = y = 870;
+        x = 890;
+        y = 870;
         playerPositions.put(1, new int[] {x, y});
         x -= 100;
         playerPositions.put(2, new int[] {x, y});
         for (int i = 0; i < 8; i++) {
-            x -= 80;
+            if (i == 3)
+                x -= 70;
+            else
+                x -= 80;
             playerPositions.put(i+3, new int[] {x, y});
         }
         x -= 100;
@@ -57,23 +61,32 @@ public class Util {
         y -= 100;
         playerPositions.put(12, new int[] {x, y});
         for (int i = 0; i < 8; i++) {
-            y -= 80;
+            if (i == 5)
+                y -= 70;
+            else
+                y -= 80;
             playerPositions.put(i+13, new int[] {x, y});
         }
-        y -= 100;
+        y -= 120;
         playerPositions.put(21, new int[] {x, y});
         x += 100;
         playerPositions.put(22, new int[] {x, y});        
         for (int i = 0; i < 8; i++) {
-            x += 80;
+            if (i == 5)
+                x += 70;
+            else
+                x += 80;
             playerPositions.put(i+23, new int[] {x, y});
         }
-        x += 100;
+        x += 120;
         playerPositions.put(31, new int[] {x, y});
-        y += 100;
+        y += 120;
         playerPositions.put(32, new int[] {x, y});
         for (int i = 0; i < 8; i++) {
-            y += 80;
+            if (i == 2)
+                y += 70;
+            else
+                y += 80;
             playerPositions.put(i+33, new int[] {x, y});
         }    
         System.out.println("map: ");

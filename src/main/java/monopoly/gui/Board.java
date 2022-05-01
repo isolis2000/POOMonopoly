@@ -4,6 +4,8 @@
  */
 package monopoly.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -16,10 +18,11 @@ import monopoly.functional.Util;
  */
 public class Board extends javax.swing.JFrame {
     
-    private JButton[] buttonsArray, btnEditsArray, btnTokensArray;
+    private JButton[] btnPlayersArray, btnEditsArray, btnTokensArray;
     private JTextField[] playerNames;
 //    private ArrayList<Integer> initialDice;
     private boolean gameStarted = false;
+    private JButton currentPlayerToEdit;
     private int numOfPlayers;
 
     /**
@@ -27,6 +30,8 @@ public class Board extends javax.swing.JFrame {
      */
     public Board() {
         initComponents();
+        initArrays();
+        initButtonCommands();
         toggleComponents(0);
         numOfPlayers = numOfPlayers = Integer.parseInt(txfNumOfPlayers.getText());
         Util.getUtil().setBoard(this);
@@ -93,29 +98,34 @@ public class Board extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 227, 199));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dedal.png"))); // NOI18N
+        btnP1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP1.setOpaque(false);
         btnP1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnP1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, 50, 50));
+        jPanel1.add(btnP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
-        btnP2.setText("jButton1");
-        jPanel1.add(btnP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+        btnP2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnP2.setOpaque(false);
+        jPanel1.add(btnP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
-        btnP3.setText("jButton1");
-        jPanel1.add(btnP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+        btnP3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnP3.setOpaque(false);
+        jPanel1.add(btnP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
-        btnP4.setText("jButton1");
-        jPanel1.add(btnP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+        btnP4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnP4.setOpaque(false);
+        jPanel1.add(btnP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
-        btnP5.setText("jButton1");
-        jPanel1.add(btnP5, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+        btnP5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnP5.setOpaque(false);
+        jPanel1.add(btnP5, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
-        btnP6.setText("jButton1");
-        jPanel1.add(btnP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 870, -1, -1));
+        btnP6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnP6.setOpaque(false);
+        jPanel1.add(btnP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/board.jpg"))); // NOI18N
         lblBackground.setText("jLabel2");
@@ -201,6 +211,11 @@ public class Board extends javax.swing.JFrame {
 
         btnToken1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BuqueDeGuerra.png"))); // NOI18N
         btnToken1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnToken1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnToken1ActionPerformed(evt);
+            }
+        });
         pnlStartGameOptions.add(btnToken1, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 82, 50, 50));
 
         btnToken2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Caretilla.png"))); // NOI18N
@@ -218,7 +233,7 @@ public class Board extends javax.swing.JFrame {
         btnToken4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken4, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 82, 50, 50));
 
-        btnToken5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dedal.png"))); // NOI18N
+        btnToken5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dedal.png"))); // NOI18N
         btnToken5.setText("jButton1");
         btnToken5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken5, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 137, 50, 50));
@@ -284,6 +299,11 @@ public class Board extends javax.swing.JFrame {
 
         btnEditPlayer1.setText("Editar");
         btnEditPlayer1.setFocusable(false);
+        btnEditPlayer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditPlayer1ActionPerformed(evt);
+            }
+        });
         pnlStartGameOptions.add(btnEditPlayer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, -1, -1));
 
         lblTurnNum.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -294,6 +314,11 @@ public class Board extends javax.swing.JFrame {
 
         btnEditPlayer2.setText("Editar");
         btnEditPlayer2.setFocusable(false);
+        btnEditPlayer2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditPlayer2ActionPerformed(evt);
+            }
+        });
         pnlStartGameOptions.add(btnEditPlayer2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
 
         txfEditPlayer2.setBackground(new java.awt.Color(255, 255, 255));
@@ -335,6 +360,11 @@ public class Board extends javax.swing.JFrame {
 
         btnEditPlayer4.setText("Editar");
         btnEditPlayer4.setFocusable(false);
+        btnEditPlayer4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditPlayer4ActionPerformed(evt);
+            }
+        });
         pnlStartGameOptions.add(btnEditPlayer4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
 
         txfEditPlayer4.setBackground(new java.awt.Color(255, 255, 255));
@@ -353,10 +383,20 @@ public class Board extends javax.swing.JFrame {
 
         btnEditPlayer5.setText("Editar");
         btnEditPlayer5.setFocusable(false);
+        btnEditPlayer5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditPlayer5ActionPerformed(evt);
+            }
+        });
         pnlStartGameOptions.add(btnEditPlayer5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
 
         btnEditPlayer6.setText("Editar");
         btnEditPlayer6.setFocusable(false);
+        btnEditPlayer6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditPlayer6ActionPerformed(evt);
+            }
+        });
         pnlStartGameOptions.add(btnEditPlayer6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, -1, -1));
 
         txfEditPlayer5.setBackground(new java.awt.Color(255, 255, 255));
@@ -442,7 +482,7 @@ public class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_txfEditPlayer4ActionPerformed
 
     private void btnEditPlayer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer3ActionPerformed
-        // TODO add your handling code here:
+        selectPlayerToEdit(3);
     }//GEN-LAST:event_btnEditPlayer3ActionPerformed
 
     private void txfEditPlayer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEditPlayer3ActionPerformed
@@ -458,7 +498,8 @@ public class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_txfEditPlayer1ActionPerformed
 
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
-        // TODO add your handling code here:
+        toggleComponents(4);
+        startGame();
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void txfDiceResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResultActionPerformed
@@ -466,13 +507,10 @@ public class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_txfDiceResultActionPerformed
 
     private void btnSelectNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectNumOfPlayersActionPerformed
-        startGame();
         toggleComponents(1);
-        for (int i = 0; i < numOfPlayers; i++) {
-            btnEditsArray[i].setVisible(true);
-            playerNames[i].setVisible(true);
-        }
-        JOptionPane.showMessageDialog(this, "Para comenzar el juego primero se deben definir los turnos, favor utilizar el boton de dados para que se decida el orden","Inicio", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Para comenzar el juego, todos deben tener una ficha para jugar, "
+                + "para definir la ficha solo haga click en editar y escoja una de las opciones."
+                + "Adicionalmente, puede modificar el nombre a gusto.","Inicio", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSelectNumOfPlayersActionPerformed
 
     private void btnPlusNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusNumOfPlayersActionPerformed
@@ -513,6 +551,30 @@ public class Board extends javax.swing.JFrame {
         txfDiceResult.setText(Integer.toString(res));
     }//GEN-LAST:event_btnDiceActionPerformed
 
+    private void btnEditPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer1ActionPerformed
+        selectPlayerToEdit(1);
+    }//GEN-LAST:event_btnEditPlayer1ActionPerformed
+
+    private void btnEditPlayer2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer2ActionPerformed
+        selectPlayerToEdit(2);
+    }//GEN-LAST:event_btnEditPlayer2ActionPerformed
+
+    private void btnEditPlayer4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer4ActionPerformed
+        selectPlayerToEdit(4);
+    }//GEN-LAST:event_btnEditPlayer4ActionPerformed
+
+    private void btnEditPlayer5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer5ActionPerformed
+        selectPlayerToEdit(5);
+    }//GEN-LAST:event_btnEditPlayer5ActionPerformed
+
+    private void btnEditPlayer6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer6ActionPerformed
+        selectPlayerToEdit(6);
+    }//GEN-LAST:event_btnEditPlayer6ActionPerformed
+
+    private void btnToken1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToken1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnToken1ActionPerformed
+
     private void startGame() {
         int[] initialDice = new int[numOfPlayers];
         for (int i = 0; i < numOfPlayers; i++)
@@ -520,45 +582,101 @@ public class Board extends javax.swing.JFrame {
         JButton[] buttons = new JButton[numOfPlayers];
         for (int i = 0; i < numOfPlayers; i++)
             if (i < numOfPlayers) {
-                buttons[i] = buttonsArray[i];
-                buttonsArray[i].setOpaque(false);
+                buttons[i] = btnPlayersArray[i];
+                btnPlayersArray[i].setOpaque(false);
             }
         Util.getUtil().getPlayers().initPlayers(numOfPlayers, buttons);
         gameStarted = true;
     }
     
+    private void initArrays() {
+        btnPlayersArray = new JButton[] {btnP1, btnP2, btnP3, btnP4, btnP5, btnP6};
+        playerNames = new JTextField[] {txfEditPlayer1, txfEditPlayer2, txfEditPlayer3,
+            txfEditPlayer4, txfEditPlayer5, txfEditPlayer6};
+        btnEditsArray = new JButton[] {btnEditPlayer1, btnEditPlayer2, btnEditPlayer3,
+            btnEditPlayer4, btnEditPlayer5, btnEditPlayer6};
+        btnTokensArray = new JButton[] {btnToken1, btnToken2, btnToken3, btnToken4,
+            btnToken5, btnToken6, btnToken7, btnToken8, btnToken9, btnToken10, btnToken11,
+            btnToken12, btnToken13, btnToken14};
+    }
+    
+    private void initButtonCommands() {
+        for (JButton jb : btnTokensArray) {
+             jb.addActionListener((ActionEvent ae) -> {
+                currentPlayerToEdit.setIcon(((JButton)ae.getSource()).getIcon());
+                currentPlayerToEdit.setOpaque(false);
+                toggleComponents(3);
+                if (isGameReadyToStart())
+                    btnStart.setVisible(true);
+            });
+        }        
+    }
+    
+    private boolean isGameReadyToStart() {
+        for (int i = 0; i < numOfPlayers; i++)
+            if (btnPlayersArray[i].getIcon() == null)
+                return false;
+        return true;
+    }
+    
     private void toggleComponents(int procedure) {
-        if (procedure == 0) { //initial toggles
-            buttonsArray = new JButton[] {btnP1, btnP2, btnP3, btnP4, btnP5, btnP6};
-            playerNames = new JTextField[] {txfEditPlayer1, txfEditPlayer2, txfEditPlayer3, 
-                txfEditPlayer4, txfEditPlayer5, txfEditPlayer6};
-            btnEditsArray = new JButton[] {btnEditPlayer1, btnEditPlayer2, btnEditPlayer3, 
-                btnEditPlayer4, btnEditPlayer5, btnEditPlayer6};
-            btnTokensArray = new JButton[] {btnToken1, btnToken2, btnToken3, btnToken4, 
-                btnToken5, btnToken6, btnToken7, btnToken8, btnToken9, btnToken10, btnToken11, 
-                btnToken12, btnToken13, btnToken14};
-            for (int i = 0; i < 6; i++) {
-                buttonsArray[i].setVisible(false);
-                playerNames[i].setVisible(false);
-                btnEditsArray[i].setVisible(false);
+        switch (procedure) {
+            case 0 -> {
+                //initial toggles
+                for (int i = 0; i < 6; i++) {
+                    btnPlayersArray[i].setVisible(false);
+                    playerNames[i].setVisible(false);
+                    btnEditsArray[i].setVisible(false);
+                }   
+                for (JButton jb : btnTokensArray)
+                    jb.setVisible(false);
+                btnDice.setVisible(false);
+                txfDiceResult.setVisible(false);
+                btnStart.setVisible(false);
+                lblTurn.setVisible(false);
+                lblTurnNum.setVisible(false);
             }
-            for (JButton jb : btnTokensArray)
-                jb.setVisible(false);
-            btnDice.setVisible(false);
-            txfDiceResult.setVisible(false);
-            btnStart.setVisible(false);
-            lblTurn.setVisible(false);
-            lblTurnNum.setVisible(false);
-        } else if (procedure == 1) { //After number of players is selected
-            btnMinusNumOfPlayers.setVisible(false);
-            btnPlusNumOfPlayers.setVisible(false);
-            btnSelectNumOfPlayers.setVisible(false);
-            lblAmmountOfPlayers.setVisible(false);
-            txfNumOfPlayers.setVisible(false);
+            case 1 -> {
+                //After number of players is selected
+                btnMinusNumOfPlayers.setVisible(false);
+                btnPlusNumOfPlayers.setVisible(false);
+                btnSelectNumOfPlayers.setVisible(false);
+                lblAmmountOfPlayers.setVisible(false);
+                txfNumOfPlayers.setVisible(false);
+                for (int i = 0; i < numOfPlayers; i++) {
+                    btnEditsArray[i].setVisible(true);
+                    playerNames[i].setVisible(true);
+                }
+            }
+            case 2 -> {
+                //Edit a player
+                for (JButton jb : btnTokensArray)
+                    jb.setVisible(true);
+            }
+            case 3 -> {
+                //Finish editing a player
+                for (JButton jb : btnTokensArray)
+                    jb.setVisible(false);
+            }
+            case 4 -> {
+                //Start game
+                btnDice.setVisible(true);
+                txfDiceResult.setVisible(true);
+                lblTurn.setVisible(true);
+                lblTurnNum.setVisible(true);
+            }
+            default -> {
+            }
         }
     }
     
-    private void editPlayer(int playerNum) {
+    private void selectPlayerToEdit(int playerNum) {
+        currentPlayerToEdit = btnPlayersArray[playerNum-1];
+        toggleComponents(2);
+    }
+    
+    public void actionPerformed(ActionEvent ae) {
+        String action = ae.getActionCommand();
         
     }
         
