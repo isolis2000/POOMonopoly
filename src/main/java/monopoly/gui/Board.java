@@ -7,9 +7,12 @@ package monopoly.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import monopoly.functional.Player;
 import monopoly.functional.Util;
 
 /**
@@ -576,15 +579,9 @@ public class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_btnToken1ActionPerformed
 
     private void startGame() {
-        int[] initialDice = new int[numOfPlayers];
-        for (int i = 0; i < numOfPlayers; i++)
-            initialDice[i] = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
         JButton[] buttons = new JButton[numOfPlayers];
         for (int i = 0; i < numOfPlayers; i++)
-            if (i < numOfPlayers) {
-                buttons[i] = btnPlayersArray[i];
-                btnPlayersArray[i].setOpaque(false);
-            }
+            buttons[i] = btnPlayersArray[i];
         Util.getUtil().getPlayers().initPlayers(numOfPlayers, buttons);
         gameStarted = true;
     }

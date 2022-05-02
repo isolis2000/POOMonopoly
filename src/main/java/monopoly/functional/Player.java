@@ -2,21 +2,29 @@ package monopoly.functional;
 
 import javax.swing.JButton;
 
-public class Player {
+public class Player implements Comparable<Player> {
     
-    private int playerNum, position, properties, money;
+    private int playerNum, position, properties, money, initialDiceResult;
     private JButton button;
     private boolean turn;
     
 
-    public Player(int playerNum, JButton button, boolean turn) {
+    public Player(int playerNum, JButton button) {
         this.playerNum = playerNum;
         this.button = button;
-        this.turn = turn;
+        turn = false;
         position = 1;
         money = 700;
         properties = 0;
         this.button.setVisible(true);
+    }
+
+    public int getInitialDiceResult() {
+        return initialDiceResult;
+    }
+
+    public void setInitialDiceResult(int initialDiceResult) {
+        this.initialDiceResult = initialDiceResult;
     }
 
     public int getPlayerNum() {
@@ -75,6 +83,12 @@ public class Player {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    @Override
+    public int compareTo(Player p) {
+        int compareDice = p.getInitialDiceResult();
+        return this.initialDiceResult-compareDice;
     }
 
 }
