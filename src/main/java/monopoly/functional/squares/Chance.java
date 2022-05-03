@@ -43,7 +43,7 @@ public class Chance {
         
     }
     //1
-    public static void gasolinePrice(int money, Player player){
+    private void gasolinePrice(int money, Player player){
         System.out.println("Fortuna");
         System.out.println("Los precios de la gasolina estan abajo, se cobra 50");
         player.setMoney(money += 50);
