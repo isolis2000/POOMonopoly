@@ -1,4 +1,4 @@
-package monopoly.functional;
+package monopoly.functional.squares;
 
 public class Square {
     

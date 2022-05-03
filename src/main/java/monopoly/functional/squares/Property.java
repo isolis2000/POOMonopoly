@@ -1,4 +1,6 @@
-package monopoly.functional;
+package monopoly.functional.squares;
+
+import monopoly.functional.Player;
 
 public class Property extends Square{
     
