@@ -61,5 +61,13 @@ public class Players {
                 playerName = p.getName();
         return playerName;
     }
+    
+    public String getPlayerString(int playerNum) {
+        String playerString = "";
+        for (Player p : playerList)
+            if (p.getPlayerNum() == playerNum)
+                playerString = p.toString();
+        return playerString;
+    }
 
 }

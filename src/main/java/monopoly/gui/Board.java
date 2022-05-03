@@ -112,22 +112,47 @@ public class Board extends javax.swing.JFrame {
 
         btnP2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP2.setOpaque(false);
+        btnP2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnP2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
         btnP3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP3.setOpaque(false);
+        btnP3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnP3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
         btnP4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP4.setOpaque(false);
+        btnP4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnP4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
         btnP5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP5.setOpaque(false);
+        btnP5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnP5ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnP5, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
         btnP6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP6.setOpaque(false);
+        btnP6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnP6ActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/board.jpg"))); // NOI18N
@@ -478,7 +503,7 @@ public class Board extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP1ActionPerformed
-        
+        showPlayerData(1);
     }//GEN-LAST:event_btnP1ActionPerformed
 
     private void txfEditPlayer6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEditPlayer6ActionPerformed
@@ -582,6 +607,26 @@ public class Board extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txfDiceResultActionPerformed
 
+    private void btnP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP2ActionPerformed
+        showPlayerData(2);
+    }//GEN-LAST:event_btnP2ActionPerformed
+
+    private void btnP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP3ActionPerformed
+        showPlayerData(3);
+    }//GEN-LAST:event_btnP3ActionPerformed
+
+    private void btnP4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP4ActionPerformed
+        showPlayerData(4);
+    }//GEN-LAST:event_btnP4ActionPerformed
+
+    private void btnP5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP5ActionPerformed
+        showPlayerData(5);
+    }//GEN-LAST:event_btnP5ActionPerformed
+
+    private void btnP6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP6ActionPerformed
+        showPlayerData(6);
+    }//GEN-LAST:event_btnP6ActionPerformed
+
     private void startGame() {
         JButton[] buttons = new JButton[numOfPlayers];
         String[] playerNames = new String[numOfPlayers];
@@ -613,7 +658,7 @@ public class Board extends javax.swing.JFrame {
                 if (isGameReadyToStart())
                     btnStart.setVisible(true);
             });
-        }        
+        }
     }
     
     private boolean isGameReadyToStart() {
@@ -679,10 +724,10 @@ public class Board extends javax.swing.JFrame {
         toggleComponents(2);
     }
     
-    public void actionPerformed(ActionEvent ae) {
-        String action = ae.getActionCommand();
-        
-    }
+    private void showPlayerData(int playerNum) {
+        String playerString = Util.getUtil().getPlayers().getPlayerString(playerNum);
+        JOptionPane.showMessageDialog(this, playerString,"Detalles de Jugador", JOptionPane.INFORMATION_MESSAGE);
+    } 
         
     /**
      * @param args the command line arguments

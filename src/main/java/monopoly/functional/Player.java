@@ -1,5 +1,6 @@
 package monopoly.functional;
 
+import java.util.ArrayList;
 import javax.swing.JButton;
 
 public class Player implements Comparable<Player> {
@@ -89,6 +90,18 @@ public class Player implements Comparable<Player> {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+    
+    @Override
+    public String toString() {
+        ArrayList<String> playerPropertiesArr = Util.getUtil().getBank().getPropertiesByPlayer(name);
+        String playerProperties = "";
+        for (String s : playerPropertiesArr)
+            playerProperties += s + "\n";
+        String retStr = "Jugador " + name + " tiene " + properties + " propiedades a su nombre\n"
+                + Util.getUtil().getBank().getPropertiesByPlayer(name)
+                + playerProperties;
+        return retStr;
     }
 
     @Override
