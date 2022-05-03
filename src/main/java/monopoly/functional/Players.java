@@ -6,7 +6,7 @@ import javax.swing.JButton;
 
 public class Players {
     
-    private ArrayList<Player> playerList = new ArrayList<>();
+    private final ArrayList<Player> playerList = new ArrayList<>();
 
     public ArrayList<Player> getPlayerList() {
         return playerList;
@@ -69,5 +69,5 @@ public class Players {
                 playerString = p.toString();
         return playerString;
     }
-
+    
 }

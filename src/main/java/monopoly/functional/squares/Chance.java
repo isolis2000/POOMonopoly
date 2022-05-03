@@ -1,20 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package monopoly.functional.squares;
 
 import monopoly.functional.Player;
 
-/**
- *
- * @author ANTONY
- */
 public class Chance {
-    /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
    
     public void RandomCC (Player player){
@@ -162,8 +150,6 @@ public class Chance {
         System.out.println("Avance a la avenida New York, si esta a la venta puede comprarsela al banco, si es propiedad de alguien pague el doble de la cuenta marcada");
         //
     }
-
-    
     
 }
 
