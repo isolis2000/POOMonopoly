@@ -7,16 +7,22 @@ public class Player implements Comparable<Player> {
     private int playerNum, position, properties, money, initialDiceResult;
     private JButton button;
     private boolean turn;
+    private final String name;
     
 
-    public Player(int playerNum, JButton button) {
+    public Player(int playerNum, JButton button, String playerName) {
         this.playerNum = playerNum;
         this.button = button;
+        this.name = playerName;
         turn = false;
         position = 1;
         money = 700;
         properties = 0;
         this.button.setVisible(true);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getInitialDiceResult() {

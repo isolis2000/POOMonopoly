@@ -22,7 +22,7 @@ import monopoly.functional.Util;
 public class Board extends javax.swing.JFrame {
     
     private JButton[] btnPlayersArray, btnEditsArray, btnTokensArray;
-    private JTextField[] playerNames;
+    private JTextField[] playerNamesArray;
 //    private ArrayList<Integer> initialDice;
     private boolean gameStarted = false;
     private JButton currentPlayerToEdit;
@@ -64,7 +64,7 @@ public class Board extends javax.swing.JFrame {
         btnMinusNumOfPlayers = new javax.swing.JButton();
         btnPlusNumOfPlayers = new javax.swing.JButton();
         btnSelectNumOfPlayers = new javax.swing.JButton();
-        txfDiceResult = new javax.swing.JTextField();
+        txfPlayerTurn = new javax.swing.JTextField();
         btnStart = new javax.swing.JButton();
         btnToken1 = new javax.swing.JButton();
         btnToken2 = new javax.swing.JButton();
@@ -83,7 +83,6 @@ public class Board extends javax.swing.JFrame {
         txfEditPlayer1 = new javax.swing.JTextField();
         lblTurn = new javax.swing.JLabel();
         btnEditPlayer1 = new javax.swing.JButton();
-        lblTurnNum = new javax.swing.JLabel();
         btnEditPlayer2 = new javax.swing.JButton();
         txfEditPlayer2 = new javax.swing.JTextField();
         txfEditPlayer3 = new javax.swing.JTextField();
@@ -94,6 +93,7 @@ public class Board extends javax.swing.JFrame {
         btnEditPlayer6 = new javax.swing.JButton();
         txfEditPlayer5 = new javax.swing.JTextField();
         txfEditPlayer6 = new javax.swing.JTextField();
+        txfDiceResult = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -189,19 +189,20 @@ public class Board extends javax.swing.JFrame {
         });
         pnlStartGameOptions.add(btnSelectNumOfPlayers, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 100, -1));
 
-        txfDiceResult.setEditable(false);
-        txfDiceResult.setBackground(new java.awt.Color(255, 255, 255));
-        txfDiceResult.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        txfDiceResult.setForeground(new java.awt.Color(0, 0, 0));
-        txfDiceResult.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txfDiceResult.setText("2");
-        txfDiceResult.setFocusable(false);
-        txfDiceResult.addActionListener(new java.awt.event.ActionListener() {
+        txfPlayerTurn.setEditable(false);
+        txfPlayerTurn.setBackground(new java.awt.Color(204, 227, 199));
+        txfPlayerTurn.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfPlayerTurn.setForeground(new java.awt.Color(0, 0, 0));
+        txfPlayerTurn.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txfPlayerTurn.setText("2");
+        txfPlayerTurn.setBorder(null);
+        txfPlayerTurn.setFocusable(false);
+        txfPlayerTurn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txfDiceResultActionPerformed(evt);
+                txfPlayerTurnActionPerformed(evt);
             }
         });
-        pnlStartGameOptions.add(txfDiceResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 70, 24));
+        pnlStartGameOptions.add(txfPlayerTurn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 310, 20));
 
         btnStart.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnStart.setText("Iniciar");
@@ -308,12 +309,6 @@ public class Board extends javax.swing.JFrame {
             }
         });
         pnlStartGameOptions.add(btnEditPlayer1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, -1, -1));
-
-        lblTurnNum.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lblTurnNum.setForeground(new java.awt.Color(0, 0, 0));
-        lblTurnNum.setText("1");
-        lblTurnNum.setToolTipText("");
-        pnlStartGameOptions.add(lblTurnNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 310, -1));
 
         btnEditPlayer2.setText("Editar");
         btnEditPlayer2.setFocusable(false);
@@ -430,6 +425,21 @@ public class Board extends javax.swing.JFrame {
         });
         pnlStartGameOptions.add(txfEditPlayer6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 250, -1));
 
+        txfDiceResult.setEditable(false);
+        txfDiceResult.setBackground(new java.awt.Color(204, 227, 199));
+        txfDiceResult.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfDiceResult.setForeground(new java.awt.Color(0, 0, 0));
+        txfDiceResult.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfDiceResult.setText("2");
+        txfDiceResult.setBorder(null);
+        txfDiceResult.setFocusable(false);
+        txfDiceResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfDiceResultActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(txfDiceResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 20, 24));
+
         jPanel1.add(pnlStartGameOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 0, 560, 350));
 
         jPanel2.setBackground(new java.awt.Color(204, 227, 199));
@@ -460,16 +470,15 @@ public class Board extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1096, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP1ActionPerformed
-        JButton[] jButtons = {btnP1, btnP2};
-        Util.getUtil().getPlayers().initPlayers(2, jButtons);
+        
     }//GEN-LAST:event_btnP1ActionPerformed
 
     private void txfEditPlayer6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEditPlayer6ActionPerformed
@@ -505,9 +514,9 @@ public class Board extends javax.swing.JFrame {
         startGame();
     }//GEN-LAST:event_btnStartActionPerformed
 
-    private void txfDiceResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResultActionPerformed
+    private void txfPlayerTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfPlayerTurnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txfDiceResultActionPerformed
+    }//GEN-LAST:event_txfPlayerTurnActionPerformed
 
     private void btnSelectNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectNumOfPlayersActionPerformed
         toggleComponents(1);
@@ -540,18 +549,9 @@ public class Board extends javax.swing.JFrame {
 
     private void btnDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiceActionPerformed
         int res = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
-        //        if (gameStarted)
         Util.getUtil().getPlayers().movePlayer(res);
-        //        else {
-            //            initialDice.add(res);
-            //            if (initialDice.size() == numOfPlayers) {
-                //                btnStart.setVisible(true);
-                //                String message = "";
-                //                JOptionPane.showMessageDialog(this, message,"Inicio", JOptionPane.INFORMATION_MESSAGE);
-                //
-                //            }
-            //        }
-        txfDiceResult.setText(Integer.toString(res));
+        txfPlayerTurn.setText(Integer.toString(res));
+        txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurn());
     }//GEN-LAST:event_btnDiceActionPerformed
 
     private void btnEditPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer1ActionPerformed
@@ -578,17 +578,24 @@ public class Board extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnToken1ActionPerformed
 
+    private void txfDiceResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResultActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfDiceResultActionPerformed
+
     private void startGame() {
         JButton[] buttons = new JButton[numOfPlayers];
-        for (int i = 0; i < numOfPlayers; i++)
+        String[] playerNames = new String[numOfPlayers];
+        for (int i = 0; i < numOfPlayers; i++) {
             buttons[i] = btnPlayersArray[i];
-        Util.getUtil().getPlayers().initPlayers(numOfPlayers, buttons);
+            playerNames[i] = playerNamesArray[i].getText();
+        }
+        Util.getUtil().getPlayers().initPlayers(numOfPlayers, buttons, playerNames);
         gameStarted = true;
     }
     
     private void initArrays() {
         btnPlayersArray = new JButton[] {btnP1, btnP2, btnP3, btnP4, btnP5, btnP6};
-        playerNames = new JTextField[] {txfEditPlayer1, txfEditPlayer2, txfEditPlayer3,
+        playerNamesArray = new JTextField[] {txfEditPlayer1, txfEditPlayer2, txfEditPlayer3,
             txfEditPlayer4, txfEditPlayer5, txfEditPlayer6};
         btnEditsArray = new JButton[] {btnEditPlayer1, btnEditPlayer2, btnEditPlayer3,
             btnEditPlayer4, btnEditPlayer5, btnEditPlayer6};
@@ -622,16 +629,16 @@ public class Board extends javax.swing.JFrame {
                 //initial toggles
                 for (int i = 0; i < 6; i++) {
                     btnPlayersArray[i].setVisible(false);
-                    playerNames[i].setVisible(false);
+                    playerNamesArray[i].setVisible(false);
                     btnEditsArray[i].setVisible(false);
                 }   
                 for (JButton jb : btnTokensArray)
                     jb.setVisible(false);
                 btnDice.setVisible(false);
-                txfDiceResult.setVisible(false);
+                txfPlayerTurn.setVisible(false);
                 btnStart.setVisible(false);
                 lblTurn.setVisible(false);
-                lblTurnNum.setVisible(false);
+                txfDiceResult.setVisible(false);
             }
             case 1 -> {
                 //After number of players is selected
@@ -642,7 +649,7 @@ public class Board extends javax.swing.JFrame {
                 txfNumOfPlayers.setVisible(false);
                 for (int i = 0; i < numOfPlayers; i++) {
                     btnEditsArray[i].setVisible(true);
-                    playerNames[i].setVisible(true);
+                    playerNamesArray[i].setVisible(true);
                 }
             }
             case 2 -> {
@@ -658,9 +665,9 @@ public class Board extends javax.swing.JFrame {
             case 4 -> {
                 //Start game
                 btnDice.setVisible(true);
-                txfDiceResult.setVisible(true);
+                txfPlayerTurn.setVisible(true);
                 lblTurn.setVisible(true);
-                lblTurnNum.setVisible(true);
+                txfDiceResult.setVisible(true);
             }
             default -> {
             }
@@ -750,7 +757,6 @@ public class Board extends javax.swing.JFrame {
     private javax.swing.JLabel lblAmmountOfPlayers;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblTurn;
-    private javax.swing.JLabel lblTurnNum;
     private javax.swing.JPanel pnlStartGameOptions;
     private javax.swing.JTextField txfDiceResult;
     private javax.swing.JTextField txfEditPlayer1;
@@ -760,5 +766,6 @@ public class Board extends javax.swing.JFrame {
     private javax.swing.JTextField txfEditPlayer5;
     private javax.swing.JTextField txfEditPlayer6;
     private javax.swing.JTextField txfNumOfPlayers;
+    private javax.swing.JTextField txfPlayerTurn;
     // End of variables declaration//GEN-END:variables
 }

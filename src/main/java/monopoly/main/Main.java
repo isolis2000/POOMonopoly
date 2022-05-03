@@ -1,5 +1,6 @@
 package monopoly.main;
 
+import java.util.Arrays;
 import monopoly.functional.Util;
 import monopoly.gui.Board;
 

@@ -10,12 +10,17 @@ public class Util {
     
     private static Util util = new Util();
     private final Random random = new Random();
+    private final Bank bank = new Bank();
     private final HashMap<Integer, int[]> playerPositions = new HashMap<>(40);
     private Board board;
     private Players players = new Players();
 
     public Util() {
         initPlayerPositions();
+    }
+
+    public Bank getBank() {
+        return bank;
     }
 
     public Players getPlayers() {

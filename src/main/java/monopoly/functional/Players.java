@@ -12,12 +12,18 @@ public class Players {
         return playerList;
     }
     
-    public void initPlayers(int numOfPlayers, JButton[] jButtons) {
-        String retStr = "";
+    public void initPlayers(int numOfPlayers, JButton[] jButtons, String[] playerNames) {
+        ArrayList<Player[]> results;
         for (int i = 0; i < numOfPlayers; i ++) {
-            Player player = new Player(i+1, jButtons[i]);
+            Player player = new Player(i+1, jButtons[i], playerNames[i]);
             playerList.add(player);
         }
+        initTurns(numOfPlayers);
+        playerList.get(0).setTurn(true);
+    }
+    
+    private void initTurns(int numOfPlayers) {
+        String retStr = "";
         ArrayList<Integer> initialDiceArray = new ArrayList<>();
         ArrayList<Integer> initialDiceArrayAux = new ArrayList<>();
         for (int i = 0; i < numOfPlayers; i++) {
@@ -26,8 +32,8 @@ public class Players {
             initialDiceArray.add(initialDice);
             playerList.get(i).setInitialDiceResult(initialDice);
         }
+        System.out.println(retStr);
         Collections.sort(playerList);
-        playerList.get(0).setTurn(true);
     }
     
     public void movePlayer(int moved) {
@@ -46,6 +52,14 @@ public class Players {
             playerList.get(0).setTurn(true);
         else
             System.out.println("Error en turnos");
+    }
+    
+    public String getPlayerTurn() {
+        String playerName = "";
+        for (Player p : playerList)
+            if (p.isTurn())
+                playerName = p.getName();
+        return playerName;
     }
 
 }
