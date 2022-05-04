@@ -18,5 +18,7 @@ public class Bank {
                 propertiesRet.add(set.getKey().getName());
         return propertiesRet;
     }
+    //Listas de propiedades 
+    //Arraylist
 
 }
