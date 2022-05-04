@@ -44,7 +44,7 @@ public class Players {
         
     }
     
-    private Player getPlayerTurn() {
+    public Player getPlayerTurn() {
         for (Player p : playerList)
             if (p.isTurn())
                 return p;

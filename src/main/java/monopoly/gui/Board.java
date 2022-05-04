@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import monopoly.functional.Player;
+import monopoly.functional.Players;
 import monopoly.functional.Util;
 import monopoly.functional.squares.CommuinityChest;
 
@@ -777,8 +778,8 @@ public class Board extends javax.swing.JFrame {
     } 
     
     private void CommunnityChestMassage (){
+        Util.getUtil().getBank().getCommuinityChest().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         
-        int num = 2;
         JOptionPane.showMessageDialog(this,"Detalles de Jugador" + num );
     }
     /**

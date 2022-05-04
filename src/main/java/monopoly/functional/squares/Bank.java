@@ -53,7 +53,17 @@ public class Bank {
                 System.out.println("station: " + entry.getKey().getPrice());
     }
     
+    
+    
     //Listas de propiedades 
     //Arraylist
+
+    public CommuinityChest getCommuinityChest() {
+        return commuinityChest;
+    }
+
+    public Chance getChance() {
+        return chance;
+    }
 
 }
