@@ -3,7 +3,8 @@ package monopoly.functional.squares;
 import monopoly.functional.Player;
 
 public class Chance {
-
+    
+    private final int[] positions = {8, 23, 37};
    
     public void RandomCC (Player player){
         int num = (int)(Math.random()*16+1);
@@ -26,9 +27,11 @@ public class Chance {
             case 16 -> ForwardToTheAvenueNewYork(player);
             default -> {
             }
-        }
-       
-        
+        }        
+    }
+
+    public int[] getPositions() {
+        return positions;
     }
     //1
     private void gasolinePrice(int money, Player player){

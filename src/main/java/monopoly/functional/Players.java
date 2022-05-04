@@ -37,29 +37,22 @@ public class Players {
     }
     
     public void movePlayer(int moved) {
-        boolean foundPlayer = false;
-        for (Player p : playerList) {
-            if (p.isTurn()) {
-                p.setTurn(false);
-                p.addToPosition(moved);
-                foundPlayer = true;
-            } else if (foundPlayer) {
-                p.setTurn(true);
-                return;
-            }
-        }
-        if (foundPlayer)
-            playerList.get(0).setTurn(true);
-        else
-            System.out.println("Error en turnos");
+        Player player = getPlayerTurn();
+        player.addToPosition(moved);
+        
+        player.setTurn(false);
+        
     }
     
-    public String getPlayerTurn() {
-        String playerName = "";
+    private Player getPlayerTurn() {
         for (Player p : playerList)
             if (p.isTurn())
-                playerName = p.getName();
-        return playerName;
+                return p;
+        return null;
+    }
+    
+    public String getPlayerTurnName() {
+        return getPlayerTurn().getName();
     }
     
     public String getPlayerString(int playerNum) {

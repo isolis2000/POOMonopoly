@@ -58,6 +58,11 @@ public class Player implements Comparable<Player> {
             position -= 40;
         int[] arr = Util.getUtil().getPlayerPositions().get(position);
         button.setLocation(arr[0], arr[1]);
+        checkPosition();
+    }
+    
+    private void checkPosition() {
+        if ()
     }
 
     public JButton getButton() {

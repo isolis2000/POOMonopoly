@@ -11,10 +11,8 @@ import monopoly.functional.Player;
  * @author ANTONY
  */
 public class CommuinityChest {
-    /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+    
+    private final int[] positions = {3, 18, 34};
    
     public void RandomCC (Player player){
         int num = (int)(Math.random()*16+1);
@@ -38,8 +36,11 @@ public class CommuinityChest {
             default -> {
             }
         }
-       
-        
+               
+    }
+
+    public int[] getPositions() {
+        return positions;
     }
     //1
     private void penaltyFee (int money, Player player){

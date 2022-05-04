@@ -576,7 +576,7 @@ public class Board extends javax.swing.JFrame {
         int res = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
         Util.getUtil().getPlayers().movePlayer(res);
         txfPlayerTurn.setText(Integer.toString(res));
-        txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurn());
+        txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
     }//GEN-LAST:event_btnDiceActionPerformed
 
     private void btnEditPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer1ActionPerformed

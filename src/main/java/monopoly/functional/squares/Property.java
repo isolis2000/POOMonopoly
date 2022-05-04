@@ -27,8 +27,9 @@ public enum Property {
     BondST(320, 200, 28, 150, 450, 1000, 1200, 1400, "BondST"),
     ParkLane(350, 200, 35, 175, 500, 1100, 1300, 1500, "Park Lane"),
     MayFair(400, 200, 50, 200, 600, 1400, 1700, 2000, "May Fair");
-    private int price, pricePerHouse, rent, rent1House, rent2House, rent3House, rent4House, rentHotel;
-    private String name;
+    
+    private final int price, pricePerHouse, rent, rent1House, rent2House, rent3House, rent4House, rentHotel;
+    private final String name;
 
     private Property(int price, int pricePerHouse, int rent, int rent1House, int rent2House, int rent3House, int rent4House, int rentHotel, String name) {
         this.price = price;
@@ -82,11 +83,5 @@ public enum Property {
     public String getName() {
         return name;
     }
-    
-
-    
-    
-        
-    
     
 }
