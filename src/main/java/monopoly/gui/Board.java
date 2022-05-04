@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import monopoly.functional.Player;
 import monopoly.functional.Util;
+import monopoly.functional.squares.CommuinityChest;
 
 /**
  *
@@ -161,6 +162,11 @@ public class Board extends javax.swing.JFrame {
         CommunityChestButton.setBorder(null);
         CommunityChestButton.setBorderPainted(false);
         CommunityChestButton.setOpaque(false);
+        CommunityChestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CommunityChestButtonActionPerformed(evt);
+            }
+        });
         jPanel1.add(CommunityChestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 185, 160, 150));
 
         ChanceButton.setBorder(null);
@@ -656,12 +662,17 @@ public class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_btnP6ActionPerformed
 
     private void ChanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChanceButtonActionPerformed
-        // TODO add your handling code here:
+         CommunnityChestMassage();
     }//GEN-LAST:event_ChanceButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void CommunityChestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommunityChestButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CommunityChestButtonActionPerformed
 
     private void startGame() {
         JButton[] buttons = new JButton[numOfPlayers];
@@ -764,7 +775,12 @@ public class Board extends javax.swing.JFrame {
         String playerString = Util.getUtil().getPlayers().getPlayerString(playerNum);
         JOptionPane.showMessageDialog(this, playerString,"Detalles de Jugador", JOptionPane.INFORMATION_MESSAGE);
     } 
+    
+    private void CommunnityChestMassage (){
         
+        int num = 2;
+        JOptionPane.showMessageDialog(this,"Detalles de Jugador" + num );
+    }
     /**
      * @param args the command line arguments
      */
