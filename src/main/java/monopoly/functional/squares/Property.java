@@ -28,10 +28,10 @@ public enum Property {
     ParkLane(350, 200, 35, 175, 500, 1100, 1300, 1500, "Park Lane"),
     MayFair(400, 200, 50, 200, 600, 1400, 1700, 2000, "May Fair");
     
-    private final int price, pricePerHouse, rent, rent1House, rent2House, rent3House, rent4House, rentHotel;
-    private final String name;
+    private int price, pricePerHouse, rent, rent1House, rent2House, rent3House, rent4House, rentHotel, position, mortgage;
+    private String name;
 
-    private Property(int price, int pricePerHouse, int rent, int rent1House, int rent2House, int rent3House, int rent4House, int rentHotel, String name) {
+    private Property(int price, int pricePerHouse, int rent, int rent1House, int rent2House, int rent3House, int rent4House, int rentHotel,int position, int mortgage, String name ) {
         this.price = price;
         this.pricePerHouse = pricePerHouse;
         this.rent = rent;
@@ -41,6 +41,8 @@ public enum Property {
         this.rent4House = rent4House;
         this.rentHotel = rentHotel;
         this.name = name;
+        this.position = position;
+        this.mortgage = mortgage; 
         
     }
 

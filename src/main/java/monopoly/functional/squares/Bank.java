@@ -35,6 +35,7 @@ public class Bank {
         
     }
     
-    p
+    //Listas de propiedades 
+    //Arraylist
 
 }
