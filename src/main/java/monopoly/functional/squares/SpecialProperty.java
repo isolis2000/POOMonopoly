@@ -9,6 +9,18 @@ public class SpecialProperty {
         this.position = position;
         this.price = price;
         this.name = name;
-    }    
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
     
 }

@@ -9,10 +9,14 @@ import monopoly.functional.Util;
 
 public class Bank {
     
-    private HashMap<Property, Player> properties = new HashMap<>(28);
-    private HashMap<SpecialProperty, Player> specialProperties = new HashMap<>(6);
+    private HashMap<Property, Player> properties = new HashMap<>();
+    private HashMap<SpecialProperty, Player> specialProperties = new HashMap<>();
     private final CommuinityChest commuinityChest = new CommuinityChest();
     private final Chance chance = new Chance();
+
+    public Bank() {
+        initProperties();
+    }
     
     public ArrayList<String> getPropertiesByPlayer(String playerName) {
         ArrayList<String> propertiesRet = new ArrayList<>();
@@ -32,8 +36,21 @@ public class Bank {
         for (int pos : chance.getPositions())
             if (pos == position)
                 return "Chance";
-        return "-1";
-        
+        return "-1"; 
+    }
+    
+    private void initProperties() {
+        for (Property p : Property.values())
+            properties.put(p, null);            
+        int[] stationPositions = {6, 16, 26, 36};
+        String[] stationNames = {"King Cross Station", "Marylebone Station", "Fenchurch ST. Station", "Liverpool ST. Station"}; 
+        for (int i = 0; i < 4; i++)
+            specialProperties.put(new Station(stationPositions[i], 200, stationNames[i]), null);
+        specialProperties.put(new Service(13, 150, "Electric Company"), null);
+        specialProperties.put(new Service(29, 150, "Water Works"), null);
+        for (Map.Entry<SpecialProperty, Player> entry : specialProperties.entrySet())
+            if (entry.getKey().getName().equals("King Cross Station"))
+                System.out.println("station: " + entry.getKey().getPrice());
     }
     
     //Listas de propiedades 
