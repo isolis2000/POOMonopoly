@@ -56,6 +56,8 @@ public class Board extends javax.swing.JFrame {
         btnP4 = new javax.swing.JButton();
         btnP5 = new javax.swing.JButton();
         btnP6 = new javax.swing.JButton();
+        CommunityChestButton = new javax.swing.JButton();
+        ChanceButton = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
         pnlStartGameOptions = new javax.swing.JPanel();
         lblAmmountOfPlayers = new javax.swing.JLabel();
@@ -95,6 +97,7 @@ public class Board extends javax.swing.JFrame {
         txfEditPlayer6 = new javax.swing.JTextField();
         txfDiceResult = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,7 +158,22 @@ public class Board extends javax.swing.JFrame {
         });
         jPanel1.add(btnP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
 
-        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/board.jpg"))); // NOI18N
+        CommunityChestButton.setBorder(null);
+        CommunityChestButton.setBorderPainted(false);
+        CommunityChestButton.setOpaque(false);
+        jPanel1.add(CommunityChestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 185, 160, 150));
+
+        ChanceButton.setBorder(null);
+        ChanceButton.setBorderPainted(false);
+        ChanceButton.setOpaque(false);
+        ChanceButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChanceButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ChanceButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 630, 130, 130));
+
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/boardEdit.png"))); // NOI18N
         lblBackground.setText("jLabel2");
         jPanel1.add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 960, -1));
 
@@ -482,6 +500,16 @@ public class Board extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 350, 560, 610));
 
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setOpaque(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 630, 130, 130));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -627,6 +655,14 @@ public class Board extends javax.swing.JFrame {
         showPlayerData(6);
     }//GEN-LAST:event_btnP6ActionPerformed
 
+    private void ChanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChanceButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChanceButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void startGame() {
         JButton[] buttons = new JButton[numOfPlayers];
         String[] playerNames = new String[numOfPlayers];
@@ -766,6 +802,8 @@ public class Board extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ChanceButton;
+    private javax.swing.JButton CommunityChestButton;
     private javax.swing.JButton btnDice;
     private javax.swing.JButton btnEditPlayer1;
     private javax.swing.JButton btnEditPlayer2;
@@ -797,6 +835,7 @@ public class Board extends javax.swing.JFrame {
     private javax.swing.JButton btnToken7;
     private javax.swing.JButton btnToken8;
     private javax.swing.JButton btnToken9;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblAmmountOfPlayers;
