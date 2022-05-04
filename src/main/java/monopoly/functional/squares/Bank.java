@@ -24,7 +24,7 @@ public class Bank {
     
     public String getPropertyType(int position) {
         for (Property p : Property.values())
-            if (p.getLocation() == position)
+            if (p.getPosition()== position)
                 return "Property";
         for (int pos : commuinityChest.getPositions())
             if (pos == position)
@@ -32,6 +32,7 @@ public class Bank {
         for (int pos : chance.getPositions())
             if (pos == position)
                 return "Chance";
+        return "-1";
         
     }
     

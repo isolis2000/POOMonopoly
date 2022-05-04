@@ -2,11 +2,13 @@ package monopoly.functional.squares;
 
 public class SpecialProperty {
     
-    private int positions;
-    private String name,type;
+    private final int position, price;
+    private final String name;
 
-    public SpecialProperty(int position, String name) {
+    public SpecialProperty(int position, int price, String name) {
         this.position = position;
+        this.price = price;
         this.name = name;
-    }
+    }    
+    
 }

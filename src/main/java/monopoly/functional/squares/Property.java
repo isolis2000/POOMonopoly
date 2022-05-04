@@ -84,5 +84,13 @@ public enum Property {
     public String getName() {
         return name;
     }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public int getMortgage() {
+        return mortgage;
+    }
     
 }
