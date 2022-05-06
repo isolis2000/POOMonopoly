@@ -39,9 +39,15 @@ public class Players {
     public void movePlayer(int moved) {
         Player player = getPlayerTurn();
         player.addToPosition(moved);
+        player.checkPosition();
         player.setTurn(false);
         getNextPlayer(player).setTurn(true);
         
+    }
+    
+    public void declarePlayerBankrupt(Player player) {
+        playerList.remove(player);
+        Util.getUtil().getBoard().declareBankrupt(player.getName());
     }
     
     public Player getPlayerTurn() {

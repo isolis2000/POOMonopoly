@@ -61,9 +61,9 @@ public class Player implements Comparable<Player> {
 //        checkPosition();
     }
     
-//    private void checkPosition() {
-//        if ()
-//    }
+    public void checkPosition() {
+        Util.getUtil().getBank().checkPosition(this);
+    }
 
     public JButton getButton() {
         return button;

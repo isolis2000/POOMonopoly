@@ -26,10 +26,13 @@ public class Bank {
         return propertiesRet;
     }
     
-    public String getPropertyType(int position) {
+    private String getPropertyType(int position) {
         for (Property p : Property.values())
             if (p.getPosition()== position)
                 return "Property";
+        for (SpecialProperty sp : specialProperties.keySet())
+            if (sp.getPosition() == position)
+                return "SpecialProperty";
         for (int pos : commuinityChest.getPositions())
             if (pos == position)
                 return "CommunityChest";
@@ -53,7 +56,72 @@ public class Bank {
                 System.out.println("station: " + entry.getKey().getPrice());
     }
     
+    private Property getPropertyByPosition(int position) {
+        for (Property p : properties.keySet())
+            if (p.getPosition() == position)
+                return p;
+        return null;
+    }
     
+    private SpecialProperty getSpecialPropertyByPosition(int position) {
+        for (SpecialProperty sp : specialProperties.keySet())
+            if (sp.getPosition() == position)
+                return sp;
+        return null;
+    }
+    
+    private Player whoOwns(int position, String squareType) {
+        switch (squareType) {
+            case "Property" -> {
+                return properties.get(getPropertyByPosition(position));
+            }
+            case "SpecialProperty" -> {
+                return specialProperties.get(getSpecialPropertyByPosition(position));
+            }
+            default -> {
+            }
+        }
+        return null;        
+    }
+    
+//    private void buyProperty(Player player, )
+    
+    private void pay(Player payer, Player payee, int ammount) { //the one who pays and the one who gets payed
+        
+    }
+    
+//    private int getRent(int position, String squareType) {
+//        if (squareType.equals("Property"))
+//            for (Property p : Property.values()) {
+//                if (p.getPosition() == position)
+//                    return p.getRent();
+//            }
+//        else
+//            for (SpecialProperty sp : specialProperties.keySet())
+//                return 
+//        
+//    }
+    
+    private void onProperty(Player player, String squareType) {
+        Player secondPlayer = whoOwns(player.getPosition(), squareType);
+        if (secondPlayer == null)
+            Util.getUtil().getBoard().buyPrompt();
+//        else
+//            pay(player, secondPlayer, 0)
+    }
+    
+    //controls what happens after a player moves
+    public void checkPosition(Player player) {
+        int playerPosition = player.getPosition();
+        String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
+        switch (squareType) {
+            case "Property", "SpecialProperty" -> onProperty(player, squareType);
+            case "CommunityChest" -> System.out.println("CommunityChest");//Aqui su codigo de esta vara
+            case "Chance" -> System.out.println("Chance");//Y aqui
+            default -> {
+            }
+        }
+    }
     
     //Listas de propiedades 
     //Arraylist
