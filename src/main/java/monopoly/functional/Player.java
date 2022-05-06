@@ -97,8 +97,9 @@ public class Player implements Comparable<Player> {
         this.money = money;
     }
     
-    public void buyProperty(int position) {
-        System.out.println("bought");
+    public void buyProperty(String propertyName) {
+        properties ++;
+        Util.getUtil().getBank().buyProperty(this, propertyName);
     }
     
     @Override
@@ -106,9 +107,8 @@ public class Player implements Comparable<Player> {
         ArrayList<String> playerPropertiesArr = Util.getUtil().getBank().getPropertiesByPlayer(name);
         String playerProperties = "";
         for (String s : playerPropertiesArr)
-            playerProperties += s + "\n";
+            playerProperties += "- " + s + "\n";
         String retStr = "Jugador " + name + " tiene " + properties + " propiedades a su nombre\n"
-                + Util.getUtil().getBank().getPropertiesByPlayer(name)
                 + playerProperties;
         return retStr;
     }

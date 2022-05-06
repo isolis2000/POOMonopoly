@@ -773,7 +773,7 @@ public class Board extends javax.swing.JFrame {
         String buyPromptStr = "La propiedad " + propertyName + " tiene un precio de " + propertyPrice + ".\n¿Desea comprarla?";
         if (JOptionPane.showConfirmDialog(null, buyPromptStr, "Confirmacion de compra de propiedad",
         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            System.out.println("comprado");
+            player.buyProperty(propertyName);
         } else {
             System.out.println("no compro");
         }

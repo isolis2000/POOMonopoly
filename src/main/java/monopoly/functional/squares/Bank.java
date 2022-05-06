@@ -13,7 +13,7 @@ public class Bank {
     private HashMap<SpecialProperty, Player> specialProperties = new HashMap<>();
     private final CommuinityChest commuinityChest = new CommuinityChest();
     private final Chance chance = new Chance();
-    private final HashMap<Integer, String> squareNames = new HashMap<>();
+    private final HashMap<String, Integer> propertyNames = new HashMap<>();
 
     public Bank() {
         initProperties();
@@ -21,9 +21,15 @@ public class Bank {
     
     public ArrayList<String> getPropertiesByPlayer(String playerName) {
         ArrayList<String> propertiesRet = new ArrayList<>();
-        for (Map.Entry<Property, Player> set : properties.entrySet())
-            if (set.getValue().getName().equals(playerName))
+//        System.out.println("PropertiesHash: " + properties.toString());
+        for (Map.Entry<Property, Player> set : properties.entrySet()) {
+            if (set.getValue() != null && set.getValue().getName().equals(playerName))
                 propertiesRet.add(set.getKey().getName());
+        }
+        for (Map.Entry<SpecialProperty, Player> set : specialProperties.entrySet()) {
+            if (set.getValue() != null && set.getValue().getName().equals(playerName))
+                propertiesRet.add(set.getKey().getName());
+        }
         return propertiesRet;
     }
     
@@ -55,12 +61,11 @@ public class Bank {
         for (Map.Entry<SpecialProperty, Player> entry : specialProperties.entrySet())
             if (entry.getKey().getName().equals("King Cross Station"))
                 System.out.println("station: " + entry.getKey().getPrice());
-        String[] extraNames = {"GO", "Income Tax", "Jail", "Free Parking", "Go to Jail", "Super Tax"};
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i <= 40; i++) {
             if (getPropertyByPosition(i) != null)
-                squareNames.put(i, getPropertyByPosition(i).getName());
+                propertyNames.put(getPropertyByPosition(i).getName(), i);
             else if (getSpecialPropertyByPosition(i) != null)
-                squareNames.put(i, getSpecialPropertyByPosition(i).getName());
+                propertyNames.put(getSpecialPropertyByPosition(i).getName(), i);
         }
     }
     
@@ -96,6 +101,22 @@ public class Bank {
     
     private void pay(Player payer, Player payee, int ammount) { //the one who pays and the one who gets payed
         
+    }
+    
+    public void buyProperty(Player player, String propertyName) {
+        try {
+        int position = propertyNames.get(propertyName);
+        Property property = getPropertyByPosition(position);
+        SpecialProperty specialProperty = getSpecialPropertyByPosition(position);
+        if (property != null)
+            properties.replace(property, player);
+        else if (specialProperty != null)
+            specialProperties.replace(specialProperty, player);
+        System.out.println("property " + propertyName + " was bought by player " + player.getName());
+        }
+        catch (Exception e) {
+            System.out.println("Exception with property " + propertyName);
+        }
     }
     
 //    private int getRent(int position, String squareType) {
