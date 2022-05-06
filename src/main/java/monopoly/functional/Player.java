@@ -97,6 +97,10 @@ public class Player implements Comparable<Player> {
         this.money = money;
     }
     
+    public void buyProperty(int position) {
+        System.out.println("bought");
+    }
+    
     @Override
     public String toString() {
         ArrayList<String> playerPropertiesArr = Util.getUtil().getBank().getPropertiesByPlayer(name);

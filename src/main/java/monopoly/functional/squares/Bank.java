@@ -13,6 +13,7 @@ public class Bank {
     private HashMap<SpecialProperty, Player> specialProperties = new HashMap<>();
     private final CommuinityChest commuinityChest = new CommuinityChest();
     private final Chance chance = new Chance();
+    private final HashMap<Integer, String> squareNames = new HashMap<>();
 
     public Bank() {
         initProperties();
@@ -54,6 +55,13 @@ public class Bank {
         for (Map.Entry<SpecialProperty, Player> entry : specialProperties.entrySet())
             if (entry.getKey().getName().equals("King Cross Station"))
                 System.out.println("station: " + entry.getKey().getPrice());
+        String[] extraNames = {"GO", "Income Tax", "Jail", "Free Parking", "Go to Jail", "Super Tax"};
+        for (int i = 0; i < 40; i++) {
+            if (getPropertyByPosition(i) != null)
+                squareNames.put(i, getPropertyByPosition(i).getName());
+            else if (getSpecialPropertyByPosition(i) != null)
+                squareNames.put(i, getSpecialPropertyByPosition(i).getName());
+        }
     }
     
     private Property getPropertyByPosition(int position) {
@@ -102,12 +110,19 @@ public class Bank {
 //        
 //    }
     
-    private void onProperty(Player player, String squareType) {
+    private void onProperty(Player player, String squareType, int playerPosition) {
         Player secondPlayer = whoOwns(player.getPosition(), squareType);
         if (secondPlayer == null)
-            Util.getUtil().getBoard().buyPrompt();
-//        else
+            if (squareType.equals("Property")) {
+                Property property = getPropertyByPosition(playerPosition);
+                Util.getUtil().getBoard().buyPrompt(player, property.getName(), property.getPrice());
+            } else if (squareType.equals("SpecialProperty")) {
+                SpecialProperty specialProperty = getSpecialPropertyByPosition(playerPosition);
+                Util.getUtil().getBoard().buyPrompt(player, specialProperty.getName(), specialProperty.getPrice());
+            }
+        else
 //            pay(player, secondPlayer, 0)
+            Util.getUtil().getBoard().rentPrompt();
     }
     
     //controls what happens after a player moves
@@ -115,7 +130,7 @@ public class Bank {
         int playerPosition = player.getPosition();
         String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
         switch (squareType) {
-            case "Property", "SpecialProperty" -> onProperty(player, squareType);
+            case "Property", "SpecialProperty" -> onProperty(player, squareType, playerPosition);
             case "CommunityChest" -> System.out.println("CommunityChest");//Aqui su codigo de esta vara
             case "Chance" -> System.out.println("Chance");//Y aqui
             default -> {

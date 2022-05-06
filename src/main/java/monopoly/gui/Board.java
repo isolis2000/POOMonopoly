@@ -768,8 +768,19 @@ public class Board extends javax.swing.JFrame {
         }
     }
     
-    public void buyPrompt() {
+    public void buyPrompt(Player player, String propertyName, int propertyPrice) {
         System.out.println("can buy");
+        String buyPromptStr = "La propiedad " + propertyName + " tiene un precio de " + propertyPrice + ".\n¿Desea comprarla?";
+        if (JOptionPane.showConfirmDialog(null, buyPromptStr, "Confirmacion de compra de propiedad",
+        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.out.println("comprado");
+        } else {
+            System.out.println("no compro");
+        }
+    }
+    
+    public void rentPrompt() {
+        System.out.println("pague compa");
     }
     
     public void declareBankrupt(String playerName) {
