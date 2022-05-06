@@ -49,8 +49,6 @@ public class CommuinityChest {
     private String penaltyFee (Player player){
         int money = player.getMoney();
         player.setMoney(money -= 50);
-        System.out.println(player.getMoney());
-        System.out.println("Hola1");
         return " Arca comunal \n Multa por exceso de velocidad, se paga 50";
      
     }
@@ -58,16 +56,12 @@ public class CommuinityChest {
     private String pickupPedestrian(Player player){
         int money = player.getMoney();
         player.setMoney(money += 20);
-        System.out.println(player.getMoney());
-        System.out.println("Hola2");
         return " Arca Comunal \n Recogio a un peaton, Gana 20";
     }
     //3
     private String shock (Player player){
         int money = player.getMoney();
         player.setMoney(money -= 50);
-        System.out.println(player.getMoney());
-        System.out.println("Hola3");
         return " Arca Comunal \n Gasolinera, pague 50";
         
     }
@@ -79,16 +73,13 @@ public class CommuinityChest {
     }
     //5
     private String leaveCellular (Player player){
-        System.out.println(player.getMoney());
         int money = player.getMoney();
         player.setMoney(money += 50);
-        System.out.println("Hola5");
         return " Arca Comunal \n Dejo su celular en la ultima parada, se cobra 50";
   
     }
     //6
     private String takeInCar (Player player){
-        System.out.println(player.getMoney());
         int money = player.getMoney();
         player.setMoney(money += 20); 
         return " Arca Comunal \n Lleva en Auto a un amigo, se cobra 20";
@@ -97,8 +88,6 @@ public class CommuinityChest {
     private String foreigner (Player player){
         int money = player.getMoney();
         player.setMoney(money += 20);
-        System.out.println(player.getMoney());
-        System.out.println("Hola7");
         return " Arca Comunal \n Un extrajero le pago su cuota en la cabina de peaje, se cobra 20";
     }
     //8
@@ -106,16 +95,12 @@ public class CommuinityChest {
         int players = player.getPlayerNum();
         int money = player.getMoney();
         player.setMoney(money += 10 *(players - 1));
-        System.out.println(player.getMoney());
-        System.out.println("Hola8");
         return " Arca Comunal \n Pida a sus pasajeros que cooperen un poco con la gasolina, se cobra 10 por cada jugador";
     }
     //9
     private String flatTire ( Player player){
         int money = player.getMoney();
         player.setMoney(money -= 100);
-        System.out.println(player.getMoney());
-        System.out.println("Hola9");
         return " Arca Comunal \n Llanta desinflada, pague 100"; 
         
     }
@@ -123,18 +108,13 @@ public class CommuinityChest {
     private String forgetTheHotel (Player player){
         int money = player.getMoney();
         player.setMoney(money += 100);
-        System.out.println(player.getMoney());
-        System.out.println("Hola10");
         return " Arca Comunal \n Olvide el hotel, duerma bajo las estrellas y ahorre dinero, se cobre 100"; 
 
     }
     //11
     private String searchCash (Player player){
         int money = player.getMoney();
-        
         player.setMoney(money += 10);
-        System.out.println(player.getMoney());
-        System.out.println("Hola11");
         return " Arca Comunal \n Busque efectivo en su coche, se cobra 10";
         
     }
@@ -148,8 +128,6 @@ public class CommuinityChest {
     private String forwardToOut(Player player){
         int money = player.getMoney();
         player.setMoney(money += 200);
-        System.out.println(player.getMoney());
-        System.out.println("Hola13");
         return " Arca Comunal \n Avance a la salida, se cobra 200";
         
     }
@@ -157,8 +135,6 @@ public class CommuinityChest {
     private String winTheFirstPlace (Player player){
         int money = player.getMoney();
         player.setMoney(money += 100);
-        System.out.println(player.getMoney());
-        System.out.println("Hola14");
         return " Arca Comunal \n Gano el primer lugar de un concurso de comer pastel, se cobra 100";
        
     }
@@ -167,20 +143,14 @@ public class CommuinityChest {
         int money = player.getMoney();
         int properties = player.getProperties();
         player.setMoney(money += 50 * properties);
-        System.out.println(player.getMoney());
-        System.out.println("Hola15");
-        return " Arco Comunal \n Aumento de los impuestos de propiedad, se paga 50 por cada propiedad";
+        return " Arca Comunal \n Aumento de los impuestos de propiedad, se paga 50 por cada propiedad";
         
     }
     //16
     private String thegrandmother (Player player){
         int money = player.getMoney();
-        System.out.println("Arco Comunal");
-        System.out.println("La abuela le envio un prestamo, se cobra 100");
         player.setMoney(money += 100);
-        System.out.println(player.getMoney());
-        System.out.println("Hola16");
-        return " Arco Comunal \n La abuela le envio un prestamo, se cobra 100";
+        return " Arca Comunal \n La abuela le envio un prestamo, se cobra 100";
     }
     }  
 

@@ -663,7 +663,8 @@ public class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_btnP6ActionPerformed
 
     private void ChanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChanceButtonActionPerformed
-         CommunnityChestMassage();
+        
+        CommunnityChestMassage();
     }//GEN-LAST:event_ChanceButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -672,7 +673,7 @@ public class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void CommunityChestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommunityChestButtonActionPerformed
-        // TODO add your handling code here:
+        ChanceMassage();
     }//GEN-LAST:event_CommunityChestButtonActionPerformed
 
     private void startGame() {
@@ -782,6 +783,11 @@ public class Board extends javax.swing.JFrame {
         String playerString = Util.getUtil().getBank().getCommuinityChest().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         CommunityChestButton.setContentAreaFilled(false);
         
+        JOptionPane.showMessageDialog(this,"" + playerString );
+    }
+    
+    private void ChanceMassage(){
+        String playerString = Util.getUtil().getBank().getChance().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         JOptionPane.showMessageDialog(this,"" + playerString );
     }
     /**
