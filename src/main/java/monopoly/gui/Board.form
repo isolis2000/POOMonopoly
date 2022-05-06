@@ -358,7 +358,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Caretilla.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -372,7 +371,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Perro.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -386,7 +384,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Plancha.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -400,7 +397,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Dedal.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -414,7 +410,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Sombrero.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -428,7 +423,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Vehiculo.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -442,7 +436,6 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Zapato.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -453,7 +446,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnToken9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -464,7 +456,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnToken10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -475,7 +466,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnToken11">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -486,7 +476,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnToken12">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -497,7 +486,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnToken13">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
@@ -508,7 +496,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnToken14">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Constraints>
