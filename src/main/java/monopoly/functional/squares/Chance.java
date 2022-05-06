@@ -5,7 +5,7 @@ import monopoly.functional.Player;
 public class Chance {
     
     private final int[] positions = {8, 23, 37};
-   
+    
     public String RandomCC (Player player){
         int num = (int)(Math.random()*16+1);
         String ret = "";

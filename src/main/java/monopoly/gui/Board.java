@@ -778,9 +778,11 @@ public class Board extends javax.swing.JFrame {
     } 
     
     private void CommunnityChestMassage (){
-        Util.getUtil().getBank().getCommuinityChest().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         
-        JOptionPane.showMessageDialog(this,"Detalles de Jugador" + num );
+        String playerString = Util.getUtil().getBank().getCommuinityChest().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
+        CommunityChestButton.setContentAreaFilled(false);
+        
+        JOptionPane.showMessageDialog(this,"" + playerString );
     }
     /**
      * @param args the command line arguments
