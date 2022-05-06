@@ -114,12 +114,13 @@ public class Bank {
     public void checkPosition(Player player) {
         int playerPosition = player.getPosition();
         String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
-        if (squareType.equals("Property") || squareType.equals("SpecialProperty"))
-            onProperty(player, squareType);
-        else if (squareType.equals("CommunityChest"))
-            System.out.println("CommunityChest");//Aqui su codigo de esta vara
-        else if (squareType.equals("Chance"))
-            System.out.println("Chance");//Y aqui
+        switch (squareType) {
+            case "Property", "SpecialProperty" -> onProperty(player, squareType);
+            case "CommunityChest" -> System.out.println("CommunityChest");//Aqui su codigo de esta vara
+            case "Chance" -> System.out.println("Chance");//Y aqui
+            default -> {
+            }
+        }
     }
     
     //Listas de propiedades 
