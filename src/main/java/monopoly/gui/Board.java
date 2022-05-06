@@ -767,6 +767,14 @@ public class Board extends javax.swing.JFrame {
         }
     }
     
+    public void buyPrompt() {
+        System.out.println("can buy");
+    }
+    
+    public void declareBankrupt(String playerName) {
+        System.out.println(playerName + " is bankrupt");
+    }
+    
     private void selectPlayerToEdit(int playerNum) {
         currentPlayerToEdit = btnPlayersArray[playerNum-1];
         toggleComponents(2);

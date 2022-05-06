@@ -27,8 +27,10 @@ public enum Property {
     ParkLane(350, 200, 35, 175, 500, 1100, 1300, 1500,175, 38,  "Park Lane"),
     MayFair(400, 200, 50, 200, 600, 1400, 1700, 2000,200, 40,  "May Fair");
     
-    private int price, pricePerHouse, rent, rent1House, rent2House, rent3House, rent4House, rentHotel, position, mortgage;
-    private String name;
+    private final int price, pricePerHouse, rent, rent1House, rent2House, rent3House, rent4House, rentHotel, position, mortgage;
+    private int ammountOfHouses;
+    private boolean hotel;
+    private final String name;
 
     private Property(int price, int pricePerHouse, int rent, int rent1House, int rent2House, int rent3House, int rent4House, int rentHotel,int mortgage, int position, String name ) {
         this.price = price;
@@ -42,7 +44,24 @@ public enum Property {
         this.name = name;
         this.position = position; 
         this.mortgage = mortgage; 
-        
+        ammountOfHouses = 0;
+        hotel = false;
+    }
+
+    public int getAmmountOfHouses() {
+        return ammountOfHouses;
+    }
+
+    public void setAmmountOfHouses(int ammountOfHouses) {
+        this.ammountOfHouses = ammountOfHouses;
+    }
+
+    public boolean hasHotel() {
+        return hotel;
+    }
+
+    public void setHotel(boolean hotel) {
+        this.hotel = hotel;
     }
 
     public static Property getOldKentRd() {
@@ -58,7 +77,18 @@ public enum Property {
     }
 
     public int getRent() {
-        return rent;
+        int retValue = 0;
+        if (hasHotel())
+            retValue = rentHotel;
+        else
+            switch (ammountOfHouses) {
+                case 0 -> retValue = rent;
+                case 1 -> retValue = rent1House;
+                case 2 -> retValue = rent2House;
+                case 3 -> retValue = rent3House;
+                case 4 -> retValue = rent4House;
+            }
+        return retValue;
     }
 
     public int getRent1House() {
