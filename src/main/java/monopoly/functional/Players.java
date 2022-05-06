@@ -39,8 +39,8 @@ public class Players {
     public void movePlayer(int moved) {
         Player player = getPlayerTurn();
         player.addToPosition(moved);
-        
         player.setTurn(false);
+        getNextPlayer(player).setTurn(true);
         
     }
     
@@ -49,6 +49,14 @@ public class Players {
             if (p.isTurn())
                 return p;
         return null;
+    }
+    
+    private Player getNextPlayer(Player player) {
+        int index = playerList.indexOf(player);
+        if (index + 1 == playerList.size())
+            return playerList.get(0);
+        else
+            return playerList.get(index+1);
     }
     
     public String getPlayerTurnName() {
