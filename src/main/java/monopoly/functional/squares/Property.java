@@ -1,7 +1,5 @@
 package monopoly.functional.squares;
 
-import monopoly.functional.Player;
-
 public enum Property {
     
     OldKentRd(60, 50, 2, 10, 30, 90, 160,250, 30, 2, "Old Kent RD"),

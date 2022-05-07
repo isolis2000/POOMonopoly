@@ -1,7 +1,6 @@
 package monopoly.functional.squares;
 
 import java.util.ArrayList;
-import monopoly.functional.squares.Property;
 import java.util.HashMap;
 import java.util.Map;
 import monopoly.functional.Player;
@@ -186,8 +185,9 @@ public class Bank {
         } else {
             if (squareType.equals("Property")) {
                 Property property = getPropertyByPosition(playerPosition);
+                int rent = property.getRent();
 //                Util.getUtil().getBoard().rentPrompt(player, property.getName(), property.getPrice());
-                pay(player, secondPlayer, property.getRent());
+                pay(player, secondPlayer, rent);
             } else if (squareType.equals("SpecialProperty")) {
                 SpecialProperty specialProperty = getSpecialPropertyByPosition(playerPosition);
 //                Util.getUtil().getBoard().buyPrompt(player, specialProperty.getName(), specialProperty.getPrice());
