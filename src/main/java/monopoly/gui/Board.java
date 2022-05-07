@@ -291,61 +291,48 @@ public class Board extends javax.swing.JFrame {
         pnlStartGameOptions.add(btnToken1, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 82, 50, 50));
 
         btnToken2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Caretilla.png"))); // NOI18N
-        btnToken2.setText("jButton1");
         btnToken2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken2, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 82, 50, 50));
 
         btnToken3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Perro.png"))); // NOI18N
-        btnToken3.setText("jButton1");
         btnToken3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken3, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 82, 50, 50));
 
         btnToken4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Plancha.png"))); // NOI18N
-        btnToken4.setText("jButton1");
         btnToken4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken4, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 82, 50, 50));
 
         btnToken5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Dedal.png"))); // NOI18N
-        btnToken5.setText("jButton1");
         btnToken5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken5, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 137, 50, 50));
 
         btnToken6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sombrero.png"))); // NOI18N
-        btnToken6.setText("jButton1");
         btnToken6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken6, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 137, 50, 50));
 
         btnToken7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vehiculo.png"))); // NOI18N
-        btnToken7.setText("jButton1");
         btnToken7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken7, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 137, 50, 50));
 
         btnToken8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Zapato.png"))); // NOI18N
-        btnToken8.setText("jButton1");
         btnToken8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken8, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 137, 50, 50));
 
-        btnToken9.setText("jButton1");
         btnToken9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken9, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 192, 50, 50));
 
-        btnToken10.setText("jButton1");
         btnToken10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken10, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 192, 50, 50));
 
-        btnToken11.setText("jButton1");
         btnToken11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken11, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 192, 50, 50));
 
-        btnToken12.setText("jButton1");
         btnToken12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken12, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 192, 50, 50));
 
-        btnToken13.setText("jButton1");
         btnToken13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken13, new org.netbeans.lib.awtextra.AbsoluteConstraints(334, 247, 50, 50));
 
-        btnToken14.setText("jButton1");
         btnToken14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlStartGameOptions.add(btnToken14, new org.netbeans.lib.awtextra.AbsoluteConstraints(389, 247, 50, 50));
 
@@ -810,10 +797,18 @@ public class Board extends javax.swing.JFrame {
         String buyPromptStr = "La propiedad " + propertyName + " tiene un precio de " + propertyPrice + ".\n¿Desea comprarla?";
         if (JOptionPane.showConfirmDialog(null, buyPromptStr, "Confirmacion de compra de propiedad",
         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            player.buyProperty(propertyName);
+            player.buyProperty(propertyName, propertyPrice);
         } else {
             System.out.println("no compro");
         }
+    }
+    
+    public void noMoneyPrompt() {
+        System.out.println("no money");
+    }
+    
+    public void passByGoPrompt() {
+        System.out.println("passed by go");
     }
     
     public void rentPrompt() {

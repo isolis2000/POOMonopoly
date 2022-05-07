@@ -17,7 +17,7 @@ public class Player implements Comparable<Player> {
         this.name = playerName;
         turn = false;
         position = 1;
-        money = 700;
+        money = 1500;
         properties = 0;
         this.button.setVisible(true);
     }
@@ -54,8 +54,11 @@ public class Player implements Comparable<Player> {
 
     public void addToPosition(int moved) {
         position += moved;
-        if (position > 40)
+        if (position > 40) {
             position -= 40;
+            money += 200;
+            Util.getUtil().getBoard().passByGoPrompt();
+        }
         int[] arr = Util.getUtil().getPlayerPositions().get(position);
         button.setLocation(arr[0], arr[1]);
 //        checkPosition();
@@ -97,9 +100,14 @@ public class Player implements Comparable<Player> {
         this.money = money;
     }
     
-    public void buyProperty(String propertyName) {
-        properties ++;
-        Util.getUtil().getBank().buyProperty(this, propertyName);
+    public void buyProperty(String propertyName, int price) {
+        if (price <= money) {
+            properties ++;
+            money -= price;
+            Util.getUtil().getBank().buyProperty(this, propertyName);
+        } else {
+            Util.getUtil().getBoard().noMoneyPrompt();
+        }
     }
     
     @Override
@@ -108,7 +116,7 @@ public class Player implements Comparable<Player> {
         String playerProperties = "";
         for (String s : playerPropertiesArr)
             playerProperties += "- " + s + "\n";
-        String retStr = "Jugador " + name + " tiene " + properties + " propiedades a su nombre\n"
+        String retStr = "Jugador " + name + " tiene $" + money + " en el banco y " + properties + " propiedades a su nombre\n"
                 + playerProperties;
         return retStr;
     }
