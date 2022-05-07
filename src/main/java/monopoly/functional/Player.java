@@ -64,8 +64,8 @@ public class Player implements Comparable<Player> {
 //        checkPosition();
     }
     
-    public void checkPosition() {
-        Util.getUtil().getBank().checkPosition(this);
+    public void checkPosition(int diceResult) {
+        Util.getUtil().getBank().checkPosition(this, diceResult);
     }
 
     public JButton getButton() {
@@ -98,6 +98,20 @@ public class Player implements Comparable<Player> {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+    
+    public void payUp(int moneyToPay, Player payee) {
+        System.out.println("--------------------------------------------------------------------------------------------- payUp");
+        if (moneyToPay > money) {
+            Util.getUtil().getBank().transferProperties(this, payee);
+            Util.getUtil().getPlayers().declarePlayerBankrupt(this);
+            System.out.println("Player " + name + " transfer the properties to player " + payee.getName());
+        }
+        else {
+            money -= moneyToPay;
+            payee.setMoney(payee.getMoney() + moneyToPay);
+            System.out.println("Player " + name + " pays " + moneyToPay + " to player " + payee.getName());
+        }
     }
     
     public void buyProperty(String propertyName, int price) {

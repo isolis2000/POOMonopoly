@@ -39,7 +39,7 @@ public class Players {
     public void movePlayer(int moved) {
         Player player = getPlayerTurn();
         player.addToPosition(moved);
-        player.checkPosition();
+        player.checkPosition(moved);
         player.setTurn(false);
         getNextPlayer(player).setTurn(true);
         
