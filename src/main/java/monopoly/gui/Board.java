@@ -6,9 +6,17 @@ package monopoly.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -58,6 +66,7 @@ public class Board extends javax.swing.JFrame {
         btnP4 = new javax.swing.JButton();
         btnP5 = new javax.swing.JButton();
         btnP6 = new javax.swing.JButton();
+        EEClown = new javax.swing.JButton();
         CommunityChestButton = new javax.swing.JButton();
         ChanceButton = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -159,6 +168,15 @@ public class Board extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
+
+        EEClown.setBorderPainted(false);
+        EEClown.setOpaque(false);
+        EEClown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EEClownActionPerformed(evt);
+            }
+        });
+        jPanel1.add(EEClown, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, 20, 20));
 
         CommunityChestButton.setBorder(null);
         CommunityChestButton.setBorderPainted(false);
@@ -665,6 +683,7 @@ public class Board extends javax.swing.JFrame {
     private void ChanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChanceButtonActionPerformed
         
         CommunnityChestMassage();
+        disableButton();
     }//GEN-LAST:event_ChanceButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -674,8 +693,26 @@ public class Board extends javax.swing.JFrame {
 
     private void CommunityChestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommunityChestButtonActionPerformed
         ChanceMassage();
+        
+        
     }//GEN-LAST:event_CommunityChestButtonActionPerformed
 
+    private void EEClownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EEClownActionPerformed
+        EESound("C:\\Users\\ANTONY\\Desktop\\POOMonopoly\\POOMonopoly\\src\\main\\resources\\Sounds\\EEsound.wav");
+    }//GEN-LAST:event_EEClownActionPerformed
+                                                                         
+    
+    public void EESound(String sound){
+       try {
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(sound).getAbsoluteFile());
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
+       } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+         System.out.println("Error al reproducir el sonido.");
+       }
+     }
+    
     private void startGame() {
         JButton[] buttons = new JButton[numOfPlayers];
         String[] playerNames = new String[numOfPlayers];
@@ -809,6 +846,11 @@ public class Board extends javax.swing.JFrame {
         String playerString = Util.getUtil().getBank().getChance().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         JOptionPane.showMessageDialog(this,"" + playerString );
     }
+    
+    private void disableButton (){
+        
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -848,6 +890,7 @@ public class Board extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ChanceButton;
     private javax.swing.JButton CommunityChestButton;
+    private javax.swing.JButton EEClown;
     private javax.swing.JButton btnDice;
     private javax.swing.JButton btnEditPlayer1;
     private javax.swing.JButton btnEditPlayer2;
