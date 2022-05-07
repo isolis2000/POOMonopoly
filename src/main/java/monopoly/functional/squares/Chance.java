@@ -1,7 +1,6 @@
 package monopoly.functional.squares;
 
 import monopoly.functional.Player;
-import monopoly.functional.Util;
 
 public class Chance {
     

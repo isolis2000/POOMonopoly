@@ -5,13 +5,8 @@
 package monopoly.gui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -21,9 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import monopoly.functional.Player;
-import monopoly.functional.Players;
 import monopoly.functional.Util;
-import monopoly.functional.squares.CommuinityChest;
 
 /**
  *
