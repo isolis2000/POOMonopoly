@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import monopoly.functional.Player;
+
 import monopoly.functional.Players;
 import monopoly.functional.Util;
 import monopoly.functional.squares.CommuinityChest;
@@ -29,7 +30,7 @@ import monopoly.functional.squares.CommuinityChest;
  *
  * @author ivan
  */
-public class Board extends javax.swing.JFrame {
+public final class Board extends javax.swing.JFrame {
     
     private JButton[] btnPlayersArray, btnEditsArray, btnTokensArray;
     private JTextField[] playerNamesArray;
@@ -37,7 +38,7 @@ public class Board extends javax.swing.JFrame {
     private boolean gameStarted = false;
     private JButton currentPlayerToEdit;
     private int numOfPlayers;
-
+    
     /**
      * Creates new form Tablero
      */
@@ -48,6 +49,9 @@ public class Board extends javax.swing.JFrame {
         toggleComponents(0);
         numOfPlayers = numOfPlayers = Integer.parseInt(txfNumOfPlayers.getText());
         Util.getUtil().setBoard(this);
+        toggleComponents(8);
+        toggleComponents(7);
+        
     }
 
     /**
@@ -67,8 +71,8 @@ public class Board extends javax.swing.JFrame {
         btnP5 = new javax.swing.JButton();
         btnP6 = new javax.swing.JButton();
         EEClown = new javax.swing.JButton();
-        CommunityChestButton = new javax.swing.JButton();
-        ChanceButton = new javax.swing.JButton();
+        btnCommunityChest = new javax.swing.JButton();
+        btnChance = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
         pnlStartGameOptions = new javax.swing.JPanel();
         lblAmmountOfPlayers = new javax.swing.JLabel();
@@ -106,7 +110,7 @@ public class Board extends javax.swing.JFrame {
         btnEditPlayer6 = new javax.swing.JButton();
         txfEditPlayer5 = new javax.swing.JTextField();
         txfEditPlayer6 = new javax.swing.JTextField();
-        txfDiceResult = new javax.swing.JTextField();
+        txfDiceResult1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
 
@@ -178,25 +182,25 @@ public class Board extends javax.swing.JFrame {
         });
         jPanel1.add(EEClown, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, 20, 20));
 
-        CommunityChestButton.setBorder(null);
-        CommunityChestButton.setBorderPainted(false);
-        CommunityChestButton.setOpaque(false);
-        CommunityChestButton.addActionListener(new java.awt.event.ActionListener() {
+        btnCommunityChest.setBorder(null);
+        btnCommunityChest.setBorderPainted(false);
+        btnCommunityChest.setOpaque(false);
+        btnCommunityChest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CommunityChestButtonActionPerformed(evt);
+                btnCommunityChestActionPerformed(evt);
             }
         });
-        jPanel1.add(CommunityChestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 185, 160, 150));
+        jPanel1.add(btnCommunityChest, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 185, 160, 150));
 
-        ChanceButton.setBorder(null);
-        ChanceButton.setBorderPainted(false);
-        ChanceButton.setOpaque(false);
-        ChanceButton.addActionListener(new java.awt.event.ActionListener() {
+        btnChance.setBorder(null);
+        btnChance.setBorderPainted(false);
+        btnChance.setOpaque(false);
+        btnChance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChanceButtonActionPerformed(evt);
+                btnChanceActionPerformed(evt);
             }
         });
-        jPanel1.add(ChanceButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 630, 130, 130));
+        jPanel1.add(btnChance, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 630, 130, 130));
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/boardEdit.png"))); // NOI18N
         lblBackground.setText("jLabel2");
@@ -480,20 +484,20 @@ public class Board extends javax.swing.JFrame {
         });
         pnlStartGameOptions.add(txfEditPlayer6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 250, -1));
 
-        txfDiceResult.setEditable(false);
-        txfDiceResult.setBackground(new java.awt.Color(204, 227, 199));
-        txfDiceResult.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        txfDiceResult.setForeground(new java.awt.Color(0, 0, 0));
-        txfDiceResult.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txfDiceResult.setText("2");
-        txfDiceResult.setBorder(null);
-        txfDiceResult.setFocusable(false);
-        txfDiceResult.addActionListener(new java.awt.event.ActionListener() {
+        txfDiceResult1.setEditable(false);
+        txfDiceResult1.setBackground(new java.awt.Color(204, 227, 199));
+        txfDiceResult1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        txfDiceResult1.setForeground(new java.awt.Color(0, 0, 0));
+        txfDiceResult1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfDiceResult1.setText("2");
+        txfDiceResult1.setBorder(null);
+        txfDiceResult1.setFocusable(false);
+        txfDiceResult1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txfDiceResultActionPerformed(evt);
+                txfDiceResult1ActionPerformed(evt);
             }
         });
-        pnlStartGameOptions.add(txfDiceResult, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 20, 24));
+        pnlStartGameOptions.add(txfDiceResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 20, 24));
 
         jPanel1.add(pnlStartGameOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 0, 560, 350));
 
@@ -643,10 +647,6 @@ public class Board extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnToken1ActionPerformed
 
-    private void txfDiceResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResultActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txfDiceResultActionPerformed
-
     private void btnP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP2ActionPerformed
         showPlayerData(2);
     }//GEN-LAST:event_btnP2ActionPerformed
@@ -667,26 +667,36 @@ public class Board extends javax.swing.JFrame {
         showPlayerData(6);
     }//GEN-LAST:event_btnP6ActionPerformed
 
-    private void ChanceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChanceButtonActionPerformed
+    private void btnChanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChanceActionPerformed
+        ChanceMassage();
+        toggleComponents(8);
         
-        CommunnityChestMassage();
-        disableButton();
-    }//GEN-LAST:event_ChanceButtonActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_btnChanceActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void CommunityChestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CommunityChestButtonActionPerformed
-        ChanceMassage();
+    private void btnCommunityChestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityChestActionPerformed
+        
+        CommunnityChestMassage();
+        toggleComponents(7);
         
         
-    }//GEN-LAST:event_CommunityChestButtonActionPerformed
+        
+    }//GEN-LAST:event_btnCommunityChestActionPerformed
 
     private void EEClownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EEClownActionPerformed
         EESound("C:\\Users\\ANTONY\\Desktop\\POOMonopoly\\POOMonopoly\\src\\main\\resources\\Sounds\\EEsound.wav");
     }//GEN-LAST:event_EEClownActionPerformed
+
+    private void txfDiceResult1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResult1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfDiceResult1ActionPerformed
                                                                          
     
     public void EESound(String sound){
@@ -741,7 +751,7 @@ public class Board extends javax.swing.JFrame {
         return true;
     }
     
-    private void toggleComponents(int procedure) {
+    public void toggleComponents(int procedure) {
         switch (procedure) {
             case 0 -> {
                 //initial toggles
@@ -756,7 +766,8 @@ public class Board extends javax.swing.JFrame {
                 txfPlayerTurn.setVisible(false);
                 btnStart.setVisible(false);
                 lblTurn.setVisible(false);
-                txfDiceResult.setVisible(false);
+                txfDiceResult1.setVisible(false);
+                
             }
             case 1 -> {
                 //After number of players is selected
@@ -785,7 +796,19 @@ public class Board extends javax.swing.JFrame {
                 btnDice.setVisible(true);
                 txfPlayerTurn.setVisible(true);
                 lblTurn.setVisible(true);
-                txfDiceResult.setVisible(true);
+                txfDiceResult1.setVisible(true);
+            }
+            case 5 -> {
+                btnCommunityChest.setVisible(true);
+            }
+            case 6 -> {
+                btnChance.setVisible(true);
+            }
+            case 7 -> {
+                btnCommunityChest.setVisible(false);
+            }
+            case 8 -> {
+                btnChance.setVisible(false);
             }
             default -> {
             }
@@ -832,7 +855,7 @@ public class Board extends javax.swing.JFrame {
     private void CommunnityChestMassage (){
         
         String playerString = Util.getUtil().getBank().getCommuinityChest().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
-        CommunityChestButton.setContentAreaFilled(false);
+        btnCommunityChest.setContentAreaFilled(false);
         
         JOptionPane.showMessageDialog(this,"" + playerString );
     }
@@ -842,10 +865,13 @@ public class Board extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this,"" + playerString );
     }
     
-    private void disableButton (){
+    
+    
+    //private void disableButton (Player player){
         
         
-    }
+        
+    
     /**
      * @param args the command line arguments
      */
@@ -883,9 +909,9 @@ public class Board extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ChanceButton;
-    private javax.swing.JButton CommunityChestButton;
     private javax.swing.JButton EEClown;
+    private javax.swing.JButton btnChance;
+    private javax.swing.JButton btnCommunityChest;
     private javax.swing.JButton btnDice;
     private javax.swing.JButton btnEditPlayer1;
     private javax.swing.JButton btnEditPlayer2;
@@ -924,7 +950,7 @@ public class Board extends javax.swing.JFrame {
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblTurn;
     private javax.swing.JPanel pnlStartGameOptions;
-    private javax.swing.JTextField txfDiceResult;
+    private javax.swing.JTextField txfDiceResult1;
     private javax.swing.JTextField txfEditPlayer1;
     private javax.swing.JTextField txfEditPlayer2;
     private javax.swing.JTextField txfEditPlayer3;

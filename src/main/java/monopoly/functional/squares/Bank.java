@@ -204,13 +204,17 @@ public class Bank {
         switch (squareType) {
             case "Property", "SpecialProperty" ->
                 onProperty(player, squareType, playerPosition, diceResult);
-            case "CommunityChest" ->
-                System.out.println("CommunityChest");//Aqui su codigo de esta vara
-            case "Chance" ->
-                System.out.println("Chance");//Y aqui
+            case "CommunityChest" -> String(); //Aqui su codigo de esta vara
+            case "Chance" -> 
+                Util.getUtil().getBoard().toggleComponents(6);//Y aqui
             default -> {
             }
         }
+    }
+    
+    private void String(){
+        Util.getUtil().getBoard().toggleComponents(5);
+        System.out.println("Community Chest");
     }
 
     //Listas de propiedades 

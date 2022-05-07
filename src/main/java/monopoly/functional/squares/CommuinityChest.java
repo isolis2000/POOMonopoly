@@ -58,8 +58,6 @@ public class CommuinityChest {
     private String pickupPedestrian(Player player){
         int money = player.getMoney();
         player.setMoney(money += 20);
-        HashMap<Integer, int[]> position = Util.getUtil().getPlayerPositions();
-        System.out.println(position + "hola");
         return " Arca Comunal \n Recogio a un peaton, Gana 20";
     }
     //3
