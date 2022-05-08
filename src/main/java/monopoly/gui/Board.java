@@ -25,14 +25,14 @@ import monopoly.functional.Util;
  * @author ivan
  */
 public final class Board extends javax.swing.JFrame {
-    
+
     private JButton[] btnPlayersArray, btnEditsArray, btnTokensArray;
     private JTextField[] playerNamesArray;
 //    private ArrayList<Integer> initialDice;
     private boolean gameStarted = false;
     private JButton currentPlayerToEdit;
     private int numOfPlayers;
-    
+
     /**
      * Creates new form Tablero
      */
@@ -45,7 +45,7 @@ public final class Board extends javax.swing.JFrame {
         Util.getUtil().setBoard(this);
         toggleComponents(8);
         toggleComponents(7);
-        
+
     }
 
     /**
@@ -572,25 +572,25 @@ public final class Board extends javax.swing.JFrame {
         toggleComponents(1);
         JOptionPane.showMessageDialog(this, "Para comenzar el juego, todos deben tener una ficha para jugar, "
                 + "para definir la ficha solo haga click en editar y escoja una de las opciones."
-                + "Adicionalmente, puede modificar el nombre a gusto.","Inicio", JOptionPane.INFORMATION_MESSAGE);
+                + "Adicionalmente, puede modificar el nombre a gusto.", "Inicio", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnSelectNumOfPlayersActionPerformed
 
     private void btnPlusNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusNumOfPlayersActionPerformed
         numOfPlayers += 1;
         txfNumOfPlayers.setText(Integer.toString(numOfPlayers));
         if (numOfPlayers < 2 || numOfPlayers > 6)
-        btnSelectNumOfPlayers.setVisible(false);
+            btnSelectNumOfPlayers.setVisible(false);
         else if (!btnSelectNumOfPlayers.isVisible())
-        btnSelectNumOfPlayers.setVisible(true);
+            btnSelectNumOfPlayers.setVisible(true);
     }//GEN-LAST:event_btnPlusNumOfPlayersActionPerformed
 
     private void btnMinusNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusNumOfPlayersActionPerformed
         numOfPlayers -= 1;
         txfNumOfPlayers.setText(Integer.toString(numOfPlayers));
         if (numOfPlayers < 2 || numOfPlayers > 6)
-        btnSelectNumOfPlayers.setVisible(false);
+            btnSelectNumOfPlayers.setVisible(false);
         else if (!btnSelectNumOfPlayers.isVisible())
-        btnSelectNumOfPlayers.setVisible(true);
+            btnSelectNumOfPlayers.setVisible(true);
     }//GEN-LAST:event_btnMinusNumOfPlayersActionPerformed
 
     private void txfNumOfPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNumOfPlayersActionPerformed
@@ -599,16 +599,16 @@ public final class Board extends javax.swing.JFrame {
 
     private void btnDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiceActionPerformed
         int res = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
-        if (res == 30){
+        if (res == 30) {
             Util.getUtil().getPlayers().movePlayer(10);
             txfPlayerTurn.setText(Integer.toString(10));
             txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
-        }else {
-        Util.getUtil().getPlayers().movePlayer(res);
-        txfPlayerTurn.setText(Integer.toString(res));
-        txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
+        } else {
+            Util.getUtil().getPlayers().movePlayer(res);
+            txfPlayerTurn.setText(Integer.toString(res));
+            txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
         }
-        
+
     }//GEN-LAST:event_btnDiceActionPerformed
 
     private void btnEditPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer1ActionPerformed
@@ -658,24 +658,21 @@ public final class Board extends javax.swing.JFrame {
     private void btnChanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChanceActionPerformed
         ChanceMassage();
         toggleComponents(8);
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnChanceActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnCommunityChestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityChestActionPerformed
-        
+
         CommunnityChestMassage();
         toggleComponents(7);
-        
-        
-        
+
+
     }//GEN-LAST:event_btnCommunityChestActionPerformed
 
     private void EEClownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EEClownActionPerformed
@@ -685,19 +682,18 @@ public final class Board extends javax.swing.JFrame {
     private void txfDiceResult1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResult1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfDiceResult1ActionPerformed
-                                                                         
-    
-    public void EESound(String sound){
-       try {
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(sound).getAbsoluteFile());
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.start();
-       } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-         System.out.println("Error al reproducir el sonido.");
-       }
-     }
-    
+
+    public void EESound(String sound) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(sound).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            System.out.println("Error al reproducir el sonido.");
+        }
+    }
+
     private void startGame() {
         JButton[] buttons = new JButton[numOfPlayers];
         String[] playerNames = new String[numOfPlayers];
@@ -708,37 +704,40 @@ public final class Board extends javax.swing.JFrame {
         Util.getUtil().getPlayers().initPlayers(numOfPlayers, buttons, playerNames);
         gameStarted = true;
     }
-    
+
     private void initArrays() {
-        btnPlayersArray = new JButton[] {btnP1, btnP2, btnP3, btnP4, btnP5, btnP6};
-        playerNamesArray = new JTextField[] {txfEditPlayer1, txfEditPlayer2, txfEditPlayer3,
+        btnPlayersArray = new JButton[]{btnP1, btnP2, btnP3, btnP4, btnP5, btnP6};
+        playerNamesArray = new JTextField[]{txfEditPlayer1, txfEditPlayer2, txfEditPlayer3,
             txfEditPlayer4, txfEditPlayer5, txfEditPlayer6};
-        btnEditsArray = new JButton[] {btnEditPlayer1, btnEditPlayer2, btnEditPlayer3,
+        btnEditsArray = new JButton[]{btnEditPlayer1, btnEditPlayer2, btnEditPlayer3,
             btnEditPlayer4, btnEditPlayer5, btnEditPlayer6};
-        btnTokensArray = new JButton[] {btnToken1, btnToken2, btnToken3, btnToken4,
+        btnTokensArray = new JButton[]{btnToken1, btnToken2, btnToken3, btnToken4,
             btnToken5, btnToken6, btnToken7, btnToken8, btnToken9, btnToken10, btnToken11,
             btnToken12, btnToken13, btnToken14};
     }
-    
+
     private void initButtonCommands() {
         for (JButton jb : btnTokensArray) {
-             jb.addActionListener((ActionEvent ae) -> {
-                currentPlayerToEdit.setIcon(((JButton)ae.getSource()).getIcon());
+            jb.addActionListener((ActionEvent ae) -> {
+                currentPlayerToEdit.setIcon(((JButton) ae.getSource()).getIcon());
                 currentPlayerToEdit.setOpaque(false);
                 toggleComponents(3);
-                if (isGameReadyToStart())
+                if (isGameReadyToStart()) {
                     btnStart.setVisible(true);
+                }
             });
         }
     }
-    
+
     private boolean isGameReadyToStart() {
-        for (int i = 0; i < numOfPlayers; i++)
-            if (btnPlayersArray[i].getIcon() == null)
+        for (int i = 0; i < numOfPlayers; i++) {
+            if (btnPlayersArray[i].getIcon() == null) {
                 return false;
+            }
+        }
         return true;
     }
-    
+
     public void toggleComponents(int procedure) {
         switch (procedure) {
             case 0 -> {
@@ -747,15 +746,16 @@ public final class Board extends javax.swing.JFrame {
                     btnPlayersArray[i].setVisible(false);
                     playerNamesArray[i].setVisible(false);
                     btnEditsArray[i].setVisible(false);
-                }   
-                for (JButton jb : btnTokensArray)
+                }
+                for (JButton jb : btnTokensArray) {
                     jb.setVisible(false);
+                }
                 btnDice.setVisible(false);
                 txfPlayerTurn.setVisible(false);
                 btnStart.setVisible(false);
                 lblTurn.setVisible(false);
                 txfDiceResult1.setVisible(false);
-                
+
             }
             case 1 -> {
                 //After number of players is selected
@@ -771,13 +771,15 @@ public final class Board extends javax.swing.JFrame {
             }
             case 2 -> {
                 //Edit a player
-                for (JButton jb : btnTokensArray)
+                for (JButton jb : btnTokensArray) {
                     jb.setVisible(true);
+                }
             }
             case 3 -> {
                 //Finish editing a player
-                for (JButton jb : btnTokensArray)
+                for (JButton jb : btnTokensArray) {
                     jb.setVisible(false);
+                }
             }
             case 4 -> {
                 //Start game
@@ -802,64 +804,63 @@ public final class Board extends javax.swing.JFrame {
             }
         }
     }
-    
+
     public void buyPrompt(Player player, String propertyName, int propertyPrice) {
         System.out.println("can buy");
         String buyPromptStr = "La propiedad " + propertyName + " tiene un precio de " + propertyPrice + ".\n¿Desea comprarla?";
-        if (JOptionPane.showConfirmDialog(null, buyPromptStr, "Confirmacion de compra de propiedad",
-        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, buyPromptStr, "Confirmacion de compra de propiedad",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             player.buyProperty(propertyName, propertyPrice);
         } else {
             System.out.println("no compro");
         }
     }
-    
+
     public void noMoneyPrompt() {
         System.out.println("no money");
     }
-    
+
     public void passByGoPrompt() {
         System.out.println("passed by go");
     }
-    
-    public void rentPrompt() {
-        System.out.println("pague compa");
+
+    public void rentPrompt(String payerName, String payeeName, int ammount) {
+        String str = "Jugador " + payerName + " se encuentra en una "
+                + "propiedad que le pertenece al jugador " + payeeName
+                + " por lo que se le cobra un total de " + ammount + " por su estadia";
+        JOptionPane.showMessageDialog(this, str, "Rent Prompt", JOptionPane.INFORMATION_MESSAGE);
     }
-    
-    public void declareBankrupt(String playerName) {
-        System.out.println(playerName + " is bankrupt");
+
+    public void declareBankrupt(String playerName, String payeeName) {
+        String str = "Jugador " + playerName + " no pudo pagar su deuda al jugador " 
+                + payeeName + " todas sus propiedades seran transferidas como compensacion";
+        JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     private void selectPlayerToEdit(int playerNum) {
-        currentPlayerToEdit = btnPlayersArray[playerNum-1];
+        currentPlayerToEdit = btnPlayersArray[playerNum - 1];
         toggleComponents(2);
     }
-    
+
     private void showPlayerData(int playerNum) {
         String playerString = Util.getUtil().getPlayers().getPlayerString(playerNum);
-        JOptionPane.showMessageDialog(this, playerString,"Detalles de Jugador", JOptionPane.INFORMATION_MESSAGE);
-    } 
-    
-    private void CommunnityChestMassage (){
-        
+        JOptionPane.showMessageDialog(this, playerString, "Detalles de Jugador", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void CommunnityChestMassage() {
+
         String playerString = Util.getUtil().getBank().getCommuinityChest().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         btnCommunityChest.setContentAreaFilled(false);
-        
-        JOptionPane.showMessageDialog(this,"" + playerString );
+
+        JOptionPane.showMessageDialog(this, "" + playerString);
     }
-    
-    private void ChanceMassage(){
+
+    private void ChanceMassage() {
         String playerString = Util.getUtil().getBank().getChance().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
-        JOptionPane.showMessageDialog(this,"" + playerString );
+        JOptionPane.showMessageDialog(this, "" + playerString);
     }
-    
-    
-    
+
     //private void disableButton (Player player){
-        
-        
-        
-    
     /**
      * @param args the command line arguments
      */

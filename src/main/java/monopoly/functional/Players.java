@@ -49,7 +49,6 @@ public class Players {
     
     public void declarePlayerBankrupt(Player player) {
         playerList.remove(player);
-        Util.getUtil().getBoard().declareBankrupt(player.getName());
     }
     
     public Player getPlayerTurn() {
