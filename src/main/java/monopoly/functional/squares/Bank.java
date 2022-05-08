@@ -3,6 +3,7 @@ package monopoly.functional.squares;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import monopoly.functional.Player;
 import monopoly.functional.Util;
 
@@ -67,6 +68,7 @@ public class Bank {
             if (pos == position) {
                 return "Chance";
             }
+        
         }
 
         return "-1";
@@ -201,7 +203,11 @@ public class Bank {
     //controls what happens after a player moves
     public void checkPosition(Player player, int diceResult) {
         int playerPosition = player.getPosition();
+        System.out.println("Position = " + playerPosition);
         String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
+        if (playerPosition == 31){
+            squareType = "GoTOJail";
+        }
         System.out.println("squareType = " + squareType);
         switch (squareType) {
             case "Property", "SpecialProperty" ->
@@ -209,6 +215,7 @@ public class Bank {
             case "CommunityChest" -> String(player); //Aqui su codigo de esta vara
             case "Chance" -> 
                 Util.getUtil().getBoard().toggleComponents(6);//Y aqui
+            case "GoTOJail" -> GoToJail(playerPosition);
             default -> {
             }
         }
@@ -229,6 +236,12 @@ public class Bank {
 
     public Chance getChance() {
         return chance;
+    }
+    
+    public void GoToJail(int position){
+        JOptionPane.showMessageDialog(null, "Vaya a la carcel");
+        position = 21;
+        Util.getUtil().getPlayers().movePlayer(position);
     }
 
 }

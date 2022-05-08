@@ -38,7 +38,8 @@ public class Players {
         Collections.sort(playerList);
     }
     
-    public void movePlayer(int moved) {
+    public void movePlayer(int moved) 
+    {
         Player player = getPlayerTurn();
         player.addToPosition(moved);
         player.setTurn(false);

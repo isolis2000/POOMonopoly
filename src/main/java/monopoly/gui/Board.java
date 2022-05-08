@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import monopoly.functional.Player;
 
+
 import monopoly.functional.Players;
 import monopoly.functional.Util;
 
@@ -110,8 +111,10 @@ public final class Board extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1080, 1080));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 227, 199));
+        jPanel1.setMinimumSize(new java.awt.Dimension(550, 400));
         jPanel1.setLayout(null);
 
         btnP1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -534,7 +537,7 @@ public final class Board extends javax.swing.JFrame {
         jPanel1.add(jButton2);
         jButton2.setBounds(650, 630, 130, 130);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1554, 974));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -611,6 +614,11 @@ public final class Board extends javax.swing.JFrame {
 
     private void btnDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiceActionPerformed
         int res = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
+        txfDiceResult1.setText(Integer.toString(res));
+        System.out.println("El resultado del dado dio: " + res);
+        System.out.println("res " + res);
+        
+        
         if (res == 30) {
             Util.getUtil().getPlayers().movePlayer(10);
             txfPlayerTurn.setText(Integer.toString(10));
@@ -620,6 +628,8 @@ public final class Board extends javax.swing.JFrame {
             txfPlayerTurn.setText(Integer.toString(res));
             txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
         }
+        
+      
 
     }//GEN-LAST:event_btnDiceActionPerformed
 
@@ -871,6 +881,9 @@ public final class Board extends javax.swing.JFrame {
         String playerString = Util.getUtil().getBank().getChance().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         JOptionPane.showMessageDialog(this, "" + playerString);
     }
+    
+    
+ 
 
     //private void disableButton (Player player){
     /**
