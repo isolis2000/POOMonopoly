@@ -10,6 +10,7 @@ public class Player implements Comparable<Player> {
     private boolean turn;
     private final String name;
     
+    
 
     public Player(int playerNum, JButton button, String playerName) {
         this.playerNum = playerNum;

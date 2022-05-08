@@ -15,6 +15,7 @@ public class Util {
     private Board board;
     private final Players players = new Players();
 
+
     public Util() {
         initPlayerPositions();
     }

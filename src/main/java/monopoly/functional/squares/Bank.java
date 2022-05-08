@@ -68,6 +68,7 @@ public class Bank {
                 return "Chance";
             }
         }
+
         return "-1";
     }
 
@@ -201,10 +202,11 @@ public class Bank {
     public void checkPosition(Player player, int diceResult) {
         int playerPosition = player.getPosition();
         String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
+        System.out.println("squareType = " + squareType);
         switch (squareType) {
             case "Property", "SpecialProperty" ->
                 onProperty(player, squareType, playerPosition, diceResult);
-            case "CommunityChest" -> String(); //Aqui su codigo de esta vara
+            case "CommunityChest" -> String(player); //Aqui su codigo de esta vara
             case "Chance" -> 
                 Util.getUtil().getBoard().toggleComponents(6);//Y aqui
             default -> {
@@ -212,9 +214,11 @@ public class Bank {
         }
     }
     
-    private void String(){
+    private void String(Player player){
         Util.getUtil().getBoard().toggleComponents(5);
         System.out.println("Community Chest");
+        System.out.println(player.getPosition());
+        
     }
 
     //Listas de propiedades 

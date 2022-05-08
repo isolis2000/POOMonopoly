@@ -22,6 +22,8 @@ public class Players {
         playerList.get(0).setTurn(true);
     }
     
+    
+    
     private void initTurns(int numOfPlayers) {
         String retStr = "";
         ArrayList<Integer> initialDiceArray = new ArrayList<>();
