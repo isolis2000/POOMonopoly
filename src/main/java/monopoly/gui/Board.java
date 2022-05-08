@@ -110,10 +110,9 @@ public final class Board extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1080, 1080));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 227, 199));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setLayout(null);
 
         btnP1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP1.setOpaque(false);
@@ -122,7 +121,8 @@ public final class Board extends javax.swing.JFrame {
                 btnP1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 860, 50, 50));
+        jPanel1.add(btnP1);
+        btnP1.setBounds(930, 830, 50, 50);
 
         btnP2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP2.setOpaque(false);
@@ -131,7 +131,8 @@ public final class Board extends javax.swing.JFrame {
                 btnP2ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnP2, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
+        jPanel1.add(btnP2);
+        btnP2.setBounds(850, 830, 50, 50);
 
         btnP3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP3.setOpaque(false);
@@ -140,7 +141,8 @@ public final class Board extends javax.swing.JFrame {
                 btnP3ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnP3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
+        jPanel1.add(btnP3);
+        btnP3.setBounds(850, 910, 50, 50);
 
         btnP4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP4.setOpaque(false);
@@ -149,7 +151,8 @@ public final class Board extends javax.swing.JFrame {
                 btnP4ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnP4, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
+        jPanel1.add(btnP4);
+        btnP4.setBounds(930, 910, 50, 50);
 
         btnP5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP5.setOpaque(false);
@@ -158,7 +161,8 @@ public final class Board extends javax.swing.JFrame {
                 btnP5ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnP5, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
+        jPanel1.add(btnP5);
+        btnP5.setBounds(850, 870, 50, 50);
 
         btnP6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnP6.setOpaque(false);
@@ -167,7 +171,8 @@ public final class Board extends javax.swing.JFrame {
                 btnP6ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnP6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 860, 50, 50));
+        jPanel1.add(btnP6);
+        btnP6.setBounds(930, 870, 50, 50);
 
         EEClown.setBorderPainted(false);
         EEClown.setOpaque(false);
@@ -176,7 +181,8 @@ public final class Board extends javax.swing.JFrame {
                 EEClownActionPerformed(evt);
             }
         });
-        jPanel1.add(EEClown, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, 20, 20));
+        jPanel1.add(EEClown);
+        EEClown.setBounds(440, 410, 20, 20);
 
         btnCommunityChest.setBorder(null);
         btnCommunityChest.setBorderPainted(false);
@@ -186,7 +192,8 @@ public final class Board extends javax.swing.JFrame {
                 btnCommunityChestActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCommunityChest, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 185, 160, 150));
+        jPanel1.add(btnCommunityChest);
+        btnCommunityChest.setBounds(203, 185, 160, 150);
 
         btnChance.setBorder(null);
         btnChance.setBorderPainted(false);
@@ -196,11 +203,13 @@ public final class Board extends javax.swing.JFrame {
                 btnChanceActionPerformed(evt);
             }
         });
-        jPanel1.add(btnChance, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 630, 130, 130));
+        jPanel1.add(btnChance);
+        btnChance.setBounds(650, 630, 130, 130);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/boardEdit.png"))); // NOI18N
         lblBackground.setText("jLabel2");
-        jPanel1.add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 960, -1));
+        jPanel1.add(lblBackground);
+        lblBackground.setBounds(20, 0, 960, 956);
 
         pnlStartGameOptions.setBackground(new java.awt.Color(204, 227, 199));
         pnlStartGameOptions.setFocusable(false);
@@ -495,7 +504,8 @@ public final class Board extends javax.swing.JFrame {
         });
         pnlStartGameOptions.add(txfDiceResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 20, 24));
 
-        jPanel1.add(pnlStartGameOptions, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 0, 560, 350));
+        jPanel1.add(pnlStartGameOptions);
+        pnlStartGameOptions.setBounds(980, 0, 560, 350);
 
         jPanel2.setBackground(new java.awt.Color(204, 227, 199));
 
@@ -510,7 +520,8 @@ public final class Board extends javax.swing.JFrame {
             .addGap(0, 610, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 350, 560, 610));
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(980, 350, 560, 610);
 
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
@@ -520,9 +531,10 @@ public final class Board extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 630, 130, 130));
+        jPanel1.add(jButton2);
+        jButton2.setBounds(650, 630, 130, 130);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, -1));
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
