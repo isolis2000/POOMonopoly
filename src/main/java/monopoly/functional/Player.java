@@ -102,18 +102,18 @@ public class Player implements Comparable<Player> {
     }
     
     public void payUp(int moneyToPay, Player payee) {
-        System.out.println("--------------------------------------------------------------------------------------------- payUp");
+//        System.out.println("--------------------------------------------------------------------------------------------- payUp");
         if (moneyToPay > money) {
             Util.getUtil().getBank().transferProperties(this, payee);
             Util.getUtil().getPlayers().declarePlayerBankrupt(this);
             Util.getUtil().getBoard().declareBankrupt(name, payee.getName());
-            System.out.println("Player " + name + " transfer the properties to player " + payee.getName());
+//            System.out.println("Player " + name + " transfer the properties to player " + payee.getName());
         }
         else {
             money -= moneyToPay;
             payee.setMoney(payee.getMoney() + moneyToPay);
-            Util.getUtil().getBoard().rentPrompt(name, payee.getName(), money);
-            System.out.println("Player " + name + " pays " + moneyToPay + " to player " + payee.getName());
+            Util.getUtil().getBoard().rentPrompt(name, payee.getName(), moneyToPay);
+//            System.out.println("Player " + name + " pays " + moneyToPay + " to player " + payee.getName());
         }
     }
     

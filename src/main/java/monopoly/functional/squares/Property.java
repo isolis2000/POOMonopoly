@@ -2,7 +2,7 @@ package monopoly.functional.squares;
 
 public enum Property {
     
-    OldKentRd(60, 50, 2, 10, 30, 90, 160,250, 30, 2, "Old Kent RD"),
+    OldKentRd(60, 50, 2, 10, 30, 90, 160, 250, 30, 2, "Old Kent RD"),
     WhiteChapelRD(60, 50, 4, 20, 60, 180, 320, 450,30, 4, "White Chapel RD"),
     TheAngelIslingtong(100, 50, 4, 20, 60, 180,320,450, 50, 7, "The Angel Islington"),
     EustonRD(100, 50, 6, 30, 90, 270, 400, 550, 50, 9, "Euston RD"), 
@@ -16,21 +16,21 @@ public enum Property {
     Strand(220, 150, 18, 90, 250, 700, 875, 1050, 110, 22, "Strand"),
     FleetST(220, 150, 18, 90, 250, 700, 875, 1050, 110, 24, "Fleet ST"),
     Trafalgar(240, 150, 20, 100, 300, 750, 925, 1100, 120, 25, "Trafalgar"),
-    Leicester(260, 150, 22, 110, 330, 800, 975, 1150,130, 27, "Leicester"),
-    CoventryST(260, 150, 22, 110, 330, 800, 975, 1150,130, 28, "Conventry ST"),
-    Piccadilly(280, 150, 24, 120, 360, 850, 1025, 1200,140, 30, "Picadilly"),
-    RegentST(300, 200, 26, 130, 390, 900, 1100, 1275,150, 32,  "RegentST"),
-    OxfordST(300, 200, 26, 130, 390, 900, 1100, 1275,150, 33, "Oxford ST"),
-    BondST(320, 200, 28, 150, 450, 1000, 1200, 1400,160, 35,  "BondST"),
-    ParkLane(350, 200, 35, 175, 500, 1100, 1300, 1500,175, 38,  "Park Lane"),
-    MayFair(400, 200, 50, 200, 600, 1400, 1700, 2000,200, 40,  "May Fair");
+    Leicester(260, 150, 22, 110, 330, 800, 975, 1150, 130, 27, "Leicester"),
+    CoventryST(260, 150, 22, 110, 330, 800, 975, 1150, 130, 28, "Conventry ST"),
+    Piccadilly(280, 150, 24, 120, 360, 850, 1025, 1200, 140, 30, "Picadilly"),
+    RegentST(300, 200, 26, 130, 390, 900, 1100, 1275, 150, 32,  "RegentST"),
+    OxfordST(300, 200, 26, 130, 390, 900, 1100, 1275, 150, 33, "Oxford ST"),
+    BondST(320, 200, 28, 150, 450, 1000, 1200, 1400, 160, 35,  "BondST"),
+    ParkLane(350, 200, 35, 175, 500, 1100, 1300, 1500, 175, 38,  "Park Lane"),
+    MayFair(400, 200, 50, 200, 600, 1400, 1700, 2000, 200, 40,  "May Fair");
     
     private final int price, pricePerHouse, rent, rent1House, rent2House, rent3House, rent4House, rentHotel, position, mortgage;
     private int ammountOfHouses;
     private boolean hotel;
     private final String name;
 
-    private Property(int price, int pricePerHouse, int rent, int rent1House, int rent2House, int rent3House, int rent4House, int rentHotel,int mortgage, int position, String name ) {
+    private Property(int price, int pricePerHouse, int rent, int rent1House, int rent2House, int rent3House, int rent4House, int rentHotel,int mortgage, int position, String name) {
         this.price = price;
         this.pricePerHouse = pricePerHouse;
         this.rent = rent;

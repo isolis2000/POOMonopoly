@@ -14,6 +14,7 @@ public class Bank {
     private final CommuinityChest commuinityChest = new CommuinityChest();
     private final Chance chance = new Chance();
     private final HashMap<String, Integer> propertyNames = new HashMap<>();
+    private final HashMap<Property, String> propertyColors = new HashMap<>();
 
     public Bank() {
         initProperties();
@@ -75,8 +76,18 @@ public class Bank {
     }
 
     private void initProperties() {
-        for (Property p : Property.values()) {
-            properties.put(p, null);
+        Property[] values = Property.values();
+        int x = 0;
+        int currentColor = 0;
+        String[] colors = {"Cafe", "Celeste", "Rosado", "Anaranjado", "Rojo", "Amarillo", "Verde", "Azul"};
+        for (Property value : values) {
+            if (((currentColor == 0 || currentColor == colors.length) && x == 2) || x == 3) {
+                currentColor ++;
+                x = 0;                
+            }
+            propertyColors.put(value, colors[currentColor]);
+            properties.put(value, null);
+            x++;
         }
         int[] stationPositions = {6, 16, 26, 36};
         String[] stationNames = {"King Cross Station", "Marylebone Station", "Fenchurch ST. Station", "Liverpool ST. Station"};
