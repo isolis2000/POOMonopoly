@@ -53,6 +53,15 @@ public enum Property {
     public void setAmmountOfHouses(int ammountOfHouses) {
         this.ammountOfHouses = ammountOfHouses;
     }
+    
+    public void addHouse() {
+        if (ammountOfHouses < 4)
+            ammountOfHouses++;
+        else {
+            hotel = true;
+            ammountOfHouses = 0;
+        }
+    }
 
     public boolean hasHotel() {
         return hotel;

@@ -7,6 +7,7 @@ package monopoly.gui;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -20,6 +21,7 @@ import monopoly.functional.Player;
 
 import monopoly.functional.Players;
 import monopoly.functional.Util;
+import monopoly.functional.squares.Property;
 
 /**
  *
@@ -499,7 +501,7 @@ public final class Board extends javax.swing.JFrame {
         txfDiceResult1.setBackground(new java.awt.Color(204, 227, 199));
         txfDiceResult1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         txfDiceResult1.setForeground(new java.awt.Color(0, 0, 0));
-        txfDiceResult1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txfDiceResult1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txfDiceResult1.setText("2");
         txfDiceResult1.setBorder(null);
         txfDiceResult1.setFocusable(false);
@@ -508,7 +510,7 @@ public final class Board extends javax.swing.JFrame {
                 txfDiceResult1ActionPerformed(evt);
             }
         });
-        pnlStartGameOptions.add(txfDiceResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 20, 24));
+        pnlStartGameOptions.add(txfDiceResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 30, 24));
 
         btnBuyHouse.setText("Casa");
         btnBuyHouse.addActionListener(new java.awt.event.ActionListener() {
@@ -716,8 +718,19 @@ public final class Board extends javax.swing.JFrame {
 
     private void btnBuyHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyHouseActionPerformed
         Player player = Util.getUtil().getPlayers().getPlayerTurn();
-        String str = Util.getUtil().getBank().getAvailableHousesToPurchase(player);
-        JOptionPane.showConfirmDialog(this, str, "casa", JOptionPane.INFORMATION_MESSAGE);
+        ArrayList<Property> availableHouses = Util.getUtil().getBank().getAvailableHousesToPurchase(player);
+        String str = "Elija el numero de la propiedad a la que le quiere comprar una casa: \n";
+        str += Util.getUtil().getBank().propertyArrayListToString(availableHouses);
+        String response = JOptionPane.showInputDialog(str);
+        if (!(response == null || response.equals(""))) {
+            int parsedResponse = Integer.parseInt(response);
+            try {
+                if (!Util.getUtil().getBank().buyHouse(availableHouses.get(parsedResponse), Util.getUtil().getPlayers().getPlayerTurn()))
+                    JOptionPane.showMessageDialog(Util.getUtil().getBoard(), "No posee suficiente dinero para comprar una casa en esta propiedad");
+            } catch (IndexOutOfBoundsException ex) {
+                JOptionPane.showMessageDialog(Util.getUtil().getBoard(), "Usted digito una opcion que no se encuentra en la lista de propiedades disponibles");
+            }
+        }
     }//GEN-LAST:event_btnBuyHouseActionPerformed
 
     public void EESound(String sound) {

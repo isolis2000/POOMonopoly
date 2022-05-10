@@ -78,35 +78,52 @@ public class Bank {
         int ammountRet = 0;
         for (Property p : propertiesToCheck) {
             int ammount = p.getAmmountOfHouses();
-            if (ammount > ammountRet)
+            if (p.hasHotel())
+                return 5;
+            else if (ammount > ammountRet)
                 ammountRet = p.getAmmountOfHouses();
         }
         return ammountRet;
     }
     
-    public String getAvailableHousesToPurchase(Player player) {
+    public ArrayList<Property> getAvailableHousesToPurchase(Player player) {
         ArrayList<Property> playerProperties = getPropertiesByPlayer(player.getName());
         ArrayList<ArrayList<Property>> propertiesWithMonopoly = checkForMonopoly(playerProperties);
-        ArrayList<String> availableProperties = new ArrayList<>();
+        ArrayList<Property> availableProperties = new ArrayList<>();
         int x = 0;
         for (int m = 0; m < propertiesWithMonopoly.size(); m++) {
             int highest = getHighestAmmountOfHouses(propertiesWithMonopoly.get(m));
             for (int i = 0; i < propertiesWithMonopoly.get(0).size(); i++) {
                 Property currentProperty = propertiesWithMonopoly.get(m).get(i);
-                if (currentProperty.getAmmountOfHouses() < highest) {
-                    availableProperties.add(currentProperty.getName());
+                if (currentProperty.hasHotel()) {
+                } else if (currentProperty.getAmmountOfHouses() < highest) {
+                    availableProperties.add(currentProperty);
                     x++;
                 }
             }
             if (x == 0)
                 for (Property p : propertiesWithMonopoly.get(m))
-                    availableProperties.add(p.getName());
+                    availableProperties.add(p);
             else
                 x = 0;
         }
+        return availableProperties;
+    }
+    
+    public boolean buyHouse(Property property, Player player) {
+        if (player.buy(property.getPricePerHouse()) && !property.hasHotel()) {
+            property.addHouse();
+            return true;
+        } else 
+            return false;
+    }
+    
+    public String propertyArrayListToString(ArrayList<Property> arr) {
         String ret = "";
-        for (String pr : availableProperties)
-            ret += pr + "\n";
+        for (int i = 0; i < arr.size(); i++) {
+            String pr = arr.get(i).getName();
+            ret += i + ". " + pr + "\n";
+        }
         return ret;
     }
 

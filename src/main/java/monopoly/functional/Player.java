@@ -103,7 +103,7 @@ public class Player implements Comparable<Player> {
     
     public void payUp(int moneyToPay, Player payee) {
 //        System.out.println("--------------------------------------------------------------------------------------------- payUp");
-        if (moneyToPay > money) {
+        if (canBuy(moneyToPay)) {
             Util.getUtil().getBank().transferProperties(this, payee);
             Util.getUtil().getPlayers().declarePlayerBankrupt(this);
             Util.getUtil().getBoard().declareBankrupt(name, payee.getName());
@@ -118,13 +118,25 @@ public class Player implements Comparable<Player> {
     }
     
     public void buyProperty(String propertyName, int price) {
-        if (price <= money) {
+        if (canBuy(price)) {
             properties ++;
             money -= price;
             Util.getUtil().getBank().buyProperty(this, propertyName);
         } else {
             Util.getUtil().getBoard().noMoneyPrompt();
         }
+    }
+    
+    public boolean buy(int price) {
+        if (canBuy(price)) {
+            money -= price;
+            return true;
+        } else
+            return false;
+    }
+    
+    private boolean canBuy(int price) {
+        return price <= money;
     }
     
     @Override
