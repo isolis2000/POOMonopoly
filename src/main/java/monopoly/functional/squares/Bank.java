@@ -16,6 +16,7 @@ public class Bank {
     private final HashMap<String, Integer> propertyNames = new HashMap<>();
     private final HashMap<Property, String> propertyColors = new HashMap<>();
     private final String[] colors = {"Cafe", "Celeste", "Rosado", "Anaranjado", "Rojo", "Amarillo", "Verde", "Azul"};
+    private int housesLeft = 32, hotelsLeft = 12;
 
     public Bank() {
         initProperties();
@@ -26,7 +27,8 @@ public class Bank {
         for (Map.Entry<Property, Player> set : properties.entrySet()) {
             if (set.getValue() != null && set.getValue().getName().equals(playerName)) {
                 Property property = set.getKey();
-                String str = "Propiedad: " + property.getName() + " ---- Cantidad de casas: " 
+                String str = "Propiedad: " + property.getName() + "Renta: " 
+                        + property.getRent() + " ---- Cantidad de casas: " 
                         + property.getAmmountOfHouses() + " ---- Hotel: ";
                 if (property.hasHotel())
                     str += "si";
@@ -352,6 +354,22 @@ public class Bank {
         JOptionPane.showMessageDialog(null, "Vaya a la carcel");
         position = 21;
         Util.getUtil().getPlayers().movePlayer(position);
+    }
+
+    public int getHousesLeft() {
+        return housesLeft;
+    }
+
+    public int getHotelsLeft() {
+        return hotelsLeft;
+    }
+    
+    public void removeHouseFromTotal() {
+        housesLeft--;
+    }
+    
+    public void removeHotelFromTotal() {
+        hotelsLeft--;
     }
 
 }

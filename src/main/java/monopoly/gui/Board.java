@@ -882,9 +882,13 @@ public final class Board extends javax.swing.JFrame {
     }
 
     public void declareBankrupt(String playerName, String payeeName) {
-        String str = "Jugador " + playerName + " no pudo pagar su deuda al jugador " 
-                + payeeName + " todas sus propiedades seran transferidas como compensacion";
-        JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
+        if (Util.getUtil().getPlayers().getPlayerList().size() == 1)
+            gameOver(playerName);
+        else {
+            String str = "Jugador " + playerName + " no pudo pagar su deuda al jugador " 
+                    + payeeName + " todas sus propiedades seran transferidas como compensacion";
+            JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private void selectPlayerToEdit(int playerNum) {
@@ -915,7 +919,9 @@ public final class Board extends javax.swing.JFrame {
         txaGameString.setText(gameString);
     }
     
-    
+    public void gameOver(String playerName) {
+        JOptionPane.showMessageDialog(null, "Jugador " + playerName + " gano!");
+    }
  
 
     //private void disableButton (Player player){

@@ -49,7 +49,12 @@ public class Players {
     }
     
     public void declarePlayerBankrupt(Player player) {
+        System.out.println("Jugador " + player.getName() + " mamo");
+        player.setTurn(false);
+        getNextPlayer(player).setTurn(true);
         playerList.remove(player);
+//        if (playerList.size() == 1)
+//            Util.getUtil().getBoard().gameOver(playerList.get(0).getName());
     }
     
     public Player getPlayerTurn() {

@@ -103,7 +103,7 @@ public class Player implements Comparable<Player> {
     
     public void payUp(int moneyToPay, Player payee) {
 //        System.out.println("--------------------------------------------------------------------------------------------- payUp");
-        if (canBuy(moneyToPay)) {
+        if (!canBuy(moneyToPay)) {
             Util.getUtil().getBank().transferProperties(this, payee);
             Util.getUtil().getPlayers().declarePlayerBankrupt(this);
             Util.getUtil().getBoard().declareBankrupt(name, payee.getName());
