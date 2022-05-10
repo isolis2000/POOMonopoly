@@ -79,4 +79,11 @@ public class Players {
         return playerString;
     }
     
+    public String getGameString() {
+        String gameStr = "";
+        for (int i = 0; i < playerList.size(); i++)
+            gameStr += "\n" + getPlayerString(i + 1);
+        return gameStr;
+    }
+    
 }

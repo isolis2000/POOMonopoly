@@ -15,17 +15,24 @@ public class Bank {
     private final Chance chance = new Chance();
     private final HashMap<String, Integer> propertyNames = new HashMap<>();
     private final HashMap<Property, String> propertyColors = new HashMap<>();
+    private final String[] colors = {"Cafe", "Celeste", "Rosado", "Anaranjado", "Rojo", "Amarillo", "Verde", "Azul"};
 
     public Bank() {
         initProperties();
     }
 
-    public ArrayList<String> getPropertiesByPlayer(String playerName) {
+    public ArrayList<String> getPropertiesStrByPlayer(String playerName) {
         ArrayList<String> propertiesRet = new ArrayList<>();
-//        System.out.println("PropertiesHash: " + properties.toString());
         for (Map.Entry<Property, Player> set : properties.entrySet()) {
             if (set.getValue() != null && set.getValue().getName().equals(playerName)) {
-                propertiesRet.add(set.getKey().getName());
+                Property property = set.getKey();
+                String str = "Propiedad: " + property.getName() + " ---- Cantidad de casas: " 
+                        + property.getAmmountOfHouses() + " ---- Hotel: ";
+                if (property.hasHotel())
+                    str += "si";
+                else
+                    str += "no";
+                propertiesRet.add(str);
             }
         }
         for (Map.Entry<SpecialProperty, Player> set : specialProperties.entrySet()) {
@@ -34,6 +41,73 @@ public class Bank {
             }
         }
         return propertiesRet;
+    }
+    
+    private ArrayList<Property> getPropertiesByPlayer(String playerName) {
+        ArrayList<Property> propertiesRet = new ArrayList<>();
+        for (Map.Entry<Property, Player> set : properties.entrySet())
+            if (set.getValue() != null && set.getValue().getName().equals(playerName)) 
+                propertiesRet.add(set.getKey());
+        return propertiesRet;
+    }
+    
+    private ArrayList<ArrayList<Property>> checkForMonopoly(ArrayList<Property> propertiesToCheck) {
+        ArrayList<ArrayList<Property>> propertiesWithMonopoly = new ArrayList<>();
+        for (String c : colors) {
+            ArrayList<Property> propertiesOfColor = getAmmountOfOneColor(propertiesToCheck, c);
+            if (c.equals(colors[0]) || c.equals(colors[colors.length-1])) {
+                if (propertiesOfColor.size() == 2)
+                    propertiesWithMonopoly.add(propertiesOfColor);
+            } else {
+                if (propertiesOfColor.size() == 3)
+                    propertiesWithMonopoly.add(propertiesOfColor);
+            }
+        }
+        return propertiesWithMonopoly;
+    }
+    
+    private ArrayList<Property> getAmmountOfOneColor(ArrayList<Property> propertiesToCheck, String colorToCheck) {
+        ArrayList<Property> ammountOfColor = new ArrayList<>();
+        for (Property p : propertiesToCheck)
+            if (propertyColors.get(p).equals(colorToCheck))
+                ammountOfColor.add(p);
+        return ammountOfColor;
+    }
+    
+    private int getHighestAmmountOfHouses(ArrayList<Property> propertiesToCheck) {
+        int ammountRet = 0;
+        for (Property p : propertiesToCheck) {
+            int ammount = p.getAmmountOfHouses();
+            if (ammount > ammountRet)
+                ammountRet = p.getAmmountOfHouses();
+        }
+        return ammountRet;
+    }
+    
+    public String getAvailableHousesToPurchase(Player player) {
+        ArrayList<Property> playerProperties = getPropertiesByPlayer(player.getName());
+        ArrayList<ArrayList<Property>> propertiesWithMonopoly = checkForMonopoly(playerProperties);
+        ArrayList<String> availableProperties = new ArrayList<>();
+        int x = 0;
+        for (int m = 0; m < propertiesWithMonopoly.size(); m++) {
+            int highest = getHighestAmmountOfHouses(propertiesWithMonopoly.get(m));
+            for (int i = 0; i < propertiesWithMonopoly.get(0).size(); i++) {
+                Property currentProperty = propertiesWithMonopoly.get(m).get(i);
+                if (currentProperty.getAmmountOfHouses() < highest) {
+                    availableProperties.add(currentProperty.getName());
+                    x++;
+                }
+            }
+            if (x == 0)
+                for (Property p : propertiesWithMonopoly.get(m))
+                    availableProperties.add(p.getName());
+            else
+                x = 0;
+        }
+        String ret = "";
+        for (String pr : availableProperties)
+            ret += pr + "\n";
+        return ret;
     }
 
     public void transferProperties(Player player1, Player player2) {
@@ -79,7 +153,8 @@ public class Bank {
         Property[] values = Property.values();
         int x = 0;
         int currentColor = 0;
-        String[] colors = {"Cafe", "Celeste", "Rosado", "Anaranjado", "Rojo", "Amarillo", "Verde", "Azul"};
+        Property pr1;
+        Property pr2;
         for (Property value : values) {
             if (((currentColor == 0 || currentColor == colors.length) && x == 2) || x == 3) {
                 currentColor ++;
@@ -88,6 +163,7 @@ public class Bank {
             propertyColors.put(value, colors[currentColor]);
             properties.put(value, null);
             x++;
+            
         }
         int[] stationPositions = {6, 16, 26, 36};
         String[] stationNames = {"King Cross Station", "Marylebone Station", "Fenchurch ST. Station", "Liverpool ST. Station"};
@@ -108,6 +184,11 @@ public class Bank {
                 propertyNames.put(getSpecialPropertyByPosition(i).getName(), i);
             }
         }
+    }
+    
+    private void casa() {
+        properties.replace(Property.OldKentRd, Util.getUtil().getPlayers().getPlayerList().get(0));
+        properties.replace(Property.WhiteChapelRD, Util.getUtil().getPlayers().getPlayerList().get(0));
     }
 
     private Property getPropertyByPosition(int position) {
@@ -213,6 +294,7 @@ public class Bank {
 
     //controls what happens after a player moves
     public void checkPosition(Player player, int diceResult) {
+        casa();
         int playerPosition = player.getPosition();
         System.out.println("Position = " + playerPosition);
         String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);

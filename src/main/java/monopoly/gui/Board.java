@@ -106,7 +106,10 @@ public final class Board extends javax.swing.JFrame {
         txfEditPlayer5 = new javax.swing.JTextField();
         txfEditPlayer6 = new javax.swing.JTextField();
         txfDiceResult1 = new javax.swing.JTextField();
+        btnBuyHouse = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaGameString = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -507,20 +510,40 @@ public final class Board extends javax.swing.JFrame {
         });
         pnlStartGameOptions.add(txfDiceResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 20, 24));
 
+        btnBuyHouse.setText("Casa");
+        btnBuyHouse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuyHouseActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(btnBuyHouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 160, -1));
+
         jPanel1.add(pnlStartGameOptions);
         pnlStartGameOptions.setBounds(980, 0, 560, 350);
 
         jPanel2.setBackground(new java.awt.Color(204, 227, 199));
 
+        txaGameString.setBackground(new java.awt.Color(204, 227, 199));
+        txaGameString.setColumns(4);
+        txaGameString.setRows(28);
+        txaGameString.setBorder(null);
+        jScrollPane1.setViewportView(txaGameString);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 560, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel2);
@@ -617,20 +640,9 @@ public final class Board extends javax.swing.JFrame {
         txfDiceResult1.setText(Integer.toString(res));
         System.out.println("El resultado del dado dio: " + res);
         System.out.println("res " + res);
-        
-        
-        if (res == 30) {
-            Util.getUtil().getPlayers().movePlayer(10);
-            txfPlayerTurn.setText(Integer.toString(10));
-            txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
-        } else {
-            Util.getUtil().getPlayers().movePlayer(res);
-            txfPlayerTurn.setText(Integer.toString(res));
-            txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
-        }
-        
-      
-
+        Util.getUtil().getPlayers().movePlayer(res);
+        txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
+        updateGameString();
     }//GEN-LAST:event_btnDiceActionPerformed
 
     private void btnEditPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer1ActionPerformed
@@ -678,7 +690,7 @@ public final class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_btnP6ActionPerformed
 
     private void btnChanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChanceActionPerformed
-        ChanceMassage();
+        chanceMassage();
         toggleComponents(8);
 
 
@@ -690,11 +702,8 @@ public final class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnCommunityChestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityChestActionPerformed
-
-        CommunnityChestMassage();
+        communnityChestMassage();
         toggleComponents(7);
-
-
     }//GEN-LAST:event_btnCommunityChestActionPerformed
 
     private void EEClownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EEClownActionPerformed
@@ -704,6 +713,12 @@ public final class Board extends javax.swing.JFrame {
     private void txfDiceResult1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResult1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfDiceResult1ActionPerformed
+
+    private void btnBuyHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyHouseActionPerformed
+        Player player = Util.getUtil().getPlayers().getPlayerTurn();
+        String str = Util.getUtil().getBank().getAvailableHousesToPurchase(player);
+        JOptionPane.showConfirmDialog(this, str, "casa", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnBuyHouseActionPerformed
 
     public void EESound(String sound) {
         try {
@@ -869,7 +884,7 @@ public final class Board extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, playerString, "Detalles de Jugador", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void CommunnityChestMassage() {
+    private void communnityChestMassage() {
 
         String playerString = Util.getUtil().getBank().getCommuinityChest().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         btnCommunityChest.setContentAreaFilled(false);
@@ -877,9 +892,14 @@ public final class Board extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "" + playerString);
     }
 
-    private void ChanceMassage() {
+    private void chanceMassage() {
         String playerString = Util.getUtil().getBank().getChance().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         JOptionPane.showMessageDialog(this, "" + playerString);
+    }
+    
+    private void updateGameString() {
+        String gameString = Util.getUtil().getPlayers().getGameString();
+        txaGameString.setText(gameString);
     }
     
     
@@ -924,6 +944,7 @@ public final class Board extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton EEClown;
+    private javax.swing.JButton btnBuyHouse;
     private javax.swing.JButton btnChance;
     private javax.swing.JButton btnCommunityChest;
     private javax.swing.JButton btnDice;
@@ -960,10 +981,12 @@ public final class Board extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAmmountOfPlayers;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblTurn;
     private javax.swing.JPanel pnlStartGameOptions;
+    private javax.swing.JTextArea txaGameString;
     private javax.swing.JTextField txfDiceResult1;
     private javax.swing.JTextField txfEditPlayer1;
     private javax.swing.JTextField txfEditPlayer2;

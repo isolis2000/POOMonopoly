@@ -129,7 +129,7 @@ public class Player implements Comparable<Player> {
     
     @Override
     public String toString() {
-        ArrayList<String> playerPropertiesArr = Util.getUtil().getBank().getPropertiesByPlayer(name);
+        ArrayList<String> playerPropertiesArr = Util.getUtil().getBank().getPropertiesStrByPlayer(name);
         String playerProperties = "";
         for (String s : playerPropertiesArr)
             playerProperties += "- " + s + "\n";
