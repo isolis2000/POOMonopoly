@@ -22,6 +22,8 @@ public class Players {
         playerList.get(0).setTurn(true);
     }
     
+    
+    
     private void initTurns(int numOfPlayers) {
         String retStr = "";
         ArrayList<Integer> initialDiceArray = new ArrayList<>();
@@ -36,18 +38,18 @@ public class Players {
         Collections.sort(playerList);
     }
     
-    public void movePlayer(int moved) {
+    public void movePlayer(int moved) 
+    {
         Player player = getPlayerTurn();
         player.addToPosition(moved);
-        player.checkPosition(moved);
         player.setTurn(false);
         getNextPlayer(player).setTurn(true);
+        player.checkPosition(moved);
         
     }
     
     public void declarePlayerBankrupt(Player player) {
         playerList.remove(player);
-        Util.getUtil().getBoard().declareBankrupt(player.getName());
     }
     
     public Player getPlayerTurn() {
@@ -75,6 +77,13 @@ public class Players {
             if (p.getPlayerNum() == playerNum)
                 playerString = p.toString();
         return playerString;
+    }
+    
+    public String getGameString() {
+        String gameStr = "";
+        for (int i = 0; i < playerList.size(); i++)
+            gameStr += "\n" + getPlayerString(i + 1);
+        return gameStr;
     }
     
 }

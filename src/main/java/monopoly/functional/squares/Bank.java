@@ -1,9 +1,9 @@
 package monopoly.functional.squares;
 
 import java.util.ArrayList;
-import monopoly.functional.squares.Property;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import monopoly.functional.Player;
 import monopoly.functional.Util;
 
@@ -14,17 +14,25 @@ public class Bank {
     private final CommuinityChest commuinityChest = new CommuinityChest();
     private final Chance chance = new Chance();
     private final HashMap<String, Integer> propertyNames = new HashMap<>();
+    private final HashMap<Property, String> propertyColors = new HashMap<>();
+    private final String[] colors = {"Cafe", "Celeste", "Rosado", "Anaranjado", "Rojo", "Amarillo", "Verde", "Azul"};
 
     public Bank() {
         initProperties();
     }
 
-    public ArrayList<String> getPropertiesByPlayer(String playerName) {
+    public ArrayList<String> getPropertiesStrByPlayer(String playerName) {
         ArrayList<String> propertiesRet = new ArrayList<>();
-//        System.out.println("PropertiesHash: " + properties.toString());
         for (Map.Entry<Property, Player> set : properties.entrySet()) {
             if (set.getValue() != null && set.getValue().getName().equals(playerName)) {
-                propertiesRet.add(set.getKey().getName());
+                Property property = set.getKey();
+                String str = "Propiedad: " + property.getName() + " ---- Cantidad de casas: " 
+                        + property.getAmmountOfHouses() + " ---- Hotel: ";
+                if (property.hasHotel())
+                    str += "si";
+                else
+                    str += "no";
+                propertiesRet.add(str);
             }
         }
         for (Map.Entry<SpecialProperty, Player> set : specialProperties.entrySet()) {
@@ -33,6 +41,73 @@ public class Bank {
             }
         }
         return propertiesRet;
+    }
+    
+    private ArrayList<Property> getPropertiesByPlayer(String playerName) {
+        ArrayList<Property> propertiesRet = new ArrayList<>();
+        for (Map.Entry<Property, Player> set : properties.entrySet())
+            if (set.getValue() != null && set.getValue().getName().equals(playerName)) 
+                propertiesRet.add(set.getKey());
+        return propertiesRet;
+    }
+    
+    private ArrayList<ArrayList<Property>> checkForMonopoly(ArrayList<Property> propertiesToCheck) {
+        ArrayList<ArrayList<Property>> propertiesWithMonopoly = new ArrayList<>();
+        for (String c : colors) {
+            ArrayList<Property> propertiesOfColor = getAmmountOfOneColor(propertiesToCheck, c);
+            if (c.equals(colors[0]) || c.equals(colors[colors.length-1])) {
+                if (propertiesOfColor.size() == 2)
+                    propertiesWithMonopoly.add(propertiesOfColor);
+            } else {
+                if (propertiesOfColor.size() == 3)
+                    propertiesWithMonopoly.add(propertiesOfColor);
+            }
+        }
+        return propertiesWithMonopoly;
+    }
+    
+    private ArrayList<Property> getAmmountOfOneColor(ArrayList<Property> propertiesToCheck, String colorToCheck) {
+        ArrayList<Property> ammountOfColor = new ArrayList<>();
+        for (Property p : propertiesToCheck)
+            if (propertyColors.get(p).equals(colorToCheck))
+                ammountOfColor.add(p);
+        return ammountOfColor;
+    }
+    
+    private int getHighestAmmountOfHouses(ArrayList<Property> propertiesToCheck) {
+        int ammountRet = 0;
+        for (Property p : propertiesToCheck) {
+            int ammount = p.getAmmountOfHouses();
+            if (ammount > ammountRet)
+                ammountRet = p.getAmmountOfHouses();
+        }
+        return ammountRet;
+    }
+    
+    public String getAvailableHousesToPurchase(Player player) {
+        ArrayList<Property> playerProperties = getPropertiesByPlayer(player.getName());
+        ArrayList<ArrayList<Property>> propertiesWithMonopoly = checkForMonopoly(playerProperties);
+        ArrayList<String> availableProperties = new ArrayList<>();
+        int x = 0;
+        for (int m = 0; m < propertiesWithMonopoly.size(); m++) {
+            int highest = getHighestAmmountOfHouses(propertiesWithMonopoly.get(m));
+            for (int i = 0; i < propertiesWithMonopoly.get(0).size(); i++) {
+                Property currentProperty = propertiesWithMonopoly.get(m).get(i);
+                if (currentProperty.getAmmountOfHouses() < highest) {
+                    availableProperties.add(currentProperty.getName());
+                    x++;
+                }
+            }
+            if (x == 0)
+                for (Property p : propertiesWithMonopoly.get(m))
+                    availableProperties.add(p.getName());
+            else
+                x = 0;
+        }
+        String ret = "";
+        for (String pr : availableProperties)
+            ret += pr + "\n";
+        return ret;
     }
 
     public void transferProperties(Player player1, Player player2) {
@@ -68,13 +143,27 @@ public class Bank {
             if (pos == position) {
                 return "Chance";
             }
+        
         }
+
         return "-1";
     }
 
     private void initProperties() {
-        for (Property p : Property.values()) {
-            properties.put(p, null);
+        Property[] values = Property.values();
+        int x = 0;
+        int currentColor = 0;
+        Property pr1;
+        Property pr2;
+        for (Property value : values) {
+            if (((currentColor == 0 || currentColor == colors.length) && x == 2) || x == 3) {
+                currentColor ++;
+                x = 0;                
+            }
+            propertyColors.put(value, colors[currentColor]);
+            properties.put(value, null);
+            x++;
+            
         }
         int[] stationPositions = {6, 16, 26, 36};
         String[] stationNames = {"King Cross Station", "Marylebone Station", "Fenchurch ST. Station", "Liverpool ST. Station"};
@@ -95,6 +184,11 @@ public class Bank {
                 propertyNames.put(getSpecialPropertyByPosition(i).getName(), i);
             }
         }
+    }
+    
+    private void casa() {
+        properties.replace(Property.OldKentRd, Util.getUtil().getPlayers().getPlayerList().get(0));
+        properties.replace(Property.WhiteChapelRD, Util.getUtil().getPlayers().getPlayerList().get(0));
     }
 
     private Property getPropertyByPosition(int position) {
@@ -186,8 +280,9 @@ public class Bank {
         } else {
             if (squareType.equals("Property")) {
                 Property property = getPropertyByPosition(playerPosition);
+                int rent = property.getRent();
 //                Util.getUtil().getBoard().rentPrompt(player, property.getName(), property.getPrice());
-                pay(player, secondPlayer, property.getRent());
+                pay(player, secondPlayer, rent);
             } else if (squareType.equals("SpecialProperty")) {
                 SpecialProperty specialProperty = getSpecialPropertyByPosition(playerPosition);
 //                Util.getUtil().getBoard().buyPrompt(player, specialProperty.getName(), specialProperty.getPrice());
@@ -199,18 +294,31 @@ public class Bank {
 
     //controls what happens after a player moves
     public void checkPosition(Player player, int diceResult) {
+        casa();
         int playerPosition = player.getPosition();
+        System.out.println("Position = " + playerPosition);
         String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
+        if (playerPosition == 31){
+            squareType = "GoTOJail";
+        }
+        System.out.println("squareType = " + squareType);
         switch (squareType) {
             case "Property", "SpecialProperty" ->
                 onProperty(player, squareType, playerPosition, diceResult);
-            case "CommunityChest" ->
-                System.out.println("CommunityChest");//Aqui su codigo de esta vara
-            case "Chance" ->
-                System.out.println("Chance");//Y aqui
+            case "CommunityChest" -> String(player); //Aqui su codigo de esta vara
+            case "Chance" -> 
+                Util.getUtil().getBoard().toggleComponents(6);//Y aqui
+            case "GoTOJail" -> GoToJail(playerPosition);
             default -> {
             }
         }
+    }
+    
+    private void String(Player player){
+        Util.getUtil().getBoard().toggleComponents(5);
+        System.out.println("Community Chest");
+        System.out.println(player.getPosition());
+        
     }
 
     //Listas de propiedades 
@@ -221,6 +329,12 @@ public class Bank {
 
     public Chance getChance() {
         return chance;
+    }
+    
+    public void GoToJail(int position){
+        JOptionPane.showMessageDialog(null, "Vaya a la carcel");
+        position = 21;
+        Util.getUtil().getPlayers().movePlayer(position);
     }
 
 }

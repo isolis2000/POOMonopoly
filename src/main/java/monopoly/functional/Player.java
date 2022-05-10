@@ -10,6 +10,7 @@ public class Player implements Comparable<Player> {
     private boolean turn;
     private final String name;
     
+    
 
     public Player(int playerNum, JButton button, String playerName) {
         this.playerNum = playerNum;
@@ -101,16 +102,18 @@ public class Player implements Comparable<Player> {
     }
     
     public void payUp(int moneyToPay, Player payee) {
-        System.out.println("--------------------------------------------------------------------------------------------- payUp");
+//        System.out.println("--------------------------------------------------------------------------------------------- payUp");
         if (moneyToPay > money) {
             Util.getUtil().getBank().transferProperties(this, payee);
             Util.getUtil().getPlayers().declarePlayerBankrupt(this);
-            System.out.println("Player " + name + " transfer the properties to player " + payee.getName());
+            Util.getUtil().getBoard().declareBankrupt(name, payee.getName());
+//            System.out.println("Player " + name + " transfer the properties to player " + payee.getName());
         }
         else {
             money -= moneyToPay;
             payee.setMoney(payee.getMoney() + moneyToPay);
-            System.out.println("Player " + name + " pays " + moneyToPay + " to player " + payee.getName());
+            Util.getUtil().getBoard().rentPrompt(name, payee.getName(), moneyToPay);
+//            System.out.println("Player " + name + " pays " + moneyToPay + " to player " + payee.getName());
         }
     }
     
@@ -126,7 +129,7 @@ public class Player implements Comparable<Player> {
     
     @Override
     public String toString() {
-        ArrayList<String> playerPropertiesArr = Util.getUtil().getBank().getPropertiesByPlayer(name);
+        ArrayList<String> playerPropertiesArr = Util.getUtil().getBank().getPropertiesStrByPlayer(name);
         String playerProperties = "";
         for (String s : playerPropertiesArr)
             playerProperties += "- " + s + "\n";
