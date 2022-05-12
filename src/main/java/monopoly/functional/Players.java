@@ -38,18 +38,27 @@ public class Players {
         Collections.sort(playerList);
     }
     
-    public void movePlayer(int moved) 
-    {
+    public void movePlayer(int dice1, int dice2) {
         Player player = getPlayerTurn();
-        player.addToPosition(moved);
+        player.addToPosition(dice1, dice2);
         player.setTurn(false);
         getNextPlayer(player).setTurn(true);
-        player.checkPosition(moved);
-        
+        player.checkPosition(dice1, dice2);
+    }
+    
+    public void goToJail() {
+        Player player = getPlayerTurn();
+        player.setJail(true);
+        player.setPosition(21);
     }
     
     public void declarePlayerBankrupt(Player player) {
+        System.out.println("Jugador " + player.getName() + " mamo");
+        player.setTurn(false);
+        getNextPlayer(player).setTurn(true);
         playerList.remove(player);
+//        if (playerList.size() == 1)
+//            Util.getUtil().getBoard().gameOver(playerList.get(0).getName());
     }
     
     public Player getPlayerTurn() {

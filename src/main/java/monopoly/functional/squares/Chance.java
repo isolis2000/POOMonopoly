@@ -96,7 +96,7 @@ public class Chance {
     }
     //9
     private String getOutOfJail(Player player){
-        
+        player.setOutOfJailCard(true);
         return "Fortuna \n Salga de la carcel gratis, conserve esta tarjeta hasta utilizarla o venderla"; 
     }
     //10
@@ -127,7 +127,7 @@ public class Chance {
     }
     //13
     private String deviation (Player player){
-        player.addToPosition(-3);
+        player.addToPosition(0, -3);
         return "Fortuna \n Desviacion, retroceda 3 casillas"; 
         
     }

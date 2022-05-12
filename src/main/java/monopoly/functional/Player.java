@@ -5,9 +5,9 @@ import javax.swing.JButton;
 
 public class Player implements Comparable<Player> {
     
-    private int playerNum, position, properties, money, initialDiceResult;
+    private int playerNum, position, properties, money, initialDiceResult, jailTries;
     private JButton button;
-    private boolean turn;
+    private boolean turn, jail, outOfJailCard;
     private final String name;
     
     
@@ -20,6 +20,9 @@ public class Player implements Comparable<Player> {
         position = 1;
         money = 1500;
         properties = 0;
+        jail = false;
+        jailTries = 0;
+        outOfJailCard = false;
         this.button.setVisible(true);
     }
 
@@ -53,8 +56,8 @@ public class Player implements Comparable<Player> {
         button.setLocation(arr[0], arr[1]);
     }
 
-    public void addToPosition(int moved) {
-        position += moved;
+    public void addToPosition(int dice1, int dice2) {
+        position += dice1 + dice2;
         if (position > 40) {
             position -= 40;
             money += 200;
@@ -65,8 +68,8 @@ public class Player implements Comparable<Player> {
 //        checkPosition();
     }
     
-    public void checkPosition(int diceResult) {
-        Util.getUtil().getBank().checkPosition(this, diceResult);
+    public void checkPosition(int dice1, int dice2) {
+        Util.getUtil().getBank().checkPosition(this, dice1, dice2);
     }
 
     public JButton getButton() {
@@ -100,10 +103,52 @@ public class Player implements Comparable<Player> {
     public void setMoney(int money) {
         this.money = money;
     }
+
+    public int getJailTries() {
+        return jailTries;
+    }
+
+    public void setJailTries(int jailTries) {
+        this.jailTries = jailTries;
+    }
+    
+    public void addJailTry() {
+        jailTries++;
+    }
+
+    public boolean isInJail() {
+        return jail;
+    }
+
+    public void setJail(boolean jail) {
+        this.jail = jail;
+    }
+
+    public boolean hasOutOfJailCard() {
+        return outOfJailCard;
+    }
+
+    public void setOutOfJailCard(boolean outOfJailCard) {
+        this.outOfJailCard = outOfJailCard;
+    }
+    
+    public void getOutOfJail(boolean usedCard) {
+        if (usedCard) {
+            jail = false;
+            jailTries = 0;
+        } else if (canBuy(50)) {
+            money -= 50;
+            jail = false;
+            jailTries = 0;
+        } else
+            Util.getUtil().getBoard().noMoneyPrompt();
+        if (!jail)
+            Util.getUtil().getBoard().isOutOfJailMessage(this);
+    }
     
     public void payUp(int moneyToPay, Player payee) {
 //        System.out.println("--------------------------------------------------------------------------------------------- payUp");
-        if (moneyToPay > money) {
+        if (!canBuy(moneyToPay)) {
             Util.getUtil().getBank().transferProperties(this, payee);
             Util.getUtil().getPlayers().declarePlayerBankrupt(this);
             Util.getUtil().getBoard().declareBankrupt(name, payee.getName());
@@ -118,13 +163,25 @@ public class Player implements Comparable<Player> {
     }
     
     public void buyProperty(String propertyName, int price) {
-        if (price <= money) {
+        if (canBuy(price)) {
             properties ++;
             money -= price;
             Util.getUtil().getBank().buyProperty(this, propertyName);
         } else {
             Util.getUtil().getBoard().noMoneyPrompt();
         }
+    }
+    
+    public boolean buy(int price) {
+        if (canBuy(price)) {
+            money -= price;
+            return true;
+        } else
+            return false;
+    }
+    
+    private boolean canBuy(int price) {
+        return price <= money;
     }
     
     @Override

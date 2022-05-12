@@ -16,6 +16,7 @@ public class Bank {
     private final HashMap<String, Integer> propertyNames = new HashMap<>();
     private final HashMap<Property, String> propertyColors = new HashMap<>();
     private final String[] colors = {"Cafe", "Celeste", "Rosado", "Anaranjado", "Rojo", "Amarillo", "Verde", "Azul"};
+    private int housesLeft = 32, hotelsLeft = 12;
 
     public Bank() {
         initProperties();
@@ -26,7 +27,8 @@ public class Bank {
         for (Map.Entry<Property, Player> set : properties.entrySet()) {
             if (set.getValue() != null && set.getValue().getName().equals(playerName)) {
                 Property property = set.getKey();
-                String str = "Propiedad: " + property.getName() + " ---- Cantidad de casas: " 
+                String str = "Propiedad: " + property.getName() + "Renta: " 
+                        + property.getRent() + " ---- Cantidad de casas: " 
                         + property.getAmmountOfHouses() + " ---- Hotel: ";
                 if (property.hasHotel())
                     str += "si";
@@ -78,35 +80,52 @@ public class Bank {
         int ammountRet = 0;
         for (Property p : propertiesToCheck) {
             int ammount = p.getAmmountOfHouses();
-            if (ammount > ammountRet)
+            if (p.hasHotel())
+                return 5;
+            else if (ammount > ammountRet)
                 ammountRet = p.getAmmountOfHouses();
         }
         return ammountRet;
     }
     
-    public String getAvailableHousesToPurchase(Player player) {
+    public ArrayList<Property> getAvailableHousesToPurchase(Player player) {
         ArrayList<Property> playerProperties = getPropertiesByPlayer(player.getName());
         ArrayList<ArrayList<Property>> propertiesWithMonopoly = checkForMonopoly(playerProperties);
-        ArrayList<String> availableProperties = new ArrayList<>();
+        ArrayList<Property> availableProperties = new ArrayList<>();
         int x = 0;
         for (int m = 0; m < propertiesWithMonopoly.size(); m++) {
             int highest = getHighestAmmountOfHouses(propertiesWithMonopoly.get(m));
             for (int i = 0; i < propertiesWithMonopoly.get(0).size(); i++) {
                 Property currentProperty = propertiesWithMonopoly.get(m).get(i);
-                if (currentProperty.getAmmountOfHouses() < highest) {
-                    availableProperties.add(currentProperty.getName());
+                if (currentProperty.hasHotel()) {
+                } else if (currentProperty.getAmmountOfHouses() < highest) {
+                    availableProperties.add(currentProperty);
                     x++;
                 }
             }
             if (x == 0)
                 for (Property p : propertiesWithMonopoly.get(m))
-                    availableProperties.add(p.getName());
+                    availableProperties.add(p);
             else
                 x = 0;
         }
+        return availableProperties;
+    }
+    
+    public boolean buyHouse(Property property, Player player) {
+        if (player.buy(property.getPricePerHouse()) && !property.hasHotel()) {
+            property.addHouse();
+            return true;
+        } else 
+            return false;
+    }
+    
+    public String propertyArrayListToString(ArrayList<Property> arr) {
         String ret = "";
-        for (String pr : availableProperties)
-            ret += pr + "\n";
+        for (int i = 0; i < arr.size(); i++) {
+            String pr = arr.get(i).getName();
+            ret += i + ". " + pr + "\n";
+        }
         return ret;
     }
 
@@ -293,25 +312,30 @@ public class Bank {
     }
 
     //controls what happens after a player moves
-    public void checkPosition(Player player, int diceResult) {
-        casa();
-        int playerPosition = player.getPosition();
-        System.out.println("Position = " + playerPosition);
-        String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
-        if (playerPosition == 31){
-            squareType = "GoTOJail";
-        }
-        System.out.println("squareType = " + squareType);
-        switch (squareType) {
-            case "Property", "SpecialProperty" ->
-                onProperty(player, squareType, playerPosition, diceResult);
-            case "CommunityChest" -> String(player); //Aqui su codigo de esta vara
-            case "Chance" -> 
-                Util.getUtil().getBoard().toggleComponents(6);//Y aqui
-            case "GoTOJail" -> GoToJail(playerPosition);
-            default -> {
+    public void checkPosition(Player player, int dice1, int dice2) {
+        casa(); // temporary method to show the functionality of buying houses & hotels
+        if (!player.isInJail()) {
+            int playerPosition = player.getPosition();
+            System.out.println("Position = " + playerPosition);
+            String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
+            if (playerPosition == 31){
+                squareType = "GoTOJail";
             }
-        }
+            System.out.println("squareType = " + squareType);
+            switch (squareType) {
+                case "Property", "SpecialProperty" ->
+                    onProperty(player, squareType, playerPosition, dice1 + dice2);
+                case "CommunityChest" -> String(player); //Aqui su codigo de esta vara
+                case "Chance" -> 
+                    Util.getUtil().getBoard().toggleComponents(6);//Y aqui
+                case "GoTOJail" -> GoToJail();
+                default -> {
+                }
+            }
+        } else if (dice1 == dice2 && dice2 == 5)
+            player.getOutOfJail(true);
+        else 
+            player.addJailTry();
     }
     
     private void String(Player player){
@@ -331,10 +355,25 @@ public class Bank {
         return chance;
     }
     
-    public void GoToJail(int position){
+    private void GoToJail(){
         JOptionPane.showMessageDialog(null, "Vaya a la carcel");
-        position = 21;
-        Util.getUtil().getPlayers().movePlayer(position);
+        Util.getUtil().getPlayers().goToJail();
+    }
+
+    public int getHousesLeft() {
+        return housesLeft;
+    }
+
+    public int getHotelsLeft() {
+        return hotelsLeft;
+    }
+    
+    public void removeHouseFromTotal() {
+        housesLeft--;
+    }
+    
+    public void removeHotelFromTotal() {
+        hotelsLeft--;
     }
 
 }

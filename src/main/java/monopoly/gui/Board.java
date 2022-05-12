@@ -7,6 +7,7 @@ package monopoly.gui;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -20,6 +21,7 @@ import monopoly.functional.Player;
 
 import monopoly.functional.Players;
 import monopoly.functional.Util;
+import monopoly.functional.squares.Property;
 
 /**
  *
@@ -106,6 +108,7 @@ public final class Board extends javax.swing.JFrame {
         txfEditPlayer5 = new javax.swing.JTextField();
         txfEditPlayer6 = new javax.swing.JTextField();
         txfDiceResult1 = new javax.swing.JTextField();
+        btnGetOutOfJail = new javax.swing.JButton();
         btnBuyHouse = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -499,8 +502,7 @@ public final class Board extends javax.swing.JFrame {
         txfDiceResult1.setBackground(new java.awt.Color(204, 227, 199));
         txfDiceResult1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         txfDiceResult1.setForeground(new java.awt.Color(0, 0, 0));
-        txfDiceResult1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txfDiceResult1.setText("2");
+        txfDiceResult1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txfDiceResult1.setBorder(null);
         txfDiceResult1.setFocusable(false);
         txfDiceResult1.addActionListener(new java.awt.event.ActionListener() {
@@ -508,9 +510,17 @@ public final class Board extends javax.swing.JFrame {
                 txfDiceResult1ActionPerformed(evt);
             }
         });
-        pnlStartGameOptions.add(txfDiceResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 20, 24));
+        pnlStartGameOptions.add(txfDiceResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 50, 24));
 
-        btnBuyHouse.setText("Casa");
+        btnGetOutOfJail.setText("Salir de la carcel");
+        btnGetOutOfJail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGetOutOfJailActionPerformed(evt);
+            }
+        });
+        pnlStartGameOptions.add(btnGetOutOfJail, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 140, -1));
+
+        btnBuyHouse.setText("Comprar Casa");
         btnBuyHouse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuyHouseActionPerformed(evt);
@@ -541,8 +551,8 @@ public final class Board extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -636,11 +646,12 @@ public final class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_txfNumOfPlayersActionPerformed
 
     private void btnDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiceActionPerformed
-        int res = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
-        txfDiceResult1.setText(Integer.toString(res));
-        System.out.println("El resultado del dado dio: " + res);
-        System.out.println("res " + res);
-        Util.getUtil().getPlayers().movePlayer(res);
+        int dice1 =  Util.getUtil().getRandom().nextInt(6) + 1;
+        int dice2 = Util.getUtil().getRandom().nextInt(6) + 1;
+        txfDiceResult1.setText(Integer.toString(dice1) + " + " + Integer.toString(dice2));
+        System.out.println("El resultado del dado dio: " + (dice1 + dice2));
+        System.out.println("res " + (dice1 + dice2));
+        Util.getUtil().getPlayers().movePlayer(dice1, dice2);
         txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
         updateGameString();
     }//GEN-LAST:event_btnDiceActionPerformed
@@ -716,9 +727,26 @@ public final class Board extends javax.swing.JFrame {
 
     private void btnBuyHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyHouseActionPerformed
         Player player = Util.getUtil().getPlayers().getPlayerTurn();
-        String str = Util.getUtil().getBank().getAvailableHousesToPurchase(player);
-        JOptionPane.showConfirmDialog(this, str, "casa", JOptionPane.INFORMATION_MESSAGE);
+        ArrayList<Property> availableHouses = Util.getUtil().getBank().getAvailableHousesToPurchase(player);
+        String str = "Elija el numero de la propiedad a la que le quiere comprar una casa: \n";
+        str += Util.getUtil().getBank().propertyArrayListToString(availableHouses);
+        String response = JOptionPane.showInputDialog(str);
+        if (!(response == null || response.equals(""))) {
+            int parsedResponse = Integer.parseInt(response);
+            try {
+                if (!Util.getUtil().getBank().buyHouse(availableHouses.get(parsedResponse), Util.getUtil().getPlayers().getPlayerTurn()))
+                    JOptionPane.showMessageDialog(Util.getUtil().getBoard(), "No posee suficiente dinero para comprar una casa en esta propiedad");
+            } catch (IndexOutOfBoundsException ex) {
+                JOptionPane.showMessageDialog(Util.getUtil().getBoard(), "Usted digito una opcion que no se encuentra en la lista de propiedades disponibles");
+            }
+        }
     }//GEN-LAST:event_btnBuyHouseActionPerformed
+
+    private void btnGetOutOfJailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetOutOfJailActionPerformed
+        Player player = Util.getUtil().getPlayers().getPlayerTurn(); 
+        player.setJail(false);
+        getOutOfJailPrompt(player);
+    }//GEN-LAST:event_btnGetOutOfJailActionPerformed
 
     public void EESound(String sound) {
         try {
@@ -792,7 +820,7 @@ public final class Board extends javax.swing.JFrame {
                 btnStart.setVisible(false);
                 lblTurn.setVisible(false);
                 txfDiceResult1.setVisible(false);
-
+                btnBuyHouse.setVisible(false);
             }
             case 1 -> {
                 //After number of players is selected
@@ -824,18 +852,26 @@ public final class Board extends javax.swing.JFrame {
                 txfPlayerTurn.setVisible(true);
                 lblTurn.setVisible(true);
                 txfDiceResult1.setVisible(true);
+                btnBuyHouse.setVisible(true);
             }
             case 5 -> {
                 btnCommunityChest.setVisible(true);
+                btnDice.setVisible(false);
             }
             case 6 -> {
                 btnChance.setVisible(true);
+                btnDice.setVisible(false);
             }
             case 7 -> {
                 btnCommunityChest.setVisible(false);
+                btnDice.setVisible(true);
             }
             case 8 -> {
                 btnChance.setVisible(false);
+                btnDice.setVisible(true);
+            }
+            case 9 -> {
+                btnGetOutOfJail.setVisible(true);
             }
             default -> {
             }
@@ -854,7 +890,7 @@ public final class Board extends javax.swing.JFrame {
     }
 
     public void noMoneyPrompt() {
-        System.out.println("no money");
+        JOptionPane.showMessageDialog(this, "Usted no posee suficiente dinero para esto");
     }
 
     public void passByGoPrompt() {
@@ -869,9 +905,13 @@ public final class Board extends javax.swing.JFrame {
     }
 
     public void declareBankrupt(String playerName, String payeeName) {
-        String str = "Jugador " + playerName + " no pudo pagar su deuda al jugador " 
-                + payeeName + " todas sus propiedades seran transferidas como compensacion";
-        JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
+        if (Util.getUtil().getPlayers().getPlayerList().size() == 1)
+            gameOver(playerName);
+        else {
+            String str = "Jugador " + playerName + " no pudo pagar su deuda al jugador " 
+                    + payeeName + " todas sus propiedades seran transferidas como compensacion";
+            JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private void selectPlayerToEdit(int playerNum) {
@@ -897,12 +937,28 @@ public final class Board extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "" + playerString);
     }
     
+    public void getOutOfJailPrompt(Player player) {
+        if (player.hasOutOfJailCard()) {
+            String strAsk = "Utilizar tarjeta para salir de la carcel gratis";
+            if (JOptionPane.showConfirmDialog(this, strAsk) == JOptionPane.YES_OPTION)
+                player.getOutOfJail(true);
+        } else if (JOptionPane.showConfirmDialog(this, "Pagar $50 para salir de la carcel") == JOptionPane.YES_OPTION)
+                player.getOutOfJail(false);
+            
+    }
+    
+    public void isOutOfJailMessage(Player player) {
+        JOptionPane.showMessageDialog(this, "Jugador " + player.getName() + " ha salido de la carcel!");
+    }
+    
     private void updateGameString() {
         String gameString = Util.getUtil().getPlayers().getGameString();
         txaGameString.setText(gameString);
     }
     
-    
+    public void gameOver(String playerName) {
+        JOptionPane.showMessageDialog(null, "Jugador " + playerName + " gano!");
+    }
  
 
     //private void disableButton (Player player){
@@ -954,6 +1010,7 @@ public final class Board extends javax.swing.JFrame {
     private javax.swing.JButton btnEditPlayer4;
     private javax.swing.JButton btnEditPlayer5;
     private javax.swing.JButton btnEditPlayer6;
+    private javax.swing.JButton btnGetOutOfJail;
     private javax.swing.JButton btnMinusNumOfPlayers;
     private javax.swing.JButton btnP1;
     private javax.swing.JButton btnP2;

@@ -1,5 +1,7 @@
 package monopoly.functional.squares;
 
+import monopoly.functional.Util;
+
 public enum Property {
     
     OldKentRd(60, 50, 2, 10, 30, 90, 160, 250, 30, 2, "Old Kent RD"),
@@ -52,6 +54,21 @@ public enum Property {
 
     public void setAmmountOfHouses(int ammountOfHouses) {
         this.ammountOfHouses = ammountOfHouses;
+    }
+    
+    public void addHouse() {
+        if (ammountOfHouses < 4 && !hotel)
+            if (Util.getUtil().getBank().getHousesLeft() > 0) {
+                ammountOfHouses++;
+                Util.getUtil().getBank().removeHouseFromTotal();
+            }
+        else if (!hotel){
+            if (Util.getUtil().getBank().getHotelsLeft() > 0) {
+                hotel = true;
+                ammountOfHouses = 0;
+                Util.getUtil().getBank().removeHotelFromTotal();
+            }
+        }
     }
 
     public boolean hasHotel() {
