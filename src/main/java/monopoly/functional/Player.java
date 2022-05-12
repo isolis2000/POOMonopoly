@@ -7,7 +7,7 @@ public class Player implements Comparable<Player> {
     
     private int playerNum, position, properties, money, initialDiceResult, jailTries;
     private JButton button;
-    private boolean turn, jail;
+    private boolean turn, jail, outOfJailCard;
     private final String name;
     
     
@@ -22,6 +22,7 @@ public class Player implements Comparable<Player> {
         properties = 0;
         jail = false;
         jailTries = 0;
+        outOfJailCard = false;
         this.button.setVisible(true);
     }
 
@@ -121,6 +122,28 @@ public class Player implements Comparable<Player> {
 
     public void setJail(boolean jail) {
         this.jail = jail;
+    }
+
+    public boolean hasOutOfJailCard() {
+        return outOfJailCard;
+    }
+
+    public void setOutOfJailCard(boolean outOfJailCard) {
+        this.outOfJailCard = outOfJailCard;
+    }
+    
+    public void getOutOfJail(boolean usedCard) {
+        if (usedCard) {
+            jail = false;
+            jailTries = 0;
+        } else if (canBuy(50)) {
+            money -= 50;
+            jail = false;
+            jailTries = 0;
+        } else
+            Util.getUtil().getBoard().noMoneyPrompt();
+        if (!jail)
+            Util.getUtil().getBoard().isOutOfJailMessage(this);
     }
     
     public void payUp(int moneyToPay, Player payee) {

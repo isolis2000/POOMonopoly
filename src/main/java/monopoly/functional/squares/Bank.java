@@ -332,11 +332,9 @@ public class Bank {
                 default -> {
                 }
             }
-        } else if (dice1 == dice2 && dice2 == 5) {
-            player.setJail(false);
-            player.setJailTries(0);
-            Util.getUtil().getBoard().getOutOfJailPrompt(player.getName());
-        } else 
+        } else if (dice1 == dice2 && dice2 == 5)
+            player.getOutOfJail(true);
+        else 
             player.addJailTry();
     }
     
