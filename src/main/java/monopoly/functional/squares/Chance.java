@@ -127,7 +127,7 @@ public class Chance {
     }
     //13
     private String deviation (Player player){
-        player.addToPosition(-3);
+        player.addToPosition(0, -3);
         return "Fortuna \n Desviacion, retroceda 3 casillas"; 
         
     }

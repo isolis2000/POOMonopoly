@@ -312,25 +312,32 @@ public class Bank {
     }
 
     //controls what happens after a player moves
-    public void checkPosition(Player player, int diceResult) {
-        casa();
-        int playerPosition = player.getPosition();
-        System.out.println("Position = " + playerPosition);
-        String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
-        if (playerPosition == 31){
-            squareType = "GoTOJail";
-        }
-        System.out.println("squareType = " + squareType);
-        switch (squareType) {
-            case "Property", "SpecialProperty" ->
-                onProperty(player, squareType, playerPosition, diceResult);
-            case "CommunityChest" -> String(player); //Aqui su codigo de esta vara
-            case "Chance" -> 
-                Util.getUtil().getBoard().toggleComponents(6);//Y aqui
-            case "GoTOJail" -> GoToJail(playerPosition);
-            default -> {
+    public void checkPosition(Player player, int dice1, int dice2) {
+        casa(); // temporary method to show the functionality of buying houses & hotels
+        if (!player.isInJail()) {
+            int playerPosition = player.getPosition();
+            System.out.println("Position = " + playerPosition);
+            String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
+            if (playerPosition == 31){
+                squareType = "GoTOJail";
             }
-        }
+            System.out.println("squareType = " + squareType);
+            switch (squareType) {
+                case "Property", "SpecialProperty" ->
+                    onProperty(player, squareType, playerPosition, dice1 + dice2);
+                case "CommunityChest" -> String(player); //Aqui su codigo de esta vara
+                case "Chance" -> 
+                    Util.getUtil().getBoard().toggleComponents(6);//Y aqui
+                case "GoTOJail" -> GoToJail();
+                default -> {
+                }
+            }
+        } else if (dice1 == dice2 && dice2 == 5) {
+            player.setJail(false);
+            player.setJailTries(0);
+            Util.getUtil().getBoard().getOutOfJailPrompt(player.getName());
+        } else 
+            player.addJailTry();
     }
     
     private void String(Player player){
@@ -350,10 +357,9 @@ public class Bank {
         return chance;
     }
     
-    public void GoToJail(int position){
+    private void GoToJail(){
         JOptionPane.showMessageDialog(null, "Vaya a la carcel");
-        position = 21;
-        Util.getUtil().getPlayers().movePlayer(position);
+        Util.getUtil().getPlayers().goToJail();
     }
 
     public int getHousesLeft() {

@@ -5,9 +5,9 @@ import javax.swing.JButton;
 
 public class Player implements Comparable<Player> {
     
-    private int playerNum, position, properties, money, initialDiceResult;
+    private int playerNum, position, properties, money, initialDiceResult, jailTries;
     private JButton button;
-    private boolean turn;
+    private boolean turn, jail;
     private final String name;
     
     
@@ -20,6 +20,8 @@ public class Player implements Comparable<Player> {
         position = 1;
         money = 1500;
         properties = 0;
+        jail = false;
+        jailTries = 0;
         this.button.setVisible(true);
     }
 
@@ -53,8 +55,8 @@ public class Player implements Comparable<Player> {
         button.setLocation(arr[0], arr[1]);
     }
 
-    public void addToPosition(int moved) {
-        position += moved;
+    public void addToPosition(int dice1, int dice2) {
+        position += dice1 + dice2;
         if (position > 40) {
             position -= 40;
             money += 200;
@@ -65,8 +67,8 @@ public class Player implements Comparable<Player> {
 //        checkPosition();
     }
     
-    public void checkPosition(int diceResult) {
-        Util.getUtil().getBank().checkPosition(this, diceResult);
+    public void checkPosition(int dice1, int dice2) {
+        Util.getUtil().getBank().checkPosition(this, dice1, dice2);
     }
 
     public JButton getButton() {
@@ -99,6 +101,26 @@ public class Player implements Comparable<Player> {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public int getJailTries() {
+        return jailTries;
+    }
+
+    public void setJailTries(int jailTries) {
+        this.jailTries = jailTries;
+    }
+    
+    public void addJailTry() {
+        jailTries++;
+    }
+
+    public boolean isInJail() {
+        return jail;
+    }
+
+    public void setJail(boolean jail) {
+        this.jail = jail;
     }
     
     public void payUp(int moneyToPay, Player payee) {

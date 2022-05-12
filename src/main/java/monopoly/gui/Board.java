@@ -502,7 +502,6 @@ public final class Board extends javax.swing.JFrame {
         txfDiceResult1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         txfDiceResult1.setForeground(new java.awt.Color(0, 0, 0));
         txfDiceResult1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txfDiceResult1.setText("2");
         txfDiceResult1.setBorder(null);
         txfDiceResult1.setFocusable(false);
         txfDiceResult1.addActionListener(new java.awt.event.ActionListener() {
@@ -510,7 +509,7 @@ public final class Board extends javax.swing.JFrame {
                 txfDiceResult1ActionPerformed(evt);
             }
         });
-        pnlStartGameOptions.add(txfDiceResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 30, 24));
+        pnlStartGameOptions.add(txfDiceResult1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 50, 24));
 
         btnBuyHouse.setText("Casa");
         btnBuyHouse.addActionListener(new java.awt.event.ActionListener() {
@@ -638,11 +637,12 @@ public final class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_txfNumOfPlayersActionPerformed
 
     private void btnDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiceActionPerformed
-        int res = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
-        txfDiceResult1.setText(Integer.toString(res));
-        System.out.println("El resultado del dado dio: " + res);
-        System.out.println("res " + res);
-        Util.getUtil().getPlayers().movePlayer(res);
+        int dice1 =  Util.getUtil().getRandom().nextInt(6) + 1;
+        int dice2 = Util.getUtil().getRandom().nextInt(6) + 1;
+        txfDiceResult1.setText(Integer.toString(dice1) + " + " + Integer.toString(dice2));
+        System.out.println("El resultado del dado dio: " + (dice1 + dice2));
+        System.out.println("res " + (dice1 + dice2));
+        Util.getUtil().getPlayers().movePlayer(dice1, dice2);
         txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
         updateGameString();
     }//GEN-LAST:event_btnDiceActionPerformed
@@ -917,6 +917,10 @@ public final class Board extends javax.swing.JFrame {
     private void chanceMassage() {
         String playerString = Util.getUtil().getBank().getChance().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
         JOptionPane.showMessageDialog(this, "" + playerString);
+    }
+    
+    public void getOutOfJailPrompt(String playerName) {
+        JOptionPane.showMessageDialog(this, "Jugador " + playerName + " ha salido de la carcel!");
     }
     
     private void updateGameString() {
