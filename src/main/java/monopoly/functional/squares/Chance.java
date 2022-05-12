@@ -1,16 +1,25 @@
 package monopoly.functional.squares;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import monopoly.functional.Player;
+import monopoly.functional.Util;
 
 public class Chance {
     
     private final int[] positions = {8, 23, 37};
     
-    public String RandomCC (Player player){
-        int num = (int)(Math.random()*16+1);
+    private ArrayList<Integer> cardsArrayList = new ArrayList<>();
+
+    public Chance() {
+        for (int i = 0; i < 16; i++)
+            cardsArrayList.add(i+1);
+        Collections.shuffle(cardsArrayList);
+    }
+    
+    private String useCard(Player player, int n){
         String ret = "";
-        System.out.println(num);
-        switch (num) {
+        switch (n) {
             case 1 -> ret = gasolinePrice(player);
             case 2 -> ret = goToJail (player);
             case 3 -> ret = tolls(player);
@@ -33,7 +42,12 @@ public class Chance {
         return ret;
     }
     
-
+    public String getNextCard(Player player) {
+        int card = cardsArrayList.get(0);
+        cardsArrayList.remove(card);
+        cardsArrayList.add(card);
+        return useCard(player, card);
+    }
 
     public int[] getPositions() {
         return positions;

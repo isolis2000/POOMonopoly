@@ -926,14 +926,14 @@ public final class Board extends javax.swing.JFrame {
 
     private void communnityChestMassage() {
 
-        String playerString = Util.getUtil().getBank().getCommuinityChest().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
+        String playerString = Util.getUtil().getBank().getCommuinityChest().getNextCard(Util.getUtil().getPlayers().getPlayerTurn());
         btnCommunityChest.setContentAreaFilled(false);
 
         JOptionPane.showMessageDialog(this, "" + playerString);
     }
 
     private void chanceMassage() {
-        String playerString = Util.getUtil().getBank().getChance().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
+        String playerString = Util.getUtil().getBank().getChance().getNextCard(Util.getUtil().getPlayers().getPlayerTurn());
         JOptionPane.showMessageDialog(this, "" + playerString);
     }
     
