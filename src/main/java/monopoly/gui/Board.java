@@ -805,7 +805,7 @@ public final class Board extends javax.swing.JFrame {
                 btnStart.setVisible(false);
                 lblTurn.setVisible(false);
                 txfDiceResult1.setVisible(false);
-
+                btnBuyHouse.setVisible(false);
             }
             case 1 -> {
                 //After number of players is selected
@@ -837,18 +837,23 @@ public final class Board extends javax.swing.JFrame {
                 txfPlayerTurn.setVisible(true);
                 lblTurn.setVisible(true);
                 txfDiceResult1.setVisible(true);
+                btnBuyHouse.setVisible(true);
             }
             case 5 -> {
                 btnCommunityChest.setVisible(true);
+                btnDice.setVisible(false);
             }
             case 6 -> {
                 btnChance.setVisible(true);
+                btnDice.setVisible(false);
             }
             case 7 -> {
                 btnCommunityChest.setVisible(false);
+                btnDice.setVisible(true);
             }
             case 8 -> {
                 btnChance.setVisible(false);
+                btnDice.setVisible(true);
             }
             default -> {
             }
