@@ -4,6 +4,8 @@
  */
 package monopoly.functional.squares;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import monopoly.functional.Player;
 import monopoly.functional.Util;
@@ -15,12 +17,17 @@ import monopoly.functional.Util;
 public class CommuinityChest {
     
     private final int[] positions = {3, 18, 34};
+    private ArrayList<Integer> cardsArrayList = new ArrayList<>();
+
+    public CommuinityChest() {
+        for (int i = 0; i < 16; i++)
+            cardsArrayList.add(i+1);
+        Collections.shuffle(cardsArrayList);
+    }
    
-    public String RandomCC (Player player){
-        int num = (int)(Math.random()*16+1);
+    private String useCard(Player player, int n){
         String ret = "";
-        System.out.println(num);
-        switch (num) {
+        switch (n) {
             case 1 -> ret = penaltyFee(player);
             case 2 -> ret = pickupPedestrian(player);
             case 3 -> ret = shock (player);
@@ -42,6 +49,13 @@ public class CommuinityChest {
         }
         return ret;
                
+    }
+    
+    public String getNextCard(Player player) {
+        int card = cardsArrayList.get(0)-1;
+        cardsArrayList.remove(card);
+        cardsArrayList.add(card);
+        return useCard(player, card);
     }
 
     public int[] getPositions() {
@@ -123,7 +137,6 @@ public class CommuinityChest {
     //12
     private String goToJail(Player player){
         
-        System.out.println("Hola12");
         return " Arca Comunal \n Vayase a la carcel, no pase por la salida, no cobre 200";
     }
     //13

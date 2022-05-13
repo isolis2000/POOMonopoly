@@ -46,8 +46,6 @@ public final class Board extends javax.swing.JFrame {
         toggleComponents(0);
         numOfPlayers = numOfPlayers = Integer.parseInt(txfNumOfPlayers.getText());
         Util.getUtil().setBoard(this);
-        toggleComponents(8);
-        toggleComponents(7);
 
     }
 
@@ -67,7 +65,6 @@ public final class Board extends javax.swing.JFrame {
         btnP4 = new javax.swing.JButton();
         btnP5 = new javax.swing.JButton();
         btnP6 = new javax.swing.JButton();
-        EEClown = new javax.swing.JButton();
         btnCommunityChest = new javax.swing.JButton();
         btnChance = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
@@ -182,16 +179,6 @@ public final class Board extends javax.swing.JFrame {
         });
         jPanel1.add(btnP6);
         btnP6.setBounds(930, 870, 50, 50);
-
-        EEClown.setBorderPainted(false);
-        EEClown.setOpaque(false);
-        EEClown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EEClownActionPerformed(evt);
-            }
-        });
-        jPanel1.add(EEClown);
-        EEClown.setBounds(440, 410, 20, 20);
 
         btnCommunityChest.setBorder(null);
         btnCommunityChest.setBorderPainted(false);
@@ -649,8 +636,6 @@ public final class Board extends javax.swing.JFrame {
         int dice1 =  Util.getUtil().getRandom().nextInt(6) + 1;
         int dice2 = Util.getUtil().getRandom().nextInt(6) + 1;
         txfDiceResult1.setText(Integer.toString(dice1) + " + " + Integer.toString(dice2));
-        System.out.println("El resultado del dado dio: " + (dice1 + dice2));
-        System.out.println("res " + (dice1 + dice2));
         Util.getUtil().getPlayers().movePlayer(dice1, dice2);
         txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
         updateGameString();
@@ -717,10 +702,6 @@ public final class Board extends javax.swing.JFrame {
         toggleComponents(7);
     }//GEN-LAST:event_btnCommunityChestActionPerformed
 
-    private void EEClownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EEClownActionPerformed
-        EESound("C:\\Users\\ANTONY\\Desktop\\POOMonopoly\\POOMonopoly\\src\\main\\resources\\Sounds\\EEsound.wav");
-    }//GEN-LAST:event_EEClownActionPerformed
-
     private void txfDiceResult1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResult1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfDiceResult1ActionPerformed
@@ -747,16 +728,9 @@ public final class Board extends javax.swing.JFrame {
         player.setJail(false);
         getOutOfJailPrompt(player);
     }//GEN-LAST:event_btnGetOutOfJailActionPerformed
-
-    public void EESound(String sound) {
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(sound).getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-            System.out.println("Error al reproducir el sonido.");
-        }
+    
+    public void payTaxesPrompt(Player player, int ammount) {
+        JOptionPane.showMessageDialog(this, "Jugador " + player.getName() + " paga " + ammount + " al banco");
     }
 
     private void startGame() {
@@ -815,12 +789,15 @@ public final class Board extends javax.swing.JFrame {
                 for (JButton jb : btnTokensArray) {
                     jb.setVisible(false);
                 }
-                btnDice.setVisible(false);
                 txfPlayerTurn.setVisible(false);
                 btnStart.setVisible(false);
                 lblTurn.setVisible(false);
                 txfDiceResult1.setVisible(false);
                 btnBuyHouse.setVisible(false);
+                btnGetOutOfJail.setVisible(false);
+                btnChance.setVisible(false);
+                btnCommunityChest.setVisible(false);
+                btnDice.setVisible(false);
             }
             case 1 -> {
                 //After number of players is selected
@@ -879,13 +856,11 @@ public final class Board extends javax.swing.JFrame {
     }
 
     public void buyPrompt(Player player, String propertyName, int propertyPrice) {
-        System.out.println("can buy");
         String buyPromptStr = "La propiedad " + propertyName + " tiene un precio de " + propertyPrice + ".\n¿Desea comprarla?";
         if (JOptionPane.showConfirmDialog(this, buyPromptStr, "Confirmacion de compra de propiedad",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             player.buyProperty(propertyName, propertyPrice);
         } else {
-            System.out.println("no compro");
         }
     }
 
@@ -894,7 +869,6 @@ public final class Board extends javax.swing.JFrame {
     }
 
     public void passByGoPrompt() {
-        System.out.println("passed by go");
     }
 
     public void rentPrompt(String payerName, String payeeName, int ammount) {
@@ -905,13 +879,19 @@ public final class Board extends javax.swing.JFrame {
     }
 
     public void declareBankrupt(String playerName, String payeeName) {
+        String str = "Jugador " + playerName + " no pudo pagar su deuda al jugador " 
+                + payeeName + " todas sus propiedades seran transferidas como compensacion";
+        JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
         if (Util.getUtil().getPlayers().getPlayerList().size() == 1)
-            gameOver(playerName);
-        else {
-            String str = "Jugador " + playerName + " no pudo pagar su deuda al jugador " 
-                    + payeeName + " todas sus propiedades seran transferidas como compensacion";
-            JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
-        }
+            gameOver(payeeName);
+        
+    }
+    
+    public void declareBankruptBank(String playerName) {
+        String str = "Jugador " + playerName + " no pudo pagar su deuda al banco " +  "todas sus propiedades seran transferidas como compensacion";
+        JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
+        if (Util.getUtil().getPlayers().getPlayerList().size() == 1)
+            gameOver(Util.getUtil().getPlayers().getPlayerList().get(0).getName());
     }
 
     private void selectPlayerToEdit(int playerNum) {
@@ -926,14 +906,14 @@ public final class Board extends javax.swing.JFrame {
 
     private void communnityChestMassage() {
 
-        String playerString = Util.getUtil().getBank().getCommuinityChest().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
+        String playerString = Util.getUtil().getBank().getCommuinityChest().getNextCard(Util.getUtil().getPlayers().getPlayerTurn());
         btnCommunityChest.setContentAreaFilled(false);
 
         JOptionPane.showMessageDialog(this, "" + playerString);
     }
 
     private void chanceMassage() {
-        String playerString = Util.getUtil().getBank().getChance().RandomCC(Util.getUtil().getPlayers().getPlayerTurn());
+        String playerString = Util.getUtil().getBank().getChance().getNextCard(Util.getUtil().getPlayers().getPlayerTurn());
         JOptionPane.showMessageDialog(this, "" + playerString);
     }
     
@@ -999,7 +979,6 @@ public final class Board extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton EEClown;
     private javax.swing.JButton btnBuyHouse;
     private javax.swing.JButton btnChance;
     private javax.swing.JButton btnCommunityChest;
