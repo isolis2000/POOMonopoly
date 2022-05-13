@@ -95,10 +95,6 @@ public class Util {
             else
                 y += 80;
             boardPositions.put(i+33, new int[] {x, y});
-        }    
-        System.out.println("map: ");
-        for (int arr : boardPositions.keySet()) {
-            System.out.println(arr + " : " + Arrays.toString(boardPositions.get(arr)));
         }
     }
     

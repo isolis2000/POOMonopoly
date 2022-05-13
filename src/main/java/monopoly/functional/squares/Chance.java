@@ -21,12 +21,11 @@ public class Chance {
         String ret = "";
         switch (n) {
             case 1 -> ret = gasolinePrice(player);
-            case 2 -> ret = goToJail (player);
+            case 2 -> ret = goToJail ();
             case 3 -> ret = tolls(player);
             case 4 -> ret = advanceToHotel(player);
-            case 5 -> ret = advanceToDock (player);
-            case 6 -> ret = takeAWalkAroundThePier (player);
-            case 7 -> ret = takeAtripAvenidaOriental(player);
+            case 5, 6 -> ret = advanceToNearestStation (player);
+            case 7 -> ret = advanceToNearestUtility(player);
             case 8 -> ret = advanceAvenidaMediterraneo (player);
             case 9 -> ret = getOutOfJail(player);
             case 10 -> ret = generalRepairs(player);
@@ -43,7 +42,7 @@ public class Chance {
     }
     
     public String getNextCard(Player player) {
-        int card = cardsArrayList.get(0);
+        int card = cardsArrayList.get(0)-1;
         cardsArrayList.remove(card);
         cardsArrayList.add(card);
         return useCard(player, card);
@@ -54,58 +53,46 @@ public class Chance {
     }
     //1
     private String gasolinePrice(Player player){
-        int money = player.getMoney(); 
-        player.setMoney(money += 50);
+        player.addMoney(50);
         return "Fortuna \n Los precios de la gasolina estan abajo, se cobra 50";
     }
     //2
-    private String goToJail (Player player){
-        
+    private String goToJail (){
+        Util.getUtil().getPlayers().goToJail();
         return "Fortuna \n Vayase a la carcel, no pase por salida, no cobre 200";
     }
     //3
     private String tolls(Player player){
-        int money = player.getMoney(); 
-        player.setMoney(money -= 20);
+        player.addMoney(-20);
         return "Fortuna \n Peajes, se paga 20";
     }
     //4
     private String advanceToHotel (Player player){
-        //Hacer llamado a la funcion 
-        int money = player.getMoney();
-        player.setMoney(money += 200);
-        return "Fortuna \n Avance al hotel resort, si pasa por salida, se cobra 200";
+        int position = 12;
+        if (player.getPosition() > position) 
+            player.addMoney(200);
+        player.setPosition(position);
+        return "Fortuna \n Avance a Pall Mall, si pasa por salida, se cobra 200";
         
     }
-    //5
-    private String advanceToDock (Player player){
-        //
-        return "Fortuna \n Avance al muelle, si esta a la venta, puede comprarselo al banco, si es propiedad de alguien se paga el doble de la admision marcada";
-    }
-    //6
-    private String takeAWalkAroundThePier (Player player){
-       
-        //Hacer llamado a la funcion 
-        int money = player.getMoney(); 
-        player.setMoney(money += 200);
-        System.out.println(player.getMoney());
-        return "Fortuna \n Tome un paseo por el muelle, si pasa por la salida, se cobra 200"; 
-        
+    //5 & 6
+    private String advanceToNearestStation (Player player){
+        // 
+        player.findNearestStation();
+        return "Fortuna \n Avance a la estacion mas cercana, si esta a la venta, puede comprarselo al banco, si es propiedad de alguien se paga el doble de la renta marcada";
     }
     //7
-    private String takeAtripAvenidaOriental(Player player){
+    private String advanceToNearestUtility(Player player){
         
-        //Hacer llamado a la funcion 
-        int money = player.getMoney();
-        player.setMoney(money += 200);
-        System.out.println(player.getMoney());
-        return "Fortuna \n Tome un viaje por avenida oriental, si pasa por salida cobre 200"; 
+        player.findNearestUtility();
+        return "Fortuna \n Avance a la compañía de servicios mas cercana, si esta a la venta, puede comprarselo al banco, si es propiedad de alguien se paga el doble de la renta marcada"; 
         
     }
     //8
     private String advanceAvenidaMediterraneo (Player player){
         //
-        return "Fortuna \n Avance a avneida mediterraneo, si esta a la venta puede comparselo al banco, si es propiedad de alguien pague el doble de la cuenta marcada"; 
+        player.addMoney(50);
+        return "Fortuna \n El banco le paga $50"; 
         
     }
     //9
@@ -118,7 +105,6 @@ public class Chance {
         int money = player.getMoney();
         int properties = player.getPlayerNum();
         player.setMoney(money += 20 * properties);
-        System.out.println(player.getMoney());
         return "Fortuna \n Reparaciones Generales, se paga 20 por cada una de sus propiedades"; 
         
         
@@ -157,7 +143,6 @@ public class Chance {
     private String takeAdvantageOfYourSavings(Player player){
         int money = player.getMoney();
         player.setMoney(money += 150);
-        System.out.println(player.getMoney());
         return "Fortuna \n Aproveche su ahorro de dia lluvioso, se cobra 150"; 
            
     }

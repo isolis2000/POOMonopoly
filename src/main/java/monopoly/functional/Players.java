@@ -34,26 +34,28 @@ public class Players {
             initialDiceArray.add(initialDice);
             playerList.get(i).setInitialDiceResult(initialDice);
         }
-        System.out.println(retStr);
         Collections.sort(playerList);
     }
     
     public void movePlayer(int dice1, int dice2) {
         Player player = getPlayerTurn();
-        player.addToPosition(dice1, dice2);
+        if (!player.isInJail()) {
+            player.addToPosition(dice1, dice2);
+            player.checkPosition(dice1, dice2);
+        } else
+            player.checkPosition(dice1, dice2);
         player.setTurn(false);
         getNextPlayer(player).setTurn(true);
-        player.checkPosition(dice1, dice2);
     }
     
     public void goToJail() {
         Player player = getPlayerTurn();
         player.setJail(true);
         player.setPosition(21);
+        Util.getUtil().getBoard().repaint();
     }
     
     public void declarePlayerBankrupt(Player player) {
-        System.out.println("Jugador " + player.getName() + " mamo");
         player.setTurn(false);
         getNextPlayer(player).setTurn(true);
         playerList.remove(player);

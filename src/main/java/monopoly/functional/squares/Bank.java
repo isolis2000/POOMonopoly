@@ -3,7 +3,6 @@ package monopoly.functional.squares;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
 import monopoly.functional.Player;
 import monopoly.functional.Util;
 
@@ -143,6 +142,10 @@ public class Bank {
     }
 
     private String getPropertyType(int position) {
+        if (position == 5)
+            return "IncomeTax";
+        else if (position == 39)
+            return "SuperTax";
         for (Property p : Property.values()) {
             if (p.getPosition() == position) {
                 return "Property";
@@ -162,7 +165,6 @@ public class Bank {
             if (pos == position) {
                 return "Chance";
             }
-        
         }
 
         return "-1";
@@ -191,11 +193,6 @@ public class Bank {
         }
         specialProperties.put(new SpecialProperty(13, 150, "Electric Company", "Service"), null);
         specialProperties.put(new SpecialProperty(29, 150, "Water Works", "Service"), null);
-        for (Map.Entry<SpecialProperty, Player> entry : specialProperties.entrySet()) {
-            if (entry.getKey().getName().equals("King Cross Station")) {
-                System.out.println("station: " + entry.getKey().getPrice());
-            }
-        }
         for (int i = 0; i <= 40; i++) {
             if (getPropertyByPosition(i) != null) {
                 propertyNames.put(getPropertyByPosition(i).getName(), i);
@@ -242,7 +239,6 @@ public class Bank {
         return null;
     }
 
-//    private void buyProperty(Player player, )
     private void pay(Player payer, Player payee, int ammount) { //the one who pays and the one who gets payed
         payer.payUp(ammount, payee);
     }
@@ -262,18 +258,7 @@ public class Bank {
             System.out.println("Exception with property " + propertyName);
         }
     }
-
-//    private int getRent(int position, String squareType) {
-//        if (squareType.equals("Property"))
-//            for (Property p : Property.values()) {
-//                if (p.getPosition() == position)
-//                    return p.getRent();
-//            }
-//        else
-//            for (SpecialProperty sp : specialProperties.keySet())
-//                return 
-//        
-//    }
+    
     private int checkAmmountOfSpecialProperties(String type, Player player) {
         int res = 0;
         for (Map.Entry<SpecialProperty, Player> set : specialProperties.entrySet()) {
@@ -316,19 +301,18 @@ public class Bank {
         casa(); // temporary method to show the functionality of buying houses & hotels
         if (!player.isInJail()) {
             int playerPosition = player.getPosition();
-            System.out.println("Position = " + playerPosition);
             String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
             if (playerPosition == 31){
                 squareType = "GoTOJail";
             }
-            System.out.println("squareType = " + squareType);
             switch (squareType) {
                 case "Property", "SpecialProperty" ->
                     onProperty(player, squareType, playerPosition, dice1 + dice2);
-                case "CommunityChest" -> String(player); //Aqui su codigo de esta vara
-                case "Chance" -> 
-                    Util.getUtil().getBoard().toggleComponents(6);//Y aqui
-                case "GoTOJail" -> GoToJail();
+                case "CommunityChest" -> Util.getUtil().getBoard().toggleComponents(5);
+                case "Chance" -> Util.getUtil().getBoard().toggleComponents(6);
+                case "GoTOJail" -> Util.getUtil().getPlayers().goToJail();
+                case "IncomeTax" -> player.payTaxes(1);
+                case "SuperTax" -> player.payTaxes(2);
                 default -> {
                 }
             }
@@ -338,26 +322,28 @@ public class Bank {
             player.addJailTry();
     }
     
-    private void String(Player player){
-        Util.getUtil().getBoard().toggleComponents(5);
-        System.out.println("Community Chest");
-        System.out.println(player.getPosition());
-        
+    public void checkPosition(Player player) {
+        int playerPosition = player.getPosition();
+            String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
+        switch (squareType) {
+                case "Property", "SpecialProperty" ->
+                    onProperty(player, squareType, playerPosition, 20);
+                case "CommunityChest" -> Util.getUtil().getBoard().toggleComponents(5);
+                case "Chance" -> Util.getUtil().getBoard().toggleComponents(6);
+                case "GoTOJail" -> Util.getUtil().getPlayers().goToJail();
+                case "IncomeTax" -> player.payTaxes(1);
+                case "SuperTax" -> player.payTaxes(2);
+                default -> {
+                }
+            }
     }
 
-    //Listas de propiedades 
-    //Arraylist
     public CommuinityChest getCommuinityChest() {
         return commuinityChest;
     }
 
     public Chance getChance() {
         return chance;
-    }
-    
-    private void GoToJail(){
-        JOptionPane.showMessageDialog(null, "Vaya a la carcel");
-        Util.getUtil().getPlayers().goToJail();
     }
 
     public int getHousesLeft() {

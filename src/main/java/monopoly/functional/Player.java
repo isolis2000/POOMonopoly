@@ -1,5 +1,6 @@
 package monopoly.functional;
 
+import static java.lang.Math.abs;
 import java.util.ArrayList;
 import javax.swing.JButton;
 
@@ -103,6 +104,10 @@ public class Player implements Comparable<Player> {
     public void setMoney(int money) {
         this.money = money;
     }
+    
+    public void addMoney(int money) {
+        this.money += money;
+    }
 
     public int getJailTries() {
         return jailTries;
@@ -147,18 +152,15 @@ public class Player implements Comparable<Player> {
     }
     
     public void payUp(int moneyToPay, Player payee) {
-//        System.out.println("--------------------------------------------------------------------------------------------- payUp");
         if (!canBuy(moneyToPay)) {
             Util.getUtil().getBank().transferProperties(this, payee);
             Util.getUtil().getPlayers().declarePlayerBankrupt(this);
             Util.getUtil().getBoard().declareBankrupt(name, payee.getName());
-//            System.out.println("Player " + name + " transfer the properties to player " + payee.getName());
         }
         else {
             money -= moneyToPay;
             payee.setMoney(payee.getMoney() + moneyToPay);
             Util.getUtil().getBoard().rentPrompt(name, payee.getName(), moneyToPay);
-//            System.out.println("Player " + name + " pays " + moneyToPay + " to player " + payee.getName());
         }
     }
     
@@ -182,6 +184,56 @@ public class Player implements Comparable<Player> {
     
     private boolean canBuy(int price) {
         return price <= money;
+    }
+    
+    public void payTaxes(int type) { // 1 = income tax, 2 = super tax
+        boolean payed = false;
+        int ammount = 0;
+        if (type == 1)
+            if (buy(9000)) {
+                ammount = 200;
+                payed = true;
+            }
+        else
+            if (buy(9000)) {
+                ammount = 100;
+                payed = true;
+            }
+        if (payed) {
+            money -= ammount;
+            Util.getUtil().getBoard().payTaxesPrompt(this, ammount);
+        }
+        else {
+            Util.getUtil().getPlayers().declarePlayerBankrupt(this);
+            Util.getUtil().getBoard().declareBankruptBank(name);
+        }
+    }
+    
+    public void findNearestStation() {
+        int res = 20;
+        for (int i = 6; i <= 36; i += 10)
+            if (i-position > 0 && i-position < res)
+                res = i;
+        if (res == 20) {
+            position = 6;
+            money += 200;
+        }
+        else
+            position = res;
+        Util.getUtil().getBank().checkPosition(this);
+    }
+    
+    public void findNearestUtility() {
+         //13 29
+        if (13 - position > 0)
+            position = 13;
+        else if (29 - position > 0)
+            position = 29;
+        else {
+            position = 13;
+            money += 200;
+        }
+        Util.getUtil().getBank().checkPosition(this);
     }
     
     @Override

@@ -52,7 +52,7 @@ public class CommuinityChest {
     }
     
     public String getNextCard(Player player) {
-        int card = cardsArrayList.get(0);
+        int card = cardsArrayList.get(0)-1;
         cardsArrayList.remove(card);
         cardsArrayList.add(card);
         return useCard(player, card);
@@ -137,7 +137,6 @@ public class CommuinityChest {
     //12
     private String goToJail(Player player){
         
-        System.out.println("Hola12");
         return " Arca Comunal \n Vayase a la carcel, no pase por la salida, no cobre 200";
     }
     //13
