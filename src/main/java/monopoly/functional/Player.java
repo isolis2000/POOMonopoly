@@ -73,12 +73,11 @@ public class Player implements Comparable<Player> {
             money += 200;
             if (!purchase)
                 purchase = true;
-            GameMaster.getGameMaster().getBoard().passByGoPrompt();
         }
         int[] arr = GameMaster.getGameMaster().getPlayerPositions().get(position);
         button.setLocation(arr[0], arr[1]);
+        GameMaster.getGameMaster().getBoard().updateGameString();
         GameMaster.getGameMaster().getBoard().repaint();
-//        checkPosition();
     }
     
     public void checkPosition(int dice1, int dice2) {

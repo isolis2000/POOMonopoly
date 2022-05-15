@@ -296,13 +296,10 @@ public class Bank {
             if (squareType.equals("Property")) {
                 Property property = getPropertyByPosition(playerPosition);
                 int rent = property.getRent();
-//                Util.getUtil().getBoard().rentPrompt(player, property.getName(), property.getPrice());
                 pay(player, secondPlayer, rent);
             } else if (squareType.equals("SpecialProperty")) {
                 SpecialProperty specialProperty = getSpecialPropertyByPosition(playerPosition);
-//                Util.getUtil().getBoard().buyPrompt(player, specialProperty.getName(), specialProperty.getPrice());
                 pay(player, secondPlayer, specialProperty.getRent(checkAmmountOfSpecialProperties(specialProperty.getType(), player), diceResult));
-//                pay(player, secondPlayer, specialProperty.getRent());
             }
         }
         GameMaster.getGameMaster().getPlayers().changePlayerTurn();

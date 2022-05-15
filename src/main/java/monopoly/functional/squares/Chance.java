@@ -24,7 +24,7 @@ public class Chance {
             case 1 -> ret = gasolinePrice(player);
             case 2 -> ret = goToJail (player);
             case 3 -> ret = tolls(player);
-            case 4 -> ret = advanceToHotel(player);
+            case 4 -> ret = advanceToMall(player);
             case 5, 6 -> ret = advanceToNearestStation (player);
             case 7 -> ret = advanceToNearestUtility(player);
             case 8 -> ret = bankPays50 (player);
@@ -70,7 +70,7 @@ public class Chance {
         return "Fortuna \n Peajes, se paga 20";
     }
     //4
-    private String advanceToHotel (Player player){
+    private String advanceToMall (Player player){
         int position = 12;
         if (player.getPosition() > position) 
             player.addMoney(200);

@@ -35,14 +35,14 @@ public class SpecialProperty {
             return getRentService(owned, dice);
     }
     
-    public int getRentService(int owned, int dice) {
+    private int getRentService(int owned, int dice) {
         if (owned == 1)
             return dice * 4;
         else
             return dice * 10;
     }
     
-    public int getRentStation(int owned) {
+    private int getRentStation(int owned) {
         int res = 25;
         for (int i = 1; i < owned; i++) {
             res *= 2;

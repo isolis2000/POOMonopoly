@@ -35,7 +35,7 @@ public class CommuinityChest {
             case 5 -> ret = leftPhone(player);
             case 6 -> ret = friendRide (player);
             case 7 -> ret = foreigner (player);
-            case 8 -> ret = RequestPassengers(player);
+            case 8 -> ret = requestPassengers(player);
             case 9 -> ret = flatTire (player);
             case 10 -> ret = forgetTheHotel(player);
             case 11 -> ret = searchCash(player);
@@ -115,7 +115,7 @@ public class CommuinityChest {
         return " Arca Comunal \n Un extrajero le pago su cuota en la cabina de peaje, se cobra $20";
     }
     //8
-    private String RequestPassengers (Player player){
+    private String requestPassengers (Player player){
         for (Player p : GameMaster.getGameMaster().getPlayers().getPlayerList()) {
             p.addMoney(-10);
             player.addMoney(10);

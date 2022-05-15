@@ -11,10 +11,6 @@ import monopoly.functional.Player;
 import monopoly.functional.GameMaster;
 import monopoly.functional.squares.Property;
 
-/**
- *
- * @author ivan
- */
 public final class Board extends javax.swing.JFrame {
 
     private JButton[] btnPlayersArray, btnEditsArray, btnTokensArray;
@@ -865,9 +861,6 @@ public final class Board extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Usted no posee suficiente dinero para esto");
     }
 
-    public void passByGoPrompt() {
-    }
-
     public void rentPrompt(String payerName, String payeeName, int ammount) {
         String str = "Jugador " + payerName + " se encuentra en una "
                 + "propiedad que le pertenece al jugador " + payeeName
@@ -928,7 +921,7 @@ public final class Board extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Jugador " + player.getName() + " ha salido de la carcel!");
     }
     
-    private void updateGameString() {
+    public void updateGameString() {
         String gameString = GameMaster.getGameMaster().getPlayers().getGameString();
         txaGameString.setText(gameString);
         repaint();
