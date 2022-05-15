@@ -22,19 +22,87 @@ public class Players {
         playerList.get(0).setTurn(true);
     }
     
-    
-    
     private void initTurns(int numOfPlayers) {
+        int unTie = 0;
         String retStr = "";
-        ArrayList<Integer> initialDiceArray = new ArrayList<>();
-        ArrayList<Integer> initialDiceArrayAux = new ArrayList<>();
-        for (int i = 0; i < numOfPlayers; i++) {
-            int initialDice = GameMaster.getGameMaster().getRandom().nextInt(6) + GameMaster.getGameMaster().getRandom().nextInt(6) + 2;
-            retStr += "Jugador " + i + " obtuvo " + initialDice + "\n";
-            initialDiceArray.add(initialDice);
-            playerList.get(i).setInitialDiceResult(initialDice);
+        int[] players = new int[numOfPlayers];
+        for(int i = 0; i < numOfPlayers; i++) {
+            players[i] = i;
+        }
+        int [][] data = generateTurns(0, numOfPlayers, players);
+        unTie++;
+        int[] turns = data[0];
+        players = data[1];
+        int playersWithTurn = 0;
+        for(int i = 0; i < numOfPlayers; i++){
+            retStr += "\nJugador " + (players[i] + 1) + " obtuvo " + turns[i];
+        }
+        while (playersWithTurn != numOfPlayers) {
+            int nextTurn = 0;
+            if(playersWithTurn != (numOfPlayers - 1)){
+                nextTurn = turns[playersWithTurn + 1];
+            }
+            
+            if(turns[playersWithTurn] != nextTurn){
+                int p = players[playersWithTurn];
+                int t = numOfPlayers - playersWithTurn;
+                playersWithTurn++;
+                retStr += "\nEl jugador " + (p + 1) + " tiene el turno número " + playersWithTurn;
+            }else{
+                int repeated = playersWithTurn;
+                nextTurn = turns[repeated + 1];
+                while(turns[repeated] == nextTurn){
+                    repeated++;
+                    if(repeated == numOfPlayers - 1){
+                        nextTurn = 0;
+                    }
+                }
+                if((repeated == numOfPlayers - 1) && (turns[numOfPlayers - 1] == turns[numOfPlayers - 2])){
+                    repeated++;
+                }
+                data = generateTurns(playersWithTurn, repeated, players);
+                retStr += "\n---------------------\nDesempate " + unTie + ":";
+                for(int i = 0; i < data[0].length; i++){
+                    turns[i + playersWithTurn] = data[0][i];
+                    players[i + playersWithTurn] = data[1][i];
+                    retStr += "\nLos nuevos valores son: El jugador " + (players[i + playersWithTurn] + 1) + " obtuvo " + turns[i + playersWithTurn];
+                }
+                unTie++;
+            }
         }
         Collections.sort(playerList);
+        GameMaster.getGameMaster().getBoard().initialDiceResults(retStr);
+    }
+    
+    private int[][] generateTurns(int initial, int end, int[] players) {
+        int size = end - initial;
+        int[] turns = new int[size];
+        int[] tempPlayers = new int[size];
+        for (int i = 0; i < size; i++) {
+            int initialDice = GameMaster.getGameMaster().getRandom().nextInt(6) + GameMaster.getGameMaster().getRandom().nextInt(6) + 2;
+            turns[i] = (initialDice);
+            tempPlayers[i] = players[i + initial];
+        }
+        bubbleSort(turns, tempPlayers, size);
+        return new int[][] {turns, tempPlayers};
+    }
+
+    private void bubbleSort(int[] turns, int[] players, int arrSize) {
+        int tempTurn, tempPlayer;
+        
+        for (int i = 0; i < arrSize - 1; i++){
+            for (int j = 0; j < arrSize - i - 1; j++){
+                //No quick porque no fue necesario
+                if (turns[j] < turns[j + 1]) {
+                  tempTurn = turns[j];
+                  tempPlayer = players[j];
+                  turns[j] = turns[j + 1];
+                  players[j] = players[j + 1];
+                  turns [j + 1] = tempTurn;
+                  players[j + 1] = tempPlayer;
+                }
+            }
+        }
     }
     
     public void movePlayer(int dice1, int dice2) {

@@ -80,16 +80,13 @@ public class Chance {
     }
     //5 & 6
     private String advanceToNearestStation (Player player){
-        // 
         player.findNearestStation();
         return "Fortuna \n Avance a la estacion mas cercana, si esta a la venta, puede comprarselo al banco, si es propiedad de alguien se paga el doble de la renta marcada";
     }
     //7
     private String advanceToNearestUtility(Player player){
-        
         player.findNearestUtility();
-        return "Fortuna \n Avance a la compañía de servicios mas cercana, si esta a la venta, puede comprarselo al banco, si es propiedad de alguien se paga el doble de la renta marcada"; 
-        
+        return "Fortuna \n Avance a la compañía de servicios mas cercana, si esta a la venta, puede comprarselo al banco, si es propiedad de alguien se paga el doble de la renta marcada";
     }
     //8
     private String bankPays50 (Player player){
