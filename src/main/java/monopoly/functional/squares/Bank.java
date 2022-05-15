@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import monopoly.functional.Player;
-import monopoly.functional.Util;
+import monopoly.functional.GameMaster;
 
 public class Bank {
 
@@ -132,11 +132,13 @@ public class Bank {
         for (Map.Entry<Property, Player> set : properties.entrySet()) {
             if (set.getValue() != null && set.getValue().equals(player1)) {
                 set.setValue(player2);
+                player2.addProperties(1);
             }
         }
         for (Map.Entry<SpecialProperty, Player> set : specialProperties.entrySet()) {
             if (set.getValue() != null && set.getValue().equals(player1)) {
                 set.setValue(player2);
+                player2.addProperties(1);
             }
         }
     }
@@ -166,7 +168,6 @@ public class Bank {
                 return "Chance";
             }
         }
-
         return "-1";
     }
 
@@ -202,9 +203,12 @@ public class Bank {
         }
     }
     
-    private void casa() {
-        properties.replace(Property.OldKentRd, Util.getUtil().getPlayers().getPlayerList().get(0));
-        properties.replace(Property.WhiteChapelRD, Util.getUtil().getPlayers().getPlayerList().get(0));
+    public void casa() {
+        Player player = GameMaster.getGameMaster().getPlayers().getPlayerList().get(0);
+        properties.replace(Property.OldKentRd, player);
+        properties.replace(Property.WhiteChapelRD, player);
+        player.addProperties(2);
+        
     }
 
     private Property getPropertyByPosition(int position) {
@@ -254,6 +258,7 @@ public class Bank {
                 specialProperties.replace(specialProperty, player);
             }
             System.out.println("property " + propertyName + " was bought by player " + player.getName());
+            
         } catch (Exception e) {
             System.out.println("Exception with property " + propertyName);
         }
@@ -276,12 +281,12 @@ public class Bank {
         if (secondPlayer == null) {
             if (squareType.equals("Property")) {
                 Property property = getPropertyByPosition(playerPosition);
-                Util.getUtil().getBoard().buyPrompt(player, property.getName(), property.getPrice());
+                GameMaster.getGameMaster().getBoard().buyPrompt(player, property.getName(), property.getPrice());
             } else if (squareType.equals("SpecialProperty")) {
                 SpecialProperty specialProperty = getSpecialPropertyByPosition(playerPosition);
-                Util.getUtil().getBoard().buyPrompt(player, specialProperty.getName(), specialProperty.getPrice());
+                GameMaster.getGameMaster().getBoard().buyPrompt(player, specialProperty.getName(), specialProperty.getPrice());
             }
-        } else {
+        } else if (!secondPlayer.equals(player)){
             if (squareType.equals("Property")) {
                 Property property = getPropertyByPosition(playerPosition);
                 int rent = property.getRent();
@@ -294,27 +299,26 @@ public class Bank {
 //                pay(player, secondPlayer, specialProperty.getRent());
             }
         }
+        GameMaster.getGameMaster().getPlayers().changePlayerTurn();
     }
 
     //controls what happens after a player moves
     public void checkPosition(Player player, int dice1, int dice2) {
-        casa(); // temporary method to show the functionality of buying houses & hotels
         if (!player.isInJail()) {
             int playerPosition = player.getPosition();
-            String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
+            String squareType = GameMaster.getGameMaster().getBank().getPropertyType(playerPosition);
             if (playerPosition == 31){
                 squareType = "GoTOJail";
             }
             switch (squareType) {
                 case "Property", "SpecialProperty" ->
                     onProperty(player, squareType, playerPosition, dice1 + dice2);
-                case "CommunityChest" -> Util.getUtil().getBoard().toggleComponents(5);
-                case "Chance" -> Util.getUtil().getBoard().toggleComponents(6);
-                case "GoTOJail" -> Util.getUtil().getPlayers().goToJail();
+                case "CommunityChest" -> GameMaster.getGameMaster().getBoard().toggleComponents(5);
+                case "Chance" -> GameMaster.getGameMaster().getBoard().toggleComponents(6);
+                case "GoTOJail" -> GameMaster.getGameMaster().getPlayers().goToJail(GameMaster.getGameMaster().getPlayers().getPlayerTurn());
                 case "IncomeTax" -> player.payTaxes(1);
                 case "SuperTax" -> player.payTaxes(2);
-                default -> {
-                }
+                default -> {GameMaster.getGameMaster().getPlayers().changePlayerTurn();}
             }
         } else if (dice1 == dice2 && dice2 == 5)
             player.getOutOfJail(true);
@@ -324,17 +328,16 @@ public class Bank {
     
     public void checkPosition(Player player) {
         int playerPosition = player.getPosition();
-            String squareType = Util.getUtil().getBank().getPropertyType(playerPosition);
+            String squareType = GameMaster.getGameMaster().getBank().getPropertyType(playerPosition);
         switch (squareType) {
                 case "Property", "SpecialProperty" ->
                     onProperty(player, squareType, playerPosition, 20);
-                case "CommunityChest" -> Util.getUtil().getBoard().toggleComponents(5);
-                case "Chance" -> Util.getUtil().getBoard().toggleComponents(6);
-                case "GoTOJail" -> Util.getUtil().getPlayers().goToJail();
+                case "CommunityChest" -> GameMaster.getGameMaster().getBoard().toggleComponents(5);
+                case "Chance" -> GameMaster.getGameMaster().getBoard().toggleComponents(6);
+                case "GoTOJail" -> GameMaster.getGameMaster().getPlayers().goToJail(GameMaster.getGameMaster().getPlayers().getPlayerTurn());
                 case "IncomeTax" -> player.payTaxes(1);
                 case "SuperTax" -> player.payTaxes(2);
-                default -> {
-                }
+                default -> {}
             }
     }
 

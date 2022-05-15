@@ -1,6 +1,6 @@
 package monopoly.functional.squares;
 
-import monopoly.functional.Util;
+import monopoly.functional.GameMaster;
 
 public enum Property {
     
@@ -58,15 +58,15 @@ public enum Property {
     
     public void addHouse() {
         if (ammountOfHouses < 4 && !hotel)
-            if (Util.getUtil().getBank().getHousesLeft() > 0) {
+            if (GameMaster.getGameMaster().getBank().getHousesLeft() > 0) {
                 ammountOfHouses++;
-                Util.getUtil().getBank().removeHouseFromTotal();
+                GameMaster.getGameMaster().getBank().removeHouseFromTotal();
             }
         else if (!hotel){
-            if (Util.getUtil().getBank().getHotelsLeft() > 0) {
+            if (GameMaster.getGameMaster().getBank().getHotelsLeft() > 0) {
                 hotel = true;
                 ammountOfHouses = 0;
-                Util.getUtil().getBank().removeHotelFromTotal();
+                GameMaster.getGameMaster().getBank().removeHotelFromTotal();
             }
         }
     }

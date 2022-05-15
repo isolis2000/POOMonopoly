@@ -20,7 +20,7 @@ import monopoly.functional.Player;
 
 
 import monopoly.functional.Players;
-import monopoly.functional.Util;
+import monopoly.functional.GameMaster;
 import monopoly.functional.squares.Property;
 
 /**
@@ -45,7 +45,7 @@ public final class Board extends javax.swing.JFrame {
         initButtonCommands();
         toggleComponents(0);
         numOfPlayers = numOfPlayers = Integer.parseInt(txfNumOfPlayers.getText());
-        Util.getUtil().setBoard(this);
+        GameMaster.getGameMaster().setBoard(this);
 
     }
 
@@ -597,6 +597,7 @@ public final class Board extends javax.swing.JFrame {
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         toggleComponents(4);
         startGame();
+        updateGameString();
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void txfPlayerTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfPlayerTurnActionPerformed
@@ -633,12 +634,13 @@ public final class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_txfNumOfPlayersActionPerformed
 
     private void btnDiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiceActionPerformed
-        int dice1 =  Util.getUtil().getRandom().nextInt(6) + 1;
-        int dice2 = Util.getUtil().getRandom().nextInt(6) + 1;
+        int dice1 =  GameMaster.getGameMaster().getRandom().nextInt(6) + 1;
+        int dice2 = GameMaster.getGameMaster().getRandom().nextInt(6) + 1;
         txfDiceResult1.setText(Integer.toString(dice1) + " + " + Integer.toString(dice2));
-        Util.getUtil().getPlayers().movePlayer(dice1, dice2);
-        txfPlayerTurn.setText(Util.getUtil().getPlayers().getPlayerTurnName());
+        GameMaster.getGameMaster().getPlayers().movePlayer(dice1, dice2);
+        txfPlayerTurn.setText(GameMaster.getGameMaster().getPlayers().getPlayerTurnName());
         updateGameString();
+        repaint();
     }//GEN-LAST:event_btnDiceActionPerformed
 
     private void btnEditPlayer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPlayer1ActionPerformed
@@ -686,10 +688,10 @@ public final class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_btnP6ActionPerformed
 
     private void btnChanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChanceActionPerformed
-        chanceMassage();
+        chanceMessage();
         toggleComponents(8);
-
-
+        GameMaster.getGameMaster().getPlayers().changePlayerTurn();
+        updateGameString();
     }//GEN-LAST:event_btnChanceActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -700,6 +702,8 @@ public final class Board extends javax.swing.JFrame {
     private void btnCommunityChestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityChestActionPerformed
         communnityChestMassage();
         toggleComponents(7);
+        GameMaster.getGameMaster().getPlayers().changePlayerTurn();
+        updateGameString();
     }//GEN-LAST:event_btnCommunityChestActionPerformed
 
     private void txfDiceResult1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfDiceResult1ActionPerformed
@@ -707,26 +711,28 @@ public final class Board extends javax.swing.JFrame {
     }//GEN-LAST:event_txfDiceResult1ActionPerformed
 
     private void btnBuyHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyHouseActionPerformed
-        Player player = Util.getUtil().getPlayers().getPlayerTurn();
-        ArrayList<Property> availableHouses = Util.getUtil().getBank().getAvailableHousesToPurchase(player);
+        Player player = GameMaster.getGameMaster().getPlayers().getPlayerTurn();
+        ArrayList<Property> availableHouses = GameMaster.getGameMaster().getBank().getAvailableHousesToPurchase(player);
         String str = "Elija el numero de la propiedad a la que le quiere comprar una casa: \n";
-        str += Util.getUtil().getBank().propertyArrayListToString(availableHouses);
+        str += GameMaster.getGameMaster().getBank().propertyArrayListToString(availableHouses);
         String response = JOptionPane.showInputDialog(str);
         if (!(response == null || response.equals(""))) {
             int parsedResponse = Integer.parseInt(response);
             try {
-                if (!Util.getUtil().getBank().buyHouse(availableHouses.get(parsedResponse), Util.getUtil().getPlayers().getPlayerTurn()))
-                    JOptionPane.showMessageDialog(Util.getUtil().getBoard(), "No posee suficiente dinero para comprar una casa en esta propiedad");
+                if (!GameMaster.getGameMaster().getBank().buyHouse(availableHouses.get(parsedResponse), GameMaster.getGameMaster().getPlayers().getPlayerTurn()))
+                    JOptionPane.showMessageDialog(GameMaster.getGameMaster().getBoard(), "No posee suficiente dinero para comprar una casa en esta propiedad");
             } catch (IndexOutOfBoundsException ex) {
-                JOptionPane.showMessageDialog(Util.getUtil().getBoard(), "Usted digito una opcion que no se encuentra en la lista de propiedades disponibles");
+                JOptionPane.showMessageDialog(GameMaster.getGameMaster().getBoard(), "Usted digito una opcion que no se encuentra en la lista de propiedades disponibles");
             }
         }
+        updateGameString();
     }//GEN-LAST:event_btnBuyHouseActionPerformed
 
     private void btnGetOutOfJailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetOutOfJailActionPerformed
-        Player player = Util.getUtil().getPlayers().getPlayerTurn(); 
+        Player player = GameMaster.getGameMaster().getPlayers().getPlayerTurn(); 
         player.setJail(false);
         getOutOfJailPrompt(player);
+        toggleComponents(10);
     }//GEN-LAST:event_btnGetOutOfJailActionPerformed
     
     public void payTaxesPrompt(Player player, int ammount) {
@@ -740,8 +746,9 @@ public final class Board extends javax.swing.JFrame {
             buttons[i] = btnPlayersArray[i];
             playerNames[i] = playerNamesArray[i].getText();
         }
-        Util.getUtil().getPlayers().initPlayers(numOfPlayers, buttons, playerNames);
+        GameMaster.getGameMaster().getPlayers().initPlayers(numOfPlayers, buttons, playerNames);
         gameStarted = true;
+        GameMaster.getGameMaster().getBank().casa();
     }
 
     private void initArrays() {
@@ -830,6 +837,7 @@ public final class Board extends javax.swing.JFrame {
                 lblTurn.setVisible(true);
                 txfDiceResult1.setVisible(true);
                 btnBuyHouse.setVisible(true);
+                btnStart.setVisible(false);
             }
             case 5 -> {
                 btnCommunityChest.setVisible(true);
@@ -850,9 +858,13 @@ public final class Board extends javax.swing.JFrame {
             case 9 -> {
                 btnGetOutOfJail.setVisible(true);
             }
+            case 10 -> {
+                btnGetOutOfJail.setVisible(false);
+            }
             default -> {
             }
         }
+        repaint();
     }
 
     public void buyPrompt(Player player, String propertyName, int propertyPrice) {
@@ -882,7 +894,7 @@ public final class Board extends javax.swing.JFrame {
         String str = "Jugador " + playerName + " no pudo pagar su deuda al jugador " 
                 + payeeName + " todas sus propiedades seran transferidas como compensacion";
         JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
-        if (Util.getUtil().getPlayers().getPlayerList().size() == 1)
+        if (GameMaster.getGameMaster().getPlayers().getPlayerList().size() == 1)
             gameOver(payeeName);
         
     }
@@ -890,8 +902,8 @@ public final class Board extends javax.swing.JFrame {
     public void declareBankruptBank(String playerName) {
         String str = "Jugador " + playerName + " no pudo pagar su deuda al banco " +  "todas sus propiedades seran transferidas como compensacion";
         JOptionPane.showMessageDialog(this, str, "Bankrupt Prompt", JOptionPane.INFORMATION_MESSAGE);
-        if (Util.getUtil().getPlayers().getPlayerList().size() == 1)
-            gameOver(Util.getUtil().getPlayers().getPlayerList().get(0).getName());
+        if (GameMaster.getGameMaster().getPlayers().getPlayerList().size() == 1)
+            gameOver(GameMaster.getGameMaster().getPlayers().getPlayerList().get(0).getName());
     }
 
     private void selectPlayerToEdit(int playerNum) {
@@ -900,20 +912,20 @@ public final class Board extends javax.swing.JFrame {
     }
 
     private void showPlayerData(int playerNum) {
-        String playerString = Util.getUtil().getPlayers().getPlayerString(playerNum);
+        String playerString = GameMaster.getGameMaster().getPlayers().getPlayerString(playerNum);
         JOptionPane.showMessageDialog(this, playerString, "Detalles de Jugador", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void communnityChestMassage() {
 
-        String playerString = Util.getUtil().getBank().getCommuinityChest().getNextCard(Util.getUtil().getPlayers().getPlayerTurn());
+        String playerString = GameMaster.getGameMaster().getBank().getCommuinityChest().getNextCard(GameMaster.getGameMaster().getPlayers().getPlayerTurn());
         btnCommunityChest.setContentAreaFilled(false);
 
         JOptionPane.showMessageDialog(this, "" + playerString);
     }
 
-    private void chanceMassage() {
-        String playerString = Util.getUtil().getBank().getChance().getNextCard(Util.getUtil().getPlayers().getPlayerTurn());
+    private void chanceMessage() {
+        String playerString = GameMaster.getGameMaster().getBank().getChance().getNextCard(GameMaster.getGameMaster().getPlayers().getPlayerTurn());
         JOptionPane.showMessageDialog(this, "" + playerString);
     }
     
@@ -932,8 +944,9 @@ public final class Board extends javax.swing.JFrame {
     }
     
     private void updateGameString() {
-        String gameString = Util.getUtil().getPlayers().getGameString();
+        String gameString = GameMaster.getGameMaster().getPlayers().getGameString();
         txaGameString.setText(gameString);
+        repaint();
     }
     
     public void gameOver(String playerName) {

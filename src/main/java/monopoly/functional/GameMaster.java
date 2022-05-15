@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.Random;
 import monopoly.gui.Board;
 
-public class Util {
+public class GameMaster {
     
-    private static final Util util = new Util();
+    private static final GameMaster gameMaster = new GameMaster();
     private final Random random = new Random();
     private final Players players = new Players();
     private final Bank bank = new Bank();
@@ -17,7 +17,7 @@ public class Util {
     private Board board;
 
 
-    public Util() {
+    public GameMaster() {
         initPlayerPositions();
     }
 
@@ -29,8 +29,8 @@ public class Util {
         return players;
     }
 
-    public static Util getUtil() {
-        return util;
+    public static GameMaster getGameMaster() {
+        return gameMaster;
     }
 
     public Board getBoard() {

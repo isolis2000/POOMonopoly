@@ -29,7 +29,7 @@ public class Players {
         ArrayList<Integer> initialDiceArray = new ArrayList<>();
         ArrayList<Integer> initialDiceArrayAux = new ArrayList<>();
         for (int i = 0; i < numOfPlayers; i++) {
-            int initialDice = Util.getUtil().getRandom().nextInt(6) + Util.getUtil().getRandom().nextInt(6) + 2;
+            int initialDice = GameMaster.getGameMaster().getRandom().nextInt(6) + GameMaster.getGameMaster().getRandom().nextInt(6) + 2;
             retStr += "Jugador " + i + " obtuvo " + initialDice + "\n";
             initialDiceArray.add(initialDice);
             playerList.get(i).setInitialDiceResult(initialDice);
@@ -44,15 +44,19 @@ public class Players {
             player.checkPosition(dice1, dice2);
         } else
             player.checkPosition(dice1, dice2);
+    }
+    
+    public void changePlayerTurn() {
+        Player player = getPlayerTurn();
         player.setTurn(false);
         getNextPlayer(player).setTurn(true);
     }
     
-    public void goToJail() {
-        Player player = getPlayerTurn();
+    public void goToJail(Player player) {
         player.setJail(true);
-        player.setPosition(21);
-        Util.getUtil().getBoard().repaint();
+        player.setPosition(11);
+        GameMaster.getGameMaster().getBoard().toggleComponents(9);
+        changePlayerTurn();
     }
     
     public void declarePlayerBankrupt(Player player) {

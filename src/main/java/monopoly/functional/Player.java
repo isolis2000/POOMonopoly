@@ -6,7 +6,7 @@ import javax.swing.JButton;
 
 public class Player implements Comparable<Player> {
     
-    private int playerNum, position, properties, money, initialDiceResult, jailTries;
+    private int playerNum, position, ammountOfProperties, money, initialDiceResult, jailTries;
     private JButton button;
     private boolean turn, jail, outOfJailCard;
     private final String name;
@@ -20,7 +20,7 @@ public class Player implements Comparable<Player> {
         turn = false;
         position = 1;
         money = 1500;
-        properties = 0;
+        ammountOfProperties = 0;
         jail = false;
         jailTries = 0;
         outOfJailCard = false;
@@ -53,8 +53,9 @@ public class Player implements Comparable<Player> {
 
     public void setPosition(int position) {
         this.position = position;
-        int[] arr = Util.getUtil().getPlayerPositions().get(position);
+        int[] arr = GameMaster.getGameMaster().getPlayerPositions().get(position);
         button.setLocation(arr[0], arr[1]);
+        GameMaster.getGameMaster().getBoard().repaint();
     }
 
     public void addToPosition(int dice1, int dice2) {
@@ -62,15 +63,16 @@ public class Player implements Comparable<Player> {
         if (position > 40) {
             position -= 40;
             money += 200;
-            Util.getUtil().getBoard().passByGoPrompt();
+            GameMaster.getGameMaster().getBoard().passByGoPrompt();
         }
-        int[] arr = Util.getUtil().getPlayerPositions().get(position);
+        int[] arr = GameMaster.getGameMaster().getPlayerPositions().get(position);
         button.setLocation(arr[0], arr[1]);
+        GameMaster.getGameMaster().getBoard().repaint();
 //        checkPosition();
     }
     
     public void checkPosition(int dice1, int dice2) {
-        Util.getUtil().getBank().checkPosition(this, dice1, dice2);
+        GameMaster.getGameMaster().getBank().checkPosition(this, dice1, dice2);
     }
 
     public JButton getButton() {
@@ -90,11 +92,11 @@ public class Player implements Comparable<Player> {
     }
 
     public int getProperties() {
-        return properties;
+        return ammountOfProperties;
     }
 
-    public void setProperties(int properties) {
-        this.properties = properties;
+    public void addProperties(int propertiesToAdd) {
+        ammountOfProperties += propertiesToAdd;
     }
 
     public int getMoney() {
@@ -107,6 +109,10 @@ public class Player implements Comparable<Player> {
     
     public void addMoney(int money) {
         this.money += money;
+        if (this.money < 0) {
+            GameMaster.getGameMaster().getPlayers().declarePlayerBankrupt(this);
+            GameMaster.getGameMaster().getBoard().declareBankruptBank(name);
+        }
     }
 
     public int getJailTries() {
@@ -119,6 +125,7 @@ public class Player implements Comparable<Player> {
     
     public void addJailTry() {
         jailTries++;
+        GameMaster.getGameMaster().getPlayers().changePlayerTurn();
     }
 
     public boolean isInJail() {
@@ -146,31 +153,31 @@ public class Player implements Comparable<Player> {
             jail = false;
             jailTries = 0;
         } else
-            Util.getUtil().getBoard().noMoneyPrompt();
+            GameMaster.getGameMaster().getBoard().noMoneyPrompt();
         if (!jail)
-            Util.getUtil().getBoard().isOutOfJailMessage(this);
+            GameMaster.getGameMaster().getBoard().isOutOfJailMessage(this);
     }
     
     public void payUp(int moneyToPay, Player payee) {
         if (!canBuy(moneyToPay)) {
-            Util.getUtil().getBank().transferProperties(this, payee);
-            Util.getUtil().getPlayers().declarePlayerBankrupt(this);
-            Util.getUtil().getBoard().declareBankrupt(name, payee.getName());
+            GameMaster.getGameMaster().getBank().transferProperties(this, payee);
+            GameMaster.getGameMaster().getPlayers().declarePlayerBankrupt(this);
+            GameMaster.getGameMaster().getBoard().declareBankrupt(name, payee.getName());
         }
         else {
             money -= moneyToPay;
             payee.setMoney(payee.getMoney() + moneyToPay);
-            Util.getUtil().getBoard().rentPrompt(name, payee.getName(), moneyToPay);
+            GameMaster.getGameMaster().getBoard().rentPrompt(name, payee.getName(), moneyToPay);
         }
     }
     
     public void buyProperty(String propertyName, int price) {
         if (canBuy(price)) {
-            properties ++;
+            ammountOfProperties ++;
             money -= price;
-            Util.getUtil().getBank().buyProperty(this, propertyName);
+            GameMaster.getGameMaster().getBank().buyProperty(this, propertyName);
         } else {
-            Util.getUtil().getBoard().noMoneyPrompt();
+            GameMaster.getGameMaster().getBoard().noMoneyPrompt();
         }
     }
     
@@ -190,23 +197,22 @@ public class Player implements Comparable<Player> {
         boolean payed = false;
         int ammount = 0;
         if (type == 1)
-            if (buy(9000)) {
+            if (buy(200)) {
                 ammount = 200;
                 payed = true;
             }
         else
-            if (buy(9000)) {
+            if (buy(100)) {
                 ammount = 100;
                 payed = true;
             }
-        if (payed) {
-            money -= ammount;
-            Util.getUtil().getBoard().payTaxesPrompt(this, ammount);
-        }
+        if (payed) 
+            GameMaster.getGameMaster().getBoard().payTaxesPrompt(this, ammount);
         else {
-            Util.getUtil().getPlayers().declarePlayerBankrupt(this);
-            Util.getUtil().getBoard().declareBankruptBank(name);
+            GameMaster.getGameMaster().getPlayers().declarePlayerBankrupt(this);
+            GameMaster.getGameMaster().getBoard().declareBankruptBank(name);
         }
+        GameMaster.getGameMaster().getPlayers().changePlayerTurn();
     }
     
     public void findNearestStation() {
@@ -215,12 +221,12 @@ public class Player implements Comparable<Player> {
             if (i-position > 0 && i-position < res)
                 res = i;
         if (res == 20) {
-            position = 6;
+            setPosition(6);
             money += 200;
         }
         else
-            position = res;
-        Util.getUtil().getBank().checkPosition(this);
+            setPosition(res);
+        GameMaster.getGameMaster().getBank().checkPosition(this);
     }
     
     public void findNearestUtility() {
@@ -228,21 +234,21 @@ public class Player implements Comparable<Player> {
         if (13 - position > 0)
             position = 13;
         else if (29 - position > 0)
-            position = 29;
+            setPosition(29);
         else {
-            position = 13;
+            setPosition(13);
             money += 200;
         }
-        Util.getUtil().getBank().checkPosition(this);
+        GameMaster.getGameMaster().getBank().checkPosition(this);
     }
     
     @Override
     public String toString() {
-        ArrayList<String> playerPropertiesArr = Util.getUtil().getBank().getPropertiesStrByPlayer(name);
+        ArrayList<String> playerPropertiesArr = GameMaster.getGameMaster().getBank().getPropertiesStrByPlayer(name);
         String playerProperties = "";
         for (String s : playerPropertiesArr)
             playerProperties += "- " + s + "\n";
-        String retStr = "Jugador " + name + " tiene $" + money + " en el banco y " + properties + " propiedades a su nombre\n"
+        String retStr = "Jugador " + name + " tiene $" + money + " en el banco y " + ammountOfProperties + " propiedades a su nombre\n"
                 + playerProperties;
         return retStr;
     }
