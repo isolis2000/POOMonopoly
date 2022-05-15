@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import monopoly.functional.Player;
-import monopoly.functional.Util;
+import monopoly.functional.GameMaster;
 
 /**
  *
@@ -28,12 +28,12 @@ public class CommuinityChest {
     private String useCard(Player player, int n){
         String ret = "";
         switch (n) {
-            case 1 -> ret = penaltyFee(player);
+            case 1 -> ret = speedingTicket(player);
             case 2 -> ret = pickupPedestrian(player);
-            case 3 -> ret = shock (player);
+            case 3 -> ret = gasStation (player);
             case 4 -> ret = getOutOfJail(player);
-            case 5 -> ret = leaveCellular (player);
-            case 6 -> ret = takeInCar (player);
+            case 5 -> ret = leftPhone(player);
+            case 6 -> ret = friendRide (player);
             case 7 -> ret = foreigner (player);
             case 8 -> ret = RequestPassengers(player);
             case 9 -> ret = flatTire (player);
@@ -52,9 +52,21 @@ public class CommuinityChest {
     }
     
     public String getNextCard(Player player) {
-        int card = cardsArrayList.get(0)-1;
-        cardsArrayList.remove(card);
+        System.out.println("----------------------------\ncardsArrayList: [");
+        String str = "";
+        for (int i : cardsArrayList)
+            str += ", " + i;
+        str += "]";
+        System.out.print(str);
+        int card = cardsArrayList.get(0);
+        cardsArrayList.remove(0);
         cardsArrayList.add(card);
+        System.out.println("----------------------------\ncardsArrayList: [");
+        String str2 = "";
+        for (int i : cardsArrayList)
+            str2 += ", " + i;
+        str2 += "]";
+        System.out.print(str2);
         return useCard(player, card);
     }
 
@@ -62,110 +74,98 @@ public class CommuinityChest {
         return positions;
     }
     //1
-    private String penaltyFee (Player player){
-        int money = player.getMoney();
-        player.setMoney(money -= 50);
-        return " Arca comunal \n Multa por exceso de velocidad, se paga 50";
+    private String speedingTicket (Player player){
+        player.addMoney(-50);
+        return " Arca comunal \n Multa por exceso de velocidad, paga $50";
      
     }
     //2
     private String pickupPedestrian(Player player){
-        int money = player.getMoney();
-        player.setMoney(money += 20);
-        return " Arca Comunal \n Recogio a un peaton, Gana 20";
+        player.addMoney(20);
+        return " Arca Comunal \n Recogio a un peaton, Gana $20";
     }
     //3
-    private String shock (Player player){
-        int money = player.getMoney();
-        player.setMoney(money -= 50);
-        return " Arca Comunal \n Gasolinera, pague 50";
+    private String gasStation (Player player){
+        player.addMoney(-50);
+        return " Arca Comunal \n Gasolinera, pague $50";
         
     }
     //4
     private String getOutOfJail(Player player){
-        
+        player.setOutOfJailCard(true);
         return " Arca Comunal \n Salga de la carcel gratis, se concerva esta tarjeta hasta utilizarla o venderla";
         //Hay que hacer extra
     }
     //5
-    private String leaveCellular (Player player){
-        int money = player.getMoney();
-        player.setMoney(money += 50);
-        return " Arca Comunal \n Dejo su celular en la ultima parada, se cobra 50";
+    private String leftPhone (Player player){
+        player.addMoney(50);
+        return " Arca Comunal \n Se le reembolza una parte de sus impuestos, cobre $50";
   
     }
     //6
-    private String takeInCar (Player player){
-        int money = player.getMoney();
-        player.setMoney(money += 20); 
-        return " Arca Comunal \n Lleva en Auto a un amigo, se cobra 20";
+    private String friendRide (Player player){
+        player.addMoney(20);
+        return " Arca Comunal \n Lleva en Auto a un amigo, se cobra $20";
     }
     //7
     private String foreigner (Player player){
-        int money = player.getMoney();
-        player.setMoney(money += 20);
-        return " Arca Comunal \n Un extrajero le pago su cuota en la cabina de peaje, se cobra 20";
+        player.addMoney(20);
+        return " Arca Comunal \n Un extrajero le pago su cuota en la cabina de peaje, se cobra $20";
     }
     //8
     private String RequestPassengers (Player player){
-        int players = player.getPlayerNum();
-        int money = player.getMoney();
-        player.setMoney(money += 10 *(players - 1));
-        return " Arca Comunal \n Pida a sus pasajeros que cooperen un poco con la gasolina, se cobra 10 por cada jugador";
+        for (Player p : GameMaster.getGameMaster().getPlayers().getPlayerList()) {
+            p.addMoney(-10);
+            player.addMoney(10);
+        }
+        return " Arca Comunal \n Pida a sus pasajeros que cooperen un poco con la gasolina, se cobra $10 por cada jugador";
     }
     //9
-    private String flatTire ( Player player){
-        int money = player.getMoney();
-        player.setMoney(money -= 100);
-        return " Arca Comunal \n Llanta desinflada, pague 100"; 
+    private String flatTire (Player player){
+        player.addMoney(-100);
+        return " Arca Comunal \n Llanta desinflada, pague $100"; 
         
     }
     //10
     private String forgetTheHotel (Player player){
-        int money = player.getMoney();
-        player.setMoney(money += 100);
-        return " Arca Comunal \n Olvide el hotel, duerma bajo las estrellas y ahorre dinero, se cobre 100"; 
+        player.addMoney(100);
+        return " Arca Comunal \n Olvide el hotel, duerma bajo las estrellas y ahorre dinero, se cobra $100"; 
 
     }
     //11
     private String searchCash (Player player){
-        int money = player.getMoney();
-        player.setMoney(money += 10);
-        return " Arca Comunal \n Busque efectivo en su coche, se cobra 10";
+        player.addMoney(10);
+        return " Arca Comunal \n Busque efectivo en su coche, se cobra $10";
         
     }
     //12
     private String goToJail(Player player){
-        
+        GameMaster.getGameMaster().getPlayers().goToJail(player);
         return " Arca Comunal \n Vayase a la carcel, no pase por la salida, no cobre 200";
     }
     //13
     private String forwardToOut(Player player){
-        int money = player.getMoney();
-        player.setMoney(money += 200);
-        return " Arca Comunal \n Avance a la salida, se cobra 200";
+        player.addMoney(200);
+        player.setPosition(1);
+        return " Arca Comunal \n Avance a la salida, se cobra $200";
         
     }
     //14
     private String winTheFirstPlace (Player player){
-        int money = player.getMoney();
-        player.setMoney(money += 100);
-        return " Arca Comunal \n Gano el primer lugar de un concurso de comer pastel, se cobra 100";
+        player.addMoney(100);
+        return " Arca Comunal \n Gano el primer lugar de un concurso de comer pastel, se cobra $100";
        
     }
     //15
     private String taxIncrease (Player player){
-        int money = player.getMoney();
-        int properties = player.getProperties();
-        player.setMoney(money += 50 * properties);
-        return " Arca Comunal \n Aumento de los impuestos de propiedad, se paga 50 por cada propiedad";
+        player.addMoney(-(50 * player.getProperties()));
+        return " Arca Comunal \n Aumento de los impuestos de propiedad, paga $50 por cada propiedad";
         
     }
     //16
     private String thegrandmother (Player player){
-        int money = player.getMoney();
-        player.setMoney(money += 100);
-        return " Arca Comunal \n La abuela le envio un prestamo, se cobra 100";
+        player.addMoney(100);
+        return " Arca Comunal \n La abuela le envio un prestamo, se cobra $100";
     }
-    }  
+}  
 
