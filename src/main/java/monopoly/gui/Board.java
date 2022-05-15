@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package monopoly.gui;
 
 import java.awt.event.ActionEvent;
@@ -26,9 +22,6 @@ public final class Board extends javax.swing.JFrame {
     private JButton currentPlayerToEdit;
     private int numOfPlayers;
 
-    /**
-     * Creates new form Tablero
-     */
     public Board() {
         initComponents();
         initArrays();
@@ -772,6 +765,10 @@ public final class Board extends javax.swing.JFrame {
         }
         return true;
     }
+    
+    public void initialDiceResults(String str) {
+        JOptionPane.showMessageDialog(this, str);
+    }
 
     public void toggleComponents(int procedure) {
         switch (procedure) {
@@ -850,8 +847,7 @@ public final class Board extends javax.swing.JFrame {
             case 10 -> {
                 btnGetOutOfJail.setVisible(false);
             }
-            default -> {
-            }
+            default -> {}
         }
         repaint();
     }
