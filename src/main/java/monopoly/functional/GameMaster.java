@@ -1,8 +1,5 @@
 package monopoly.functional;
 
-import java.util.ArrayList;
-import monopoly.functional.squares.Bank;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 import monopoly.gui.Board;
