@@ -5,21 +5,13 @@
 package monopoly.gui;
 
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import monopoly.functional.Player;
 
 
-import monopoly.functional.Players;
 import monopoly.functional.GameMaster;
 import monopoly.functional.squares.Property;
 
@@ -31,8 +23,6 @@ public final class Board extends javax.swing.JFrame {
 
     private JButton[] btnPlayersArray, btnEditsArray, btnTokensArray;
     private JTextField[] playerNamesArray;
-//    private ArrayList<Integer> initialDice;
-    private boolean gameStarted = false;
     private JButton currentPlayerToEdit;
     private int numOfPlayers;
 
@@ -747,7 +737,6 @@ public final class Board extends javax.swing.JFrame {
             playerNames[i] = playerNamesArray[i].getText();
         }
         GameMaster.getGameMaster().getPlayers().initPlayers(numOfPlayers, buttons, playerNames);
-        gameStarted = true;
         GameMaster.getGameMaster().getBank().casa();
     }
 

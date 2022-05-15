@@ -1,6 +1,5 @@
 package monopoly.functional;
 
-import static java.lang.Math.abs;
 import java.util.ArrayList;
 import javax.swing.JButton;
 
@@ -8,7 +7,7 @@ public class Player implements Comparable<Player> {
     
     private int playerNum, position, ammountOfProperties, money, initialDiceResult, jailTries;
     private JButton button;
-    private boolean turn, jail, outOfJailCard;
+    private boolean turn, jail, outOfJailCard, purchase;
     private final String name;
     
     
@@ -25,6 +24,15 @@ public class Player implements Comparable<Player> {
         jailTries = 0;
         outOfJailCard = false;
         this.button.setVisible(true);
+        purchase = false;
+    }
+
+    public boolean canPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(boolean purchase) {
+        this.purchase = purchase;
     }
 
     public String getName() {
@@ -63,6 +71,8 @@ public class Player implements Comparable<Player> {
         if (position > 40) {
             position -= 40;
             money += 200;
+            if (!purchase)
+                purchase = true;
             GameMaster.getGameMaster().getBoard().passByGoPrompt();
         }
         int[] arr = GameMaster.getGameMaster().getPlayerPositions().get(position);

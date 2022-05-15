@@ -1,10 +1,14 @@
-package monopoly.functional.squares;
+package monopoly.functional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import monopoly.functional.Player;
 import monopoly.functional.GameMaster;
+import monopoly.functional.squares.Chance;
+import monopoly.functional.squares.CommuinityChest;
+import monopoly.functional.squares.Property;
+import monopoly.functional.squares.SpecialProperty;
 
 public class Bank {
 
@@ -279,12 +283,14 @@ public class Bank {
     private void onProperty(Player player, String squareType, int playerPosition, int diceResult) {
         Player secondPlayer = whoOwns(player.getPosition(), squareType);
         if (secondPlayer == null) {
-            if (squareType.equals("Property")) {
-                Property property = getPropertyByPosition(playerPosition);
-                GameMaster.getGameMaster().getBoard().buyPrompt(player, property.getName(), property.getPrice());
-            } else if (squareType.equals("SpecialProperty")) {
-                SpecialProperty specialProperty = getSpecialPropertyByPosition(playerPosition);
-                GameMaster.getGameMaster().getBoard().buyPrompt(player, specialProperty.getName(), specialProperty.getPrice());
+            if (player.canPurchase()) {
+                if (squareType.equals("Property")) {
+                    Property property = getPropertyByPosition(playerPosition);
+                    GameMaster.getGameMaster().getBoard().buyPrompt(player, property.getName(), property.getPrice());
+                } else if (squareType.equals("SpecialProperty")) {
+                    SpecialProperty specialProperty = getSpecialPropertyByPosition(playerPosition);
+                    GameMaster.getGameMaster().getBoard().buyPrompt(player, specialProperty.getName(), specialProperty.getPrice());
+                }
             }
         } else if (!secondPlayer.equals(player)){
             if (squareType.equals("Property")) {

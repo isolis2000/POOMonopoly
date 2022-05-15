@@ -6,7 +6,6 @@ package monopoly.functional.squares;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import monopoly.functional.Player;
 import monopoly.functional.GameMaster;
 
@@ -27,6 +26,7 @@ public class CommuinityChest {
    
     private String useCard(Player player, int n){
         String ret = "";
+        int initialPosition = player.getPosition();
         switch (n) {
             case 1 -> ret = speedingTicket(player);
             case 2 -> ret = pickupPedestrian(player);
@@ -47,6 +47,8 @@ public class CommuinityChest {
             default -> {
             }
         }
+        if (player.getPosition() < initialPosition)
+            player.setPurchase(true);
         return ret;
                
     }

@@ -19,6 +19,7 @@ public class Chance {
     
     private String useCard(Player player, int n){
         String ret = "";
+        int initialPosition = player.getPosition();
         switch (n) {
             case 1 -> ret = gasolinePrice(player);
             case 2 -> ret = goToJail (player);
@@ -37,26 +38,16 @@ public class Chance {
             case 16 -> ret = xmasFund(player);
             default -> {
             }
-        } 
+        }
+        if (player.getPosition() < initialPosition)
+            player.setPurchase(true);
         return ret;
     }
     
     public String getNextCard(Player player) {
-        System.out.println("----------------------------\ncardsArrayList: [");
-        String str = "";
-        for (int i : cardsArrayList)
-            str += ", " + i;
-        str += "]";
-        System.out.print(str);
         int card = cardsArrayList.get(0);
         cardsArrayList.remove(0);
         cardsArrayList.add(card);
-        System.out.println("----------------------------\ncardsArrayList: [");
-        String str2 = "";
-        for (int i : cardsArrayList)
-            str2 += ", " + i;
-        str2 += "]";
-        System.out.print(str2);
         return useCard(player, card);
     }
 
